@@ -50,27 +50,23 @@ results = run_protocol(AMP; p_values=0.0:0.1:1.0, repetitions=2000)
 # Beautiful interactive tables
 results_table(results)
 
-# Publication-quality plots (300 DPI)
+
 plot_discrepancy_vs_p(results; save_path="amp.png")
 ```
 
 ## Features
 
-- **Declarative DSL** - Focus on protocol logic, not implementation details
+- **Declarative** - Focus on protocol logic, not implementation details
 - **Automatic Monte Carlo** - Run thousands of simulations effortlessly
-- **Rich Metrics** - Discrepancy, consensus probability, round-by-round dynamics
-- **Beautiful Output** - Interactive tables and publication-ready plots
-- **Protocol Comparison** - Analyze multiple protocols side-by-side
-- **Jupyter-Friendly** - Perfect integration with notebooks
+- **Metrics** - Discrepancy, consensus probability, round-by-round dynamics
+- **Beautiful Output** - Interactive tables and plots
+- **Protocol Comparison** - Analyze multiple protocols side by side
+
 
 ## Documentation
 
 Full documentation is available at [notGiGi.github.io/StochProtocol.jl](https://notGiGi.github.io/StochProtocol.jl/)
 
-- [Quick Start Guide](https://notGiGi.github.io/StochProtocol.jl/quickstart/)
-- [Protocol DSL Reference](https://notGiGi.github.io/StochProtocol.jl/guides/dsl/)
-- [Examples](https://notGiGi.github.io/StochProtocol.jl/examples/amp/)
-- [API Reference](https://notGiGi.github.io/StochProtocol.jl/api/core/)
 
 ## Example Notebooks
 
@@ -95,4 +91,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome. Please feel free to submit a Pull Request.
