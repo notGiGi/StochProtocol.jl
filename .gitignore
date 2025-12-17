@@ -51,7 +51,7 @@ __pycache__/
 # Package stuff
 /dev/
 
-# Claude Code
+# Editor artifacts
 .claude/
 
 # Julia cache
