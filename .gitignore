@@ -1,0 +1,61 @@
+# Julia
+*.jl.*.cov
+*.jl.cov
+*.jl.mem
+/Manifest.toml
+deps/deps.jl
+deps/build.log
+deps/downloads/
+deps/usr/
+deps/src/
+
+# Build artifacts
+/build/
+docs/build/
+docs/site/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# Output files
+*.png
+*.pdf
+*.svg
+!docs/src/assets/*.png
+!docs/src/assets/*.svg
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+
+# Jupyter
+.jupyter/
+*.ipynb_checkpoints
+
+# Package stuff
+/dev/
+
+# Claude Code
+.claude/
+
+# Julia cache
+.julia/
+
+# Misc
+nul

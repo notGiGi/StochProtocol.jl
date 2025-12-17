@@ -1,0 +1,19 @@
+PROTOCOL Averaging
+
+NODES: 7
+
+STATE:
+    x ∈ ℝ
+
+INITIAL:
+    xᵢ = i - 1
+
+CHANNEL:
+    Bernoulli(p)
+
+UPDATE RULE:
+    xᵢ ← average( received(x) ∪ {xᵢ} )
+
+METRICS:
+    discrepancy
+    consensus

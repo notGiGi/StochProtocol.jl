@@ -1,0 +1,19 @@
+PROTOCOL FloodingValue
+
+PROCESSES: 2
+
+STATE:
+    x ∈ ℝ
+
+INITIAL VALUES:
+    [0, 1]
+
+CHANNEL:
+    Bernoulli(p)
+
+UPDATE RULE:
+    IF_RECEIVED_DIFF_THEN(received_other(x), xᵢ)
+
+METRICS:
+    discrepancy
+    consensus

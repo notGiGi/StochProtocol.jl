@@ -1,0 +1,19 @@
+PROTOCOL Midpoint
+
+NODES: 6
+
+STATE:
+    x ∈ ℝ
+
+INITIAL:
+    xᵢ = i
+
+CHANNEL:
+    Bernoulli(p)
+
+UPDATE RULE:
+    xᵢ ← midpoint( received(x) ∪ {xᵢ} )
+
+METRICS:
+    discrepancy
+    consensus

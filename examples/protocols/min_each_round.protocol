@@ -1,0 +1,17 @@
+PROTOCOL MinEachRound
+
+PROCESSES: 5
+
+STATE:
+    x ∈ ℝ
+
+INITIAL:
+    xᵢ = i
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← min( received(x) ∪ self )
+
+METRICS:
+    discrepancy
+    consensus

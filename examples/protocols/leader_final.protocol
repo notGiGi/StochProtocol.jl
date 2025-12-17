@@ -1,0 +1,22 @@
+PROTOCOL LeaderFinal
+
+PROCESSES: 5
+
+STATE:
+    x ∈ ℝ
+
+INITIAL:
+    xᵢ = i
+
+ROLES:
+    leader = 1
+
+UPDATE RULE:
+    END:
+        if self is leader then
+            xᵢ ← min(received(x) ∪ self)
+        end
+
+METRICS:
+    discrepancy
+    consensus

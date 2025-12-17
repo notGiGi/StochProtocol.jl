@@ -1,0 +1,19 @@
+PROTOCOL MajorityMin
+
+PROCESSES: 5
+
+STATE:
+    x ∈ ℝ
+
+INITIAL:
+    xᵢ = i
+
+UPDATE RULE:
+    EACH ROUND:
+        if received_majority(x) then
+            xᵢ ← min(received(x) ∪ self)
+        end
+
+METRICS:
+    discrepancy
+    consensus

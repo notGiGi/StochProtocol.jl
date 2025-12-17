@@ -1,0 +1,17 @@
+PROTOCOL MinAtEnd
+
+PROCESSES: 5
+
+STATE:
+    x ∈ ℝ
+
+INITIAL:
+    xᵢ = i
+
+UPDATE RULE:
+    END:
+        xᵢ ← min( received(x) ∪ self )
+
+METRICS:
+    discrepancy
+    consensus
