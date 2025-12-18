@@ -6,7 +6,9 @@
 /* ============================================
    LIGHT THEME - Base (Default)
    ============================================ */
-:root {
+:root,
+:root[data-theme="documenter-light"],
+:root[data-theme="catppuccin-latte"] {
     --primary: #6366f1;
     --primary-hover: #4f46e5;
     --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -30,6 +32,10 @@
 /* ============================================
    DARK THEME
    ============================================ */
+:root[data-theme="documenter-dark"],
+:root[data-theme="catppuccin-mocha"],
+:root[data-theme="catppuccin-macchiato"],
+:root[data-theme="catppuccin-frappe"],
 html[data-theme="documenter-dark"],
 html[data-theme="catppuccin-mocha"],
 html[data-theme="catppuccin-macchiato"],
