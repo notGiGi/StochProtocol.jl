@@ -62,6 +62,9 @@ html[data-theme="catppuccin-frappe"] {
     --code-text: #c0caf5;
     --code-inline-bg: #1e293b;
     --code-inline-text: #a5b4fc;
+
+    /* FORCE HTML BACKGROUND */
+    background: #0f172a !important;
 }
 
 html[data-theme="documenter-dark"] body,
