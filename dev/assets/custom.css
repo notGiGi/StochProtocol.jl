@@ -1,66 +1,72 @@
 /* ===================================================================
-   StochProtocol.jl - Clean Professional Documentation
-   Simple, functional design that works perfectly in all themes
+   StochProtocol.jl Documentation CSS
+   Simple, clean, functional design for light and dark modes
    =================================================================== */
 
 /* ============================================
-   LIGHT THEME - Base (Default)
+   THEME VARIABLES - LIGHT MODE (Default)
    ============================================ */
 :root,
 :root[data-theme="documenter-light"],
 :root[data-theme="catppuccin-latte"] {
+    /* Brand */
     --primary: #6366f1;
     --primary-hover: #4f46e5;
     --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
+    /* Text */
     --text-1: #0f172a;
     --text-2: #475569;
     --text-3: #64748b;
 
+    /* Backgrounds */
     --bg-1: #ffffff;
     --bg-2: #f8fafc;
     --bg-3: #f1f5f9;
 
+    /* Borders */
     --border: #e2e8f0;
 
-    --code-bg: #0d1117;
-    --code-text: #e2e8f0;
-    --code-inline-bg: #e5e7eb;
+    /* Code */
+    --code-bg: #1a1b26;
+    --code-text: #c0caf5;
+    --code-inline-bg: #f1f5f9;
     --code-inline-text: #6366f1;
 }
 
 /* ============================================
-   DARK THEME
+   THEME VARIABLES - DARK MODE
    ============================================ */
 :root[data-theme="documenter-dark"],
 :root[data-theme="catppuccin-mocha"],
 :root[data-theme="catppuccin-macchiato"],
-:root[data-theme="catppuccin-frappe"],
-html[data-theme="documenter-dark"],
-html[data-theme="catppuccin-mocha"],
-html[data-theme="catppuccin-macchiato"],
-html[data-theme="catppuccin-frappe"] {
+:root[data-theme="catppuccin-frappe"] {
+    /* Brand */
     --primary: #818cf8;
     --primary-hover: #a5b4fc;
 
+    /* Text */
     --text-1: #f1f5f9;
     --text-2: #cbd5e1;
     --text-3: #94a3b8;
 
+    /* Backgrounds */
     --bg-1: #0f172a;
     --bg-2: #1e293b;
     --bg-3: #334155;
 
+    /* Borders */
     --border: #334155;
 
-    --code-bg: #0d1117;
-    --code-text: #e2e8f0;
+    /* Code */
+    --code-bg: #1a1b26;
+    --code-text: #c0caf5;
     --code-inline-bg: #1e293b;
     --code-inline-text: #a5b4fc;
 }
 
 /* ============================================
-   BASE RESET
+   BASE STYLES
    ============================================ */
 html {
     scroll-behavior: smooth;
@@ -69,8 +75,10 @@ html {
 body {
     background: var(--bg-1) !important;
     color: var(--text-1) !important;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
 }
 
+/* Override Documenter containers */
 #documenter {
     background: var(--bg-1) !important;
 }
@@ -85,11 +93,9 @@ body {
 }
 
 article.content,
-#documenter-page,
-#documenter .content {
+#documenter-page {
     background: var(--bg-1) !important;
-    color: var(--text-1) !important;
-    max-width: 880px !important;
+    max-width: 900px !important;
     padding: 3rem 2rem !important;
 }
 
@@ -99,6 +105,7 @@ article.content,
 h1, h2, h3, h4, h5, h6 {
     color: var(--text-1) !important;
     font-weight: 700 !important;
+    line-height: 1.3 !important;
 }
 
 h1 {
@@ -108,12 +115,13 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 2rem !important;
+    margin: 0 0 2rem 0 !important;
+    padding: 0 !important;
 }
 
 h2 {
     font-size: 2rem !important;
-    margin-top: 3rem !important;
+    margin: 3rem 0 1rem 0 !important;
     padding-bottom: 0.5rem !important;
     border-bottom: 2px solid var(--border) !important;
 }
@@ -121,12 +129,18 @@ h2 {
 h3 {
     font-size: 1.5rem !important;
     color: var(--primary) !important;
-    margin-top: 2rem !important;
+    margin: 2rem 0 1rem 0 !important;
 }
 
-p, li, td {
+h4 {
+    font-size: 1.25rem !important;
+    margin: 1.5rem 0 0.75rem 0 !important;
+}
+
+p {
     color: var(--text-2) !important;
     line-height: 1.7 !important;
+    margin: 1rem 0 !important;
 }
 
 strong, b {
@@ -134,8 +148,12 @@ strong, b {
     font-weight: 600 !important;
 }
 
+em, i {
+    color: var(--text-2) !important;
+}
+
 /* ============================================
-   CODE BLOCKS
+   CODE BLOCKS - Must be readable in both modes
    ============================================ */
 pre {
     background: var(--code-bg) !important;
@@ -144,7 +162,7 @@ pre {
     padding: 1.5rem !important;
     margin: 1.5rem 0 !important;
     overflow-x: auto !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 pre code {
@@ -152,16 +170,19 @@ pre code {
     color: var(--code-text) !important;
     padding: 0 !important;
     border: none !important;
+    font-family: 'JuliaMono', 'Fira Code', 'Consolas', monospace !important;
 }
 
+/* Inline code - ensure readability */
 code {
     background: var(--code-inline-bg) !important;
     color: var(--code-inline-text) !important;
-    padding: 0.2rem 0.4rem !important;
+    padding: 0.2rem 0.5rem !important;
     border-radius: 4px !important;
     font-size: 0.9em !important;
     font-weight: 500 !important;
     border: 1px solid var(--border) !important;
+    font-family: 'JuliaMono', 'Fira Code', 'Consolas', monospace !important;
 }
 
 /* ============================================
@@ -170,6 +191,7 @@ code {
 a {
     color: var(--primary) !important;
     text-decoration: none !important;
+    transition: color 0.2s ease;
 }
 
 a:hover {
@@ -195,7 +217,7 @@ thead {
 }
 
 thead th {
-    padding: 1rem !important;
+    padding: 1rem 1.5rem !important;
     color: white !important;
     font-weight: 600 !important;
     text-align: left !important;
@@ -210,7 +232,7 @@ tbody tr:hover {
 }
 
 tbody td {
-    padding: 1rem !important;
+    padding: 1rem 1.5rem !important;
     color: var(--text-2) !important;
 }
 
@@ -225,14 +247,22 @@ tbody td:first-child {
 ul, ol {
     margin: 1rem 0 !important;
     padding-left: 1.5rem !important;
+    color: var(--text-2) !important;
 }
 
 li {
     margin: 0.5rem 0 !important;
+    line-height: 1.7 !important;
+    color: var(--text-2) !important;
 }
 
 ul li::marker {
     color: var(--primary) !important;
+}
+
+ol li::marker {
+    color: var(--primary) !important;
+    font-weight: 600;
 }
 
 /* ============================================
@@ -243,12 +273,13 @@ ul li::marker {
     padding: 0.5rem 1rem !important;
     display: block !important;
     border-radius: 6px !important;
-    transition: all 0.2s !important;
+    transition: all 0.2s ease;
 }
 
 .docs-sidebar .tocitem:hover {
     background: var(--bg-3) !important;
     color: var(--text-1) !important;
+    text-decoration: none !important;
 }
 
 .docs-sidebar li.is-active > .tocitem {
@@ -263,7 +294,7 @@ ul li::marker {
 .docs-navbar {
     background: var(--bg-1) !important;
     border-bottom: 1px solid var(--border) !important;
-    padding: 1rem !important;
+    padding: 1rem 2rem !important;
 }
 
 .docs-navbar a {
@@ -282,6 +313,12 @@ ul li::marker {
     border: 1px solid var(--border) !important;
     color: var(--text-1) !important;
     border-radius: 6px !important;
+    padding: 0.5rem 1rem !important;
+}
+
+.docs-search-query:focus {
+    outline: 2px solid var(--primary) !important;
+    outline-offset: 2px !important;
 }
 
 /* ============================================
@@ -293,7 +330,7 @@ ul li::marker {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
-    margin: 2rem 0;
+    margin: 2.5rem 0;
 }
 
 .feature-card {
@@ -301,12 +338,12 @@ ul li::marker {
     border: 2px solid var(--border) !important;
     border-radius: 12px !important;
     padding: 2rem !important;
-    transition: all 0.3s !important;
+    transition: all 0.3s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
     border-color: var(--primary) !important;
 }
 
@@ -316,45 +353,24 @@ ul li::marker {
     color: var(--primary) !important;
 }
 
-.feature-card p {
+.feature-card p,
+.feature-card li {
     color: var(--text-2) !important;
 }
 
-/* Hero Banner */
-div[style*="brand-gradient-subtle"] {
-    background: var(--bg-2) !important;
-    border: 2px solid var(--border) !important;
-}
-
-div[style*="brand-gradient-subtle"] p {
+/* Hero Section */
+div[style*="var(--bg-2)"] p {
     color: var(--text-1) !important;
 }
 
-/* Buttons in Hero */
-a[href="quickstart/"],
-a[href*="github.com"] {
-    color: white !important;
-    text-decoration: none !important;
-}
-
-a[href="quickstart/"]:hover,
-a[href*="github.com"]:hover {
-    text-decoration: none !important;
-    opacity: 0.9;
-}
-
-/* ============================================
-   HR
-   ============================================ */
+/* Horizontal Rules */
 hr {
     border: none !important;
     border-top: 2px solid var(--border) !important;
     margin: 3rem 0 !important;
 }
 
-/* ============================================
-   BLOCKQUOTES
-   ============================================ */
+/* Blockquotes */
 blockquote {
     border-left: 4px solid var(--primary) !important;
     background: var(--bg-2) !important;
@@ -363,20 +379,68 @@ blockquote {
     border-radius: 0 6px 6px 0 !important;
 }
 
+blockquote p {
+    margin: 0.5rem 0 !important;
+}
+
+/* Admonitions */
+.admonition {
+    background: var(--bg-2) !important;
+    border-left: 4px solid var(--primary) !important;
+    border-radius: 0 8px 8px 0 !important;
+    padding: 1rem 1.5rem !important;
+    margin: 1.5rem 0 !important;
+}
+
+.admonition-header {
+    font-weight: 700 !important;
+    color: var(--text-1) !important;
+    margin-bottom: 0.5rem !important;
+}
+
 /* ============================================
-   MOBILE
+   MOBILE RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
     h1 {
-        font-size: 2rem !important;
+        font-size: 2.25rem !important;
     }
 
     h2 {
-        font-size: 1.5rem !important;
+        font-size: 1.75rem !important;
+    }
+
+    h3 {
+        font-size: 1.375rem !important;
     }
 
     article.content,
     #documenter-page {
         padding: 2rem 1rem !important;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+    body {
+        background: white !important;
+        color: black !important;
+    }
+
+    .docs-sidebar,
+    .docs-navbar {
+        display: none !important;
+    }
+
+    pre {
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
     }
 }
