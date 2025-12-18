@@ -21,42 +21,7 @@ results = run_protocol(AMP; p_values=0.0:0.05:1.0, repetitions=2000)
 
 # Beautiful visualizations
 plot_discrepancy_vs_p(results)
-results_table(results)</code></pre><p>That&#39;s it. No event loops, no network simulation, no manual statistics—StochProtocol handles it all.</p><hr/><h2 id="Why-StochProtocol?"><a class="docs-heading-anchor" href="#Why-StochProtocol?">Why StochProtocol?</a><a id="Why-StochProtocol?-1"></a><a class="docs-heading-anchor-permalink" href="#Why-StochProtocol?" title="Permalink"></a></h2><div class="feature-grid">
-    <div class="feature-card">
-        <h3>Declarative Protocol Design</h3>
-        <p>Write protocols in paper-like mathematical notation. No coding required for protocol logic.</p>
-    </div>
-
-    <div class="feature-card">
-        <h3>Automatic Monte Carlo</h3>
-        <p>Run thousands of randomized experiments automatically. Get statistical distributions with a single function call.</p>
-    </div>
-
-    <div class="feature-card">
-        <h3>Publication-Ready Output</h3>
-        <p>Beautiful interactive tables and plots ready for your papers and presentations.</p>
-    </div>
-
-    <div class="feature-card">
-        <h3>Research-Grade Features</h3>
-        <ul>
-            <li>Multiple delivery models</li>
-            <li>Process-specific configurations</li>
-            <li>Multi-round dynamics tracking</li>
-            <li>Protocol comparison tools</li>
-        </ul>
-    </div>
-
-    <div class="feature-card">
-        <h3>Fast & Efficient</h3>
-        <p>Optimized Julia core with deterministic RNG for reproducibility. Simulate thousands of runs in seconds.</p>
-    </div>
-
-    <div class="feature-card">
-        <h3>Flexible Delivery Models</h3>
-        <p>Standard probabilistic, guaranteed delivery, broadcast semantics, or mix-and-match per process.</p>
-    </div>
-</div><hr/><h2 id="Quick-Example:-Averaging-Protocol"><a class="docs-heading-anchor" href="#Quick-Example:-Averaging-Protocol">Quick Example: Averaging Protocol</a><a id="Quick-Example:-Averaging-Protocol-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Example:-Averaging-Protocol" title="Permalink"></a></h2><pre><code class="language-julia hljs">using StochProtocol
+results_table(results)</code></pre><hr/><h2 id="Why-StochProtocol?"><a class="docs-heading-anchor" href="#Why-StochProtocol?">Why StochProtocol?</a><a id="Why-StochProtocol?-1"></a><a class="docs-heading-anchor-permalink" href="#Why-StochProtocol?" title="Permalink"></a></h2><h3 id="Declarative-Protocol-Design"><a class="docs-heading-anchor" href="#Declarative-Protocol-Design">Declarative Protocol Design</a><a id="Declarative-Protocol-Design-1"></a><a class="docs-heading-anchor-permalink" href="#Declarative-Protocol-Design" title="Permalink"></a></h3><p>Write protocols in paper-like mathematical notation. No coding required for protocol logic.</p><h3 id="Automatic-Monte-Carlo"><a class="docs-heading-anchor" href="#Automatic-Monte-Carlo">Automatic Monte Carlo</a><a id="Automatic-Monte-Carlo-1"></a><a class="docs-heading-anchor-permalink" href="#Automatic-Monte-Carlo" title="Permalink"></a></h3><p>Run thousands of randomized experiments automatically. Get statistical distributions with a single function call.</p><h3 id="Publication-Ready-Output"><a class="docs-heading-anchor" href="#Publication-Ready-Output">Publication-Ready Output</a><a id="Publication-Ready-Output-1"></a><a class="docs-heading-anchor-permalink" href="#Publication-Ready-Output" title="Permalink"></a></h3><p>Beautiful interactive tables and plots ready for your papers and presentations.</p><h3 id="Research-Grade-Features"><a class="docs-heading-anchor" href="#Research-Grade-Features">Research-Grade Features</a><a id="Research-Grade-Features-1"></a><a class="docs-heading-anchor-permalink" href="#Research-Grade-Features" title="Permalink"></a></h3><ul><li>Multiple delivery models (standard, guaranteed, broadcast)</li><li>Process-specific configurations</li><li>Multi-round dynamics tracking</li><li>Protocol comparison tools</li></ul><h3 id="Fast-and-Efficient"><a class="docs-heading-anchor" href="#Fast-and-Efficient">Fast &amp; Efficient</a><a id="Fast-and-Efficient-1"></a><a class="docs-heading-anchor-permalink" href="#Fast-and-Efficient" title="Permalink"></a></h3><p>Optimized Julia core with deterministic RNG for reproducibility. Simulate thousands of runs in seconds.</p><h3 id="Flexible-Delivery-Models"><a class="docs-heading-anchor" href="#Flexible-Delivery-Models">Flexible Delivery Models</a><a id="Flexible-Delivery-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Flexible-Delivery-Models" title="Permalink"></a></h3><p>Standard probabilistic, guaranteed delivery, broadcast semantics, or mix-and-match per process.</p><hr/><h2 id="Quick-Example:-Averaging-Protocol"><a class="docs-heading-anchor" href="#Quick-Example:-Averaging-Protocol">Quick Example: Averaging Protocol</a><a id="Quick-Example:-Averaging-Protocol-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Example:-Averaging-Protocol" title="Permalink"></a></h2><pre><code class="language-julia hljs">using StochProtocol
 
 # Define the protocol
 averaging = Protocol(&quot;&quot;&quot;
@@ -93,4 +58,4 @@ Pkg.add(url=&quot;https://github.com/notGiGi/StochProtocol.jl&quot;)</code></pre
   author = {notGiGi},
   year = {2025},
   url = {https://github.com/notGiGi/StochProtocol.jl}
-}</code></pre><hr/><h2 id="License"><a class="docs-heading-anchor" href="#License">License</a><a id="License-1"></a><a class="docs-heading-anchor-permalink" href="#License" title="Permalink"></a></h2><p>MIT License - Free for academic and commercial use.</p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="quickstart/">Quick Start »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 18 December 2025 22:01">Thursday 18 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+}</code></pre><hr/><h2 id="License"><a class="docs-heading-anchor" href="#License">License</a><a id="License-1"></a><a class="docs-heading-anchor-permalink" href="#License" title="Permalink"></a></h2><p>MIT License - Free for academic and commercial use.</p></article><nav class="docs-footer"><a class="docs-footer-nextpage" href="quickstart/">Quick Start »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 18 December 2025 22:04">Thursday 18 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
