@@ -40,7 +40,7 @@ That's it. No event loops, no network simulation, no manual statistics—StochPr
 
 ## Why StochProtocol?
 
-### 🎯 **Declarative Protocol Design**
+###  **Declarative Protocol Design**
 Write protocols in paper-like mathematical notation. No coding required for protocol logic.
 
 ```julia
@@ -49,20 +49,20 @@ UPDATE RULE:
         xᵢ ← avg(inbox_with_self)
 ```
 
-### ⚡ **Automatic Monte Carlo**
-Run thousands of randomized experiments automatically. Get statistical distributions, not single runs.
+###  **Automatic Monte Carlo**
+Run thousands of randomized experiments automatically. Get statistical distributions.
 
-### 📊 **Publication-Ready Output**
-Interactive tables in Jupyter, 300 DPI plots for papers, and CSV export for further analysis.
+###  **Publication-Ready Output**
+Interactive tables and plots.
 
-### 🔬 **Research-Grade Features**
+###  **Research-Grade Features**
 - Multiple delivery models (standard, guaranteed, broadcast)
 - Process-specific configurations
 - Multi-round dynamics tracking
 - Protocol comparison tools
 - Extensible DSL
 
-### 🚀 **Fast & Efficient**
+### **Fast & Efficient**
 Optimized Julia core with deterministic RNG for reproducibility.
 
 ---
