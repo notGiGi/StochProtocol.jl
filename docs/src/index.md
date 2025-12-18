@@ -1,126 +1,157 @@
 # StochProtocol.jl
 
-*Simulation and analysis of distributed consensus protocols under stochastic communication*
+*Beautiful simulation framework for distributed consensus under stochastic communication*
 
 ---
 
-StochProtocol.jl is a Julia framework for researchers and engineers working on distributed consensus algorithms. Write protocols in a clean, mathematical way.
+## What is StochProtocol?
 
-## Installation
-
-```julia-repl
-julia> ] add StochProtocol
-```
-
-## 60-Second Example
+StochProtocol.jl is a high-level Julia framework that lets you **define**, **simulate**, and **analyze** distributed consensus protocols using clean mathematical notation—no boilerplate, no manual message passing, just pure protocol logic.
 
 ```julia
 using StochProtocol
 
-# Define a protocol in mathematical notation
+# Define a protocol in 30 seconds
 AMP = Protocol("""
 PROTOCOL AMP
 PROCESSES: 2
-STATE:
-    x ∈ {0,1}
-INITIAL VALUES:
-    [0.0, 1.0]
-PARAMETERS:
-    y ∈ [0,1] = 0.5
-CHANNEL:
-    stochastic
+STATE: x ∈ {0,1}
+INITIAL VALUES: [0.0, 1.0]
+CHANNEL: stochastic
 
 UPDATE RULE:
     EACH ROUND:
-        if received_diff then
-            xᵢ ← y
-        else
-            xᵢ ← x
-        end
+        if received_diff then xᵢ ← 0.5 else xᵢ ← x end
+
+METRICS: discrepancy, consensus
+""")
+
+# Run 10,000 simulations across probability range
+results = run_protocol(AMP; p_values=0.0:0.05:1.0, repetitions=2000)
+
+# Beautiful visualizations
+plot_discrepancy_vs_p(results)
+results_table(results)
+```
+
+That's it. No event loops, no network simulation, no manual statistics—StochProtocol handles it all.
+
+---
+
+## Why StochProtocol?
+
+### 🎯 **Declarative Protocol Design**
+Write protocols in paper-like mathematical notation. No coding required for protocol logic.
+
+```julia
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+```
+
+### ⚡ **Automatic Monte Carlo**
+Run thousands of randomized experiments automatically. Get statistical distributions, not single runs.
+
+### 📊 **Publication-Ready Output**
+Interactive tables in Jupyter, 300 DPI plots for papers, and CSV export for further analysis.
+
+### 🔬 **Research-Grade Features**
+- Multiple delivery models (standard, guaranteed, broadcast)
+- Process-specific configurations
+- Multi-round dynamics tracking
+- Protocol comparison tools
+- Extensible DSL
+
+### 🚀 **Fast & Efficient**
+Optimized Julia core with deterministic RNG for reproducibility.
+
+---
+
+## Quick Example: Averaging Protocol
+
+```julia
+using StochProtocol
+
+# Define the protocol
+averaging = Protocol("""
+PROTOCOL SimpleAveraging
+PROCESSES: 10
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
 
 METRICS:
     discrepancy
     consensus
 """)
 
-# Run Monte Carlo simulations
-results = run_protocol(AMP; p_values=0.0:0.1:1.0, repetitions=2000)
+# Run experiments
+results = run_protocol(averaging;
+    p_values = 0.5:0.1:1.0,
+    rounds = 5,
+    repetitions = 1000
+)
 
-# Get beautiful interactive tables
-results_table(results)
-
-# Generate publication-quality plots (300 DPI)
-plot_discrepancy_vs_p(results; save_path="amp.png")
+# Visualize
+plot_discrepancy_vs_p(results;
+    title = "Convergence Rate vs Probability",
+    save_path = "averaging_results.png"
+)
 ```
 
-## Why StochProtocol?
+**Output**: A beautiful plot showing how quickly consensus is reached as communication probability increases.
 
-### Write Protocols, Not Boilerplate
-
-```julia
-# Traditional approach: hundreds of lines
-# StochProtocol: mathematical notation that mirrors papers
-PROTOCOL MyProtocol
-PROCESSES: N
-STATE: x ∈ Domain
-UPDATE RULE: ...
-```
-
-### From Theory to Results in Minutes
-
-- **Declarative DSL** - Focus on the protocol logic, not implementation
-- **Automatic Monte Carlo** - Run thousands of simulations effortlessly
-- **Rich Metrics** - Discrepancy, consensus probability, round-by-round dynamics
-- **Beautiful Output** - Interactive tables and publication-ready plots
-
-### Built for Research
-
-```julia
-# Compare multiple protocols
-results_comparison_table(Dict(
-    "AMP" => results_amp,
-    "FV"  => results_fv,
-    "Custom" => results_custom
-))
-
-# Analyze across parameter spaces
-for y in 0.3:0.1:0.7
-    results = run_protocol(make_protocol(y); p_values=0.0:0.05:1.0)
-    # Analyze...
-end
-```
+---
 
 ## Key Features
 
-!!! tip "Perfect for Jupyter Notebooks"
-    `Protocol()` objects display beautifully, tables are interactive DataFrames.
+| Feature | Description |
+|---------|-------------|
+| **Protocol DSL** | Paper-like syntax with full Julia expressions |
+| **Delivery Models** | Standard, guaranteed delivery, broadcast, hybrid |
+| **Metrics** | Discrepancy, consensus probability, custom metrics |
+| **Visualization** | Built-in plotting and table generation |
+| **Monte Carlo** | Automatic statistical analysis over thousands of runs |
+| **Comparison** | Side-by-side protocol performance analysis |
 
-**Core Capabilities**
-- Mathematical protocol specification language
-- Stochastic message delivery simulation
-- Monte Carlo analysis with configurable parameters
-- Automatic parallelization for performance
+---
 
-**Analysis Tools**
-- Expected discrepancy E[D]
-- Consensus probability P(consensus)
-- Round-by-round state evolution
-- Multi-protocol comparisons
+## Learn More
 
+- **[Quick Start](quickstart.md)** - Get up and running in 5 minutes
+- **[Protocol DSL](guides/dsl.md)** - Complete language reference
+- **[Delivery Models](guides/delivery_models.md)** - Communication model options
+- **[Examples](examples/overview.md)** - Real protocols from research papers
+- **[API Reference](api/core.md)** - Function documentation
 
-## Getting Started
+---
 
-New to StochProtocol? Check out the [Quick Start Guide](quickstart.md) to learn the basics in 5 minutes.
+## Installation
 
-**Learn by Example:**
-- [AMP Protocol](examples/amp.md) - Classic averaging consensus
-- [Protocol Comparison](examples/comparison.md) - Compare AMP vs FV
-- [Multiple Rounds](examples/multirounds.md) - Analyze convergence
+```julia
+using Pkg
+Pkg.add("StochProtocol")
+```
 
-**Understand the Fundamentals:**
-- [Protocol DSL](guides/dsl.md) - Master the protocol language
-- [Running Experiments](guides/experiments.md) - Configure simulations
-- [Visualization](guides/visualization.md) - Create beautiful plots
+Or from GitHub:
+
+```julia
+using Pkg
+Pkg.add(url="https://github.com/notGiGi/StochProtocol.jl")
+```
+
+---
+
+## Community & Support
+
+- **GitHub**: [notGiGi/StochProtocol.jl](https://github.com/notGiGi/StochProtocol.jl)
+- **Issues**: [Report bugs or request features](https://github.com/notGiGi/StochProtocol.jl/issues)
+
+---
 
 ## Citation
 
@@ -129,15 +160,14 @@ If you use StochProtocol.jl in your research, please cite:
 ```bibtex
 @software{stochprotocol2025,
   title = {StochProtocol.jl: Simulation of Stochastic Consensus Protocols},
+  author = {notGiGi},
   year = {2025},
   url = {https://github.com/notGiGi/StochProtocol.jl}
 }
 ```
 
-## Contributing
-
-Contributions are welcome! Please see our [contribution guidelines](https://github.com/notGiGi/StochProtocol.jl/blob/main/CONTRIBUTING.md).
+---
 
 ## License
 
-MIT License - see [LICENSE](https://github.com/notGiGi/StochProtocol.jl/blob/main/LICENSE) for details.
+MIT License - Free for academic and commercial use.

@@ -35,6 +35,13 @@ struct RunSummary
     discrepancy_final::Float64
     consensus_final::Bool
     discrepancy_by_round::Vector{Float64}
+    total_messages_delivered::Int  # For guaranteed model filtering
+    messages_per_round::Vector{Int}  # Messages delivered per round
+end
+
+# Backward compatibility constructor
+function RunSummary(discrepancy_final::Float64, consensus_final::Bool, discrepancy_by_round::Vector{Float64})
+    return RunSummary(discrepancy_final, consensus_final, discrepancy_by_round, 0, Int[])
 end
 
 end

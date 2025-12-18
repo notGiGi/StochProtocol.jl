@@ -1,0 +1,22 @@
+PROTOCOL Hybrid_Models
+PROCESSES: 4
+STATE:
+    x ∈ ℝ
+INITIAL VALUES:
+    [0.0, 1.0, 2.0, 3.0]
+CHANNEL:
+    stochastic
+
+MODEL:
+    process 1: standard
+    process 2: broadcast
+    process 3: broadcast
+    process 4: standard
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS:
+    discrepancy
+    consensus

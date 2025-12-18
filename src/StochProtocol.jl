@@ -2,6 +2,7 @@ module StochProtocol
 
 include("Core.jl")
 include("Channels.jl")
+include("DeliveryModels.jl")
 include("Protocols.jl")
 include("Metrics.jl")
 include("DSL.jl")

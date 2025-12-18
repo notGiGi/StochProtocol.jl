@@ -1,0 +1,25 @@
+PROTOCOL AMP_Broadcast
+PROCESSES: 3
+STATE:
+    x ∈ {0,1}
+INITIAL VALUES:
+    [0.0, 0.5, 1.0]
+PARAMETERS:
+    y ∈ [0,1] = 0.5
+CHANNEL:
+    stochastic
+
+MODEL:
+    broadcast probability=per_source
+
+UPDATE RULE:
+    EACH ROUND:
+        if received_diff then
+            xᵢ ← y
+        else
+            xᵢ ← x
+        end
+
+METRICS:
+    discrepancy
+    consensus

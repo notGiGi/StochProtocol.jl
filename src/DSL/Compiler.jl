@@ -35,7 +35,7 @@ function compile(ir::ProtocolIR; p::Float64, rounds::Int)
     end
     protocol_instance = ProtocolInstance(protocol, params)
     channel = BernoulliChannel(p)
-    return ExperimentSpec(ir.num_processes, rounds, channel, protocol_instance, init_state)
+    return ExperimentSpec(ir.num_processes, rounds, channel, protocol_instance, init_state, ir.delivery_models)
 end
 
 # -------------------------------------------------------------------------

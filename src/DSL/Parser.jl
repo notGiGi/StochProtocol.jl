@@ -1,6 +1,6 @@
 module Parser
 
-using ..IR: ProtocolIR, IfReceivedDiffIR, SelfValue, MeetingPoint, ReceivedOtherValue, SimpleOpIR, UpdateIR, ExprIR, UpdatePhaseIR, InboxPredicateIR, ReceivedAny, ReceivedDiffIR, ReceivedAll, ReceivedAtLeast, ReceivedMajority, ConditionalIR, ConditionalElseIR, IsLeaderPredicate, AssignIR, VarIR, IndexedVarIR, LiteralIR, BinOpIR, AggregateIR, ComparisonIR, LogicalOpIR
+using ..IR: ProtocolIR, IfReceivedDiffIR, SelfValue, MeetingPoint, ReceivedOtherValue, SimpleOpIR, UpdateIR, ExprIR, UpdatePhaseIR, InboxPredicateIR, ReceivedAny, ReceivedDiffIR, ReceivedAll, ReceivedAtLeast, ReceivedMajority, ConditionalIR, ConditionalElseIR, IsLeaderPredicate, AssignIR, VarIR, IndexedVarIR, LiteralIR, BinOpIR, AggregateIR, ComparisonIR, LogicalOpIR, DeliveryModelSpec
 
 # Parsing utilities for the paper-like DSL. The parser is a small, explicit
 # state machine over the expected sections to keep error messages friendly.
@@ -375,6 +375,91 @@ function parse_metric(line::AbstractString, line_no::Int)
 end
 
 """
+Parse a MODEL declaration line.
+Examples:
+  - "standard"
+  - "guaranteed k=3 scope=per_round"
+  - "broadcast probability=per_source"
+  - "process 2: broadcast"
+"""
+function parse_model(line::AbstractString, line_no::Int, num_processes::Int)::DeliveryModelSpec
+    # Check for process-specific model: "process <id>: <model>"
+    process_match = match(r"^process\s+(\d+):\s*(.+)$"i, line)
+    if process_match !== nothing
+        process_id = parse(Int, process_match.captures[1])
+        if process_id < 1 || process_id > num_processes
+            error("Error in MODEL (line $line_no): process ID $process_id out of range (1..$num_processes)")
+        end
+        model_str = strip(process_match.captures[2])
+        return parse_model_spec(model_str, line_no, process_id)
+    else
+        # Global model
+        return parse_model_spec(line, line_no, nothing)
+    end
+end
+
+function parse_model_spec(model_str::AbstractString, line_no::Int, process_id::Union{Nothing,Int})
+    model_str = strip(model_str)
+    model_lower = lowercase(model_str)
+
+    # Standard model
+    if model_lower == "standard"
+        return DeliveryModelSpec(:standard, Dict{Symbol,Any}(), process_id)
+    end
+
+    # Guaranteed model: "guaranteed k=3 scope=per_round"
+    if startswith(model_lower, "guaranteed")
+        params = Dict{Symbol,Any}()
+        # Extract k parameter
+        k_match = match(r"k\s*=\s*(\d+)", model_str)
+        if k_match === nothing
+            error("Error in MODEL (line $line_no): guaranteed model requires k=<number>")
+        end
+        params[:min_messages] = parse(Int, k_match.captures[1])
+
+        # Extract scope parameter (optional, defaults to per_round)
+        scope_match = match(r"scope\s*=\s*(\w+)", model_str)
+        if scope_match !== nothing
+            scope_str = lowercase(scope_match.captures[1])
+            if scope_str == "per_round"
+                params[:scope] = :per_round
+            elseif scope_str == "total"
+                params[:scope] = :total
+            else
+                error("Error in MODEL (line $line_no): scope must be 'per_round' or 'total', got '$scope_str'")
+            end
+        else
+            params[:scope] = :per_round  # Default
+        end
+
+        return DeliveryModelSpec(:guaranteed, params, process_id)
+    end
+
+    # Broadcast model: "broadcast probability=per_source"
+    if startswith(model_lower, "broadcast")
+        params = Dict{Symbol,Any}()
+        # Extract probability parameter (optional, defaults to per_source)
+        prob_match = match(r"probability\s*=\s*(\w+)", model_str)
+        if prob_match !== nothing
+            prob_str = lowercase(prob_match.captures[1])
+            if prob_str == "per_source"
+                params[:probability] = :per_source
+            elseif prob_str == "uniform"
+                params[:probability] = :uniform
+            else
+                error("Error in MODEL (line $line_no): probability must be 'per_source' or 'uniform', got '$prob_str'")
+            end
+        else
+            params[:probability] = :per_source  # Default
+        end
+
+        return DeliveryModelSpec(:broadcast, params, process_id)
+    end
+
+    error("Error in MODEL (line $line_no): unknown model type '$model_str'. Supported: standard, guaranteed, broadcast")
+end
+
+"""
 Parse a protocol provided directly as text (e.g., in a notebook).
 """
 function parse_protocol_text(text::String)::ProtocolIR
@@ -540,6 +625,29 @@ function parse_protocol_file_lines(stripped)
             idx = next_nonempty(idx)
         end
 
+        # MODEL (optional: communication delivery models)
+        delivery_models = DeliveryModelSpec[]
+        if idx <= length(stripped) && startswith(stripped[idx][2], "MODEL")
+            idx += 1
+            idx = next_nonempty(idx)
+            while idx <= length(stripped)
+                lno, l = stripped[idx]
+                isempty(l) && (idx += 1; continue)
+                # Stop if we hit a new section
+                if occursin(":", l) && (startswith(l, "UPDATE") || startswith(l, "METRICS"))
+                    break
+                end
+                push!(delivery_models, parse_model(l, lno, num_processes))
+                idx += 1
+            end
+            idx = next_nonempty(idx)
+        end
+
+        # If no models specified, default to standard model globally
+        if isempty(delivery_models)
+            push!(delivery_models, DeliveryModelSpec(:standard, Dict{Symbol,Any}(), nothing))
+        end
+
         # UPDATE RULE (optional: if absent, default to no-op phases).
         idx = next_nonempty(idx)
         phases = UpdatePhaseIR[]
@@ -572,7 +680,7 @@ function parse_protocol_file_lines(stripped)
         end
         init_rule_final = init_rule === nothing ? i::Int -> error("No init_rule defined") : init_rule
 
-        return ProtocolIR(protocol_name, num_processes, init_rule_final, init_values, phases, metrics, merge(params, Dict(:leader_id => leader_id)))
+        return ProtocolIR(protocol_name, num_processes, init_rule_final, init_values, phases, metrics, merge(params, Dict(:leader_id => leader_id)), delivery_models)
     end
 end
 

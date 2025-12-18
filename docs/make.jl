@@ -3,31 +3,30 @@ using StochProtocol
 
 makedocs(
     sitename = "StochProtocol.jl",
+    authors = "notGiGi",
     format = Documenter.HTML(
         prettyurls = get(ENV, "CI", nothing) == "true",
         canonical = "https://notGiGi.github.io/StochProtocol.jl",
         assets = ["assets/custom.css"],
         sidebar_sitename = false,
         size_threshold = 512000,
+        collapselevel = 1,
     ),
     modules = [StochProtocol],
     pages = [
         "Home" => "index.md",
         "Quick Start" => "quickstart.md",
-        "Guides" => [
+        "Getting Started" => "getting_started.md",
+        "User Guide" => [
             "Protocol DSL" => "guides/dsl.md",
             "Running Experiments" => "guides/experiments.md",
-            "Visualization" => "guides/visualization.md",
+            "Delivery Models" => "guides/delivery_models.md",
         ],
         "Examples" => [
-            "AMP Protocol" => "examples/amp.md",
-            "Protocol Comparison" => "examples/comparison.md",
-            "Multiple Rounds" => "examples/multirounds.md",
+            "Overview" => "examples/overview.md",
         ],
         "API Reference" => [
             "Core Functions" => "api/core.md",
-            "Protocol DSL" => "api/dsl.md",
-            "Visualization" => "api/visualization.md",
         ],
     ],
     warnonly = true,

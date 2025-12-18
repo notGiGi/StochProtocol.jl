@@ -4,8 +4,9 @@ using ..Channels: ChannelModel, BernoulliChannel
 using ..Protocols: Protocol, ProtocolInstance
 using ..Core: NodeId, Message, Inbox
 using ..Metrics: discrepancy_from_locals, consensus_from_locals, RunSummary, DEFAULT_CONSENSUS_EPS
-using ..DSL.IR: UpdatePhaseIR, UpdateIR, IfReceivedDiffIR, SimpleOpIR, SelfValue, MeetingPoint, ReceivedOtherValue, ConditionalIR, ConditionalElseIR, ExprIR, AssignIR, VarIR, IndexedVarIR
+using ..DSL.IR: UpdatePhaseIR, UpdateIR, IfReceivedDiffIR, SimpleOpIR, SelfValue, MeetingPoint, ReceivedOtherValue, ConditionalIR, ConditionalElseIR, ExprIR, AssignIR, VarIR, IndexedVarIR, DeliveryModelSpec
 using ..DSL: Compiler
+using ..DeliveryModels: DeliveryModel, StandardModel, GuaranteedModel, BroadcastModel, apply_delivery_model, satisfies_guarantees, count_total_deliveries
 import ..Core: apply_protocol
 
 # Simple deterministic RNG (LCG) to avoid external dependencies while allowing
@@ -36,6 +37,7 @@ struct ExperimentSpec
     channel::ChannelModel
     protocol::ProtocolInstance
     init_state::Function
+    delivery_models::Vector{DeliveryModelSpec}  # Communication models configuration
 end
 
 """
@@ -64,9 +66,15 @@ function run_experiment(spec::ExperimentSpec; rng_seed::Int=1, consensus_eps::Fl
     discrepancies = Float64[]
     push!(discrepancies, discrepancy_from_locals(local_states))
 
+    # Track messages delivered per round (for guaranteed model filtering)
+    messages_per_round = Int[]
+    total_messages_delivered = 0
+
     for round_idx in 1:spec.num_rounds
         # Deliver queued messages for this round.
-        inboxes = deliver_messages(outbound_queue, spec.num_nodes, spec.channel, rng, spec.protocol.params)
+        inboxes, msgs_delivered = deliver_messages(outbound_queue, spec.num_nodes, spec.channel, rng, spec.protocol.params, spec.delivery_models)
+        push!(messages_per_round, msgs_delivered)
+        total_messages_delivered += msgs_delivered
 
         snapshot_vec = snapshot_values(local_states)
         state_before = snapshot_vec
@@ -107,7 +115,7 @@ function run_experiment(spec::ExperimentSpec; rng_seed::Int=1, consensus_eps::Fl
 
     discrepancy_final = discrepancies[end]
     consensus_final = consensus_from_locals(local_states; eps=consensus_eps)
-    return RunSummary(discrepancy_final, consensus_final, discrepancies)
+    return RunSummary(discrepancy_final, consensus_final, discrepancies, total_messages_delivered, messages_per_round)
 end
 
 """
@@ -133,6 +141,7 @@ end
 
 """
 Run many repetitions of an experiment, returning aggregate statistics for D and consensus.
+For guaranteed models, only counts repetitions that satisfy the delivery guarantees.
 """
 function run_many(mc::MonteCarloSpec; consensus_eps::Float64=DEFAULT_CONSENSUS_EPS, trace::Bool=false, trace_limit::Int=1)::MonteCarloResult
     disc_final = Float64[]
@@ -140,20 +149,63 @@ function run_many(mc::MonteCarloSpec; consensus_eps::Float64=DEFAULT_CONSENSUS_E
     extra_end = has_end_phase(mc.experiment.protocol.params) ? 1 : 0
     mean_by_round = zeros(Float64, mc.experiment.num_rounds + 1 + extra_end)
 
-    for rep in 1:mc.repetitions
-        do_trace = trace && rep <= trace_limit
-        run = run_experiment(mc.experiment; rng_seed=mc.seed + rep - 1, consensus_eps=consensus_eps, trace=do_trace, trace_limit=trace_limit)
-        push!(disc_final, run.discrepancy_final)
-        push!(consensus_flags, run.discrepancy_final <= consensus_eps)
-        @assert length(run.discrepancy_by_round) == length(mean_by_round)
-        mean_by_round .+= run.discrepancy_by_round
+    # Check if we have guaranteed models
+    model_map, _ = build_delivery_model_map(mc.experiment.delivery_models, mc.experiment.num_nodes)
+    has_guaranteed = any(m isa GuaranteedModel for m in values(model_map))
+
+    # Find guaranteed model specs for validation
+    guaranteed_models = [m for m in values(model_map) if m isa GuaranteedModel]
+
+    valid_reps = 0
+    attempt = 0
+    max_attempts = has_guaranteed ? mc.repetitions * 100 : mc.repetitions  # Allow up to 100x attempts for guaranteed
+
+    while valid_reps < mc.repetitions && attempt < max_attempts
+        attempt += 1
+        do_trace = trace && valid_reps < trace_limit
+        run = run_experiment(mc.experiment; rng_seed=mc.seed + attempt - 1, consensus_eps=consensus_eps, trace=do_trace, trace_limit=trace_limit)
+
+        # Check if this run satisfies guaranteed model requirements
+        run_valid = true
+        if has_guaranteed
+            for model in guaranteed_models
+                if model.scope == :per_round
+                    # Check each round
+                    for msgs in run.messages_per_round
+                        if msgs < model.min_messages
+                            run_valid = false
+                            break
+                        end
+                    end
+                else  # :total
+                    # Check total messages
+                    if run.total_messages_delivered < model.min_messages
+                        run_valid = false
+                    end
+                end
+                run_valid || break
+            end
+        end
+
+        # Only count valid runs
+        if run_valid
+            push!(disc_final, run.discrepancy_final)
+            push!(consensus_flags, run.discrepancy_final <= consensus_eps)
+            @assert length(run.discrepancy_by_round) == length(mean_by_round)
+            mean_by_round .+= run.discrepancy_by_round
+            valid_reps += 1
+        end
     end
 
-    n = mc.repetitions
-    mean_d = sum(disc_final) / n
+    if valid_reps < mc.repetitions
+        @warn "Only found $valid_reps valid runs out of $mc.repetitions requested (after $attempt attempts). Guaranteed model constraints may be too strict for p=$(mc.experiment.channel.p)"
+    end
+
+    n = valid_reps
+    mean_d = n > 0 ? sum(disc_final) / n : 0.0
     var_d = n > 1 ? sum((disc_final .- mean_d) .^ 2) / (n - 1) : 0.0
-    consensus_prob = sum(consensus_flags) / n
-    mean_by_round ./= n
+    consensus_prob = n > 0 ? sum(consensus_flags) / n : 0.0
+    mean_by_round = n > 0 ? mean_by_round ./ n : mean_by_round
 
     p_value = mc.experiment.channel isa BernoulliChannel ? mc.experiment.channel.p :
               error("MonteCarloResult requires a BernoulliChannel to extract p")
@@ -205,22 +257,139 @@ function enforce_guarantee!(params::Dict{Symbol,Any}, inboxes::Dict{NodeId,Inbox
     end
 end
 
-# Deliver a batch of outbound messages into per-node inboxes.
-function deliver_messages(outbound::Vector{Message}, num_nodes::Int, channel::ChannelModel, rng::SimpleRNG, params::Dict{Symbol,Any})
+"""
+Convert a DeliveryModelSpec to an actual DeliveryModel instance.
+"""
+function build_delivery_model(spec::DeliveryModelSpec)::DeliveryModel
+    if spec.model_type == :standard
+        return StandardModel()
+    elseif spec.model_type == :guaranteed
+        min_msg = get(spec.params, :min_messages, 1)
+        scope = get(spec.params, :scope, :per_round)
+        return GuaranteedModel(min_msg, scope)
+    elseif spec.model_type == :broadcast
+        prob = get(spec.params, :probability, :per_source)
+        return BroadcastModel(prob)
+    else
+        error("Unknown delivery model type: $(spec.model_type)")
+    end
+end
+
+"""
+Build a per-process delivery model map from delivery model specs.
+Returns a Dict mapping process_id => DeliveryModel, with a default global model.
+"""
+function build_delivery_model_map(specs::Vector{DeliveryModelSpec}, num_nodes::Int)
+    # Find global model (process_id == nothing)
+    global_spec = findfirst(s -> s.process_id === nothing, specs)
+    global_model = if global_spec !== nothing
+        build_delivery_model(specs[global_spec])
+    else
+        StandardModel()  # Default if no global specified
+    end
+
+    # Build per-process map
+    model_map = Dict{Int,DeliveryModel}()
+    for i in 1:num_nodes
+        # Check if there's a specific model for this process
+        specific = findfirst(s -> s.process_id == i, specs)
+        if specific !== nothing
+            model_map[i] = build_delivery_model(specs[specific])
+        else
+            model_map[i] = global_model
+        end
+    end
+
+    return model_map, global_model
+end
+
+# Deliver a batch of outbound messages into per-node inboxes using delivery models.
+function deliver_messages(outbound::Vector{Message}, num_nodes::Int, channel::ChannelModel, rng::SimpleRNG, params::Dict{Symbol,Any}, delivery_specs::Vector{DeliveryModelSpec})
     next_inboxes = Dict{NodeId,Inbox}()
     for node_id in 1:num_nodes
         next_inboxes[node_id] = Message[]
     end
-    undelivered = Message[]
-    for message in outbound
-        if message_delivered!(rng, channel)
-            push!(next_inboxes[message.receiver], message)
-        else
-            push!(undelivered, message)
+
+    # Build delivery model map
+    model_map, _ = build_delivery_model_map(delivery_specs, num_nodes)
+
+    # Check if we're using a global standard model (can use old fast path)
+    all_standard = all(m isa StandardModel for m in values(model_map))
+
+    if all_standard
+        # Fast path: use original Bernoulli delivery
+        undelivered = Message[]
+        for message in outbound
+            if message_delivered!(rng, channel)
+                push!(next_inboxes[message.receiver], message)
+            else
+                push!(undelivered, message)
+            end
+        end
+        enforce_guarantee!(params, next_inboxes, undelivered, num_nodes, rng)
+        return next_inboxes
+    end
+
+    # New path: use delivery models
+    # Group messages by sender
+    messages_by_sender = Dict{Int,Vector{Message}}()
+    for i in 1:num_nodes
+        messages_by_sender[i] = Message[]
+    end
+    for msg in outbound
+        push!(messages_by_sender[msg.sender], msg)
+    end
+
+    # Apply delivery model for each sender
+    p = channel isa BernoulliChannel ? channel.p : 1.0
+    for sender in 1:num_nodes
+        sender_messages = messages_by_sender[sender]
+        isempty(sender_messages) && continue
+
+        model = model_map[sender]
+
+        if model isa BroadcastModel
+            # All-or-nothing for this sender
+            deliver_all = rand_unit!(rng) < p
+            if deliver_all
+                for msg in sender_messages
+                    push!(next_inboxes[msg.receiver], msg)
+                end
+            end
+        elseif model isa StandardModel
+            # Independent delivery for each message
+            for msg in sender_messages
+                if rand_unit!(rng) < p
+                    push!(next_inboxes[msg.receiver], msg)
+                end
+            end
+        elseif model isa GuaranteedModel
+            # Standard delivery, guarantees enforced later
+            for msg in sender_messages
+                if rand_unit!(rng) < p
+                    push!(next_inboxes[msg.receiver], msg)
+                end
+            end
         end
     end
+
+    # Note: Guaranteed model validation happens at the experiment loop level
+    # Legacy guarantee enforcement for backward compatibility
+    undelivered = Message[]
     enforce_guarantee!(params, next_inboxes, undelivered, num_nodes, rng)
-    return next_inboxes
+
+    # Count total messages delivered
+    total_delivered = sum(length(inbox) for inbox in values(next_inboxes))
+
+    return next_inboxes, total_delivered
+end
+
+# Backward compatibility: version without delivery_specs uses standard model
+# Returns just inboxes for backward compatibility
+function deliver_messages(outbound::Vector{Message}, num_nodes::Int, channel::ChannelModel, rng::SimpleRNG, params::Dict{Symbol,Any})
+    default_spec = [DeliveryModelSpec(:standard, Dict{Symbol,Any}(), nothing)]
+    inboxes, _ = deliver_messages(outbound, num_nodes, channel, rng, params, default_spec)
+    return inboxes
 end
 
 # Construct an initial broadcast so round 1 has messages.

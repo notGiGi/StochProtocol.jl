@@ -137,6 +137,15 @@ struct AssignIR <: UpdateIR
 end
 
 """
+DeliveryModelSpec specifies the communication model for a process or globally.
+"""
+struct DeliveryModelSpec
+    model_type::Symbol  # :standard, :guaranteed, :broadcast
+    params::Dict{Symbol,Any}  # Model-specific parameters
+    process_id::Union{Nothing,Int}  # Nothing = global, Int = specific process
+end
+
+"""
 ProtocolIR captures the declarative intent of a protocol as read from the DSL.
 """
 struct ProtocolIR
@@ -147,6 +156,7 @@ struct ProtocolIR
     phases::Vector{UpdatePhaseIR}
     metrics::Vector{Symbol}
     params::Dict{Symbol,Any}
+    delivery_models::Vector{DeliveryModelSpec}  # Communication models
 end
 
 end
