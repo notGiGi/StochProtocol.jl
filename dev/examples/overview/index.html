@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Overview · StochProtocol.jl</title><meta name="title" content="Overview · StochProtocol.jl"/><meta property="og:title" content="Overview · StochProtocol.jl"/><meta property="twitter:title" content="Overview · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/examples/overview/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/examples/overview/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/examples/overview/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><a class="tocitem" href="../../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../guides/dsl/">Protocol DSL</a></li><li><a class="tocitem" href="../../guides/experiments/">Running Experiments</a></li><li><a class="tocitem" href="../../guides/delivery_models/">Delivery Models</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li class="is-active"><a class="tocitem" href>Overview</a><ul class="internal"><li><a class="tocitem" href="#Getting-Started-Examples"><span>Getting Started Examples</span></a></li><li><a class="tocitem" href="#Classic-Protocols"><span>Classic Protocols</span></a></li><li><a class="tocitem" href="#Delivery-Model-Examples"><span>Delivery Model Examples</span></a></li><li><a class="tocitem" href="#Advanced-Examples"><span>Advanced Examples</span></a></li><li><a class="tocitem" href="#Real-World-Inspired-Examples"><span>Real-World Inspired Examples</span></a></li><li><a class="tocitem" href="#Running-the-Examples"><span>Running the Examples</span></a></li><li><a class="tocitem" href="#Creating-Your-Own-Examples"><span>Creating Your Own Examples</span></a></li><li><a class="tocitem" href="#See-Also"><span>See Also</span></a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>Overview</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Overview</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/examples/overview.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Examples"><a class="docs-heading-anchor" href="#Examples">Examples</a><a id="Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Examples" title="Permalink"></a></h1><p>Collection of example protocols and use cases for StochProtocol.</p><hr/><h2 id="Getting-Started-Examples"><a class="docs-heading-anchor" href="#Getting-Started-Examples">Getting Started Examples</a><a id="Getting-Started-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Getting-Started-Examples" title="Permalink"></a></h2><h3 id="Hello-World:-AMP-Protocol"><a class="docs-heading-anchor" href="#Hello-World:-AMP-Protocol">Hello World: AMP Protocol</a><a id="Hello-World:-AMP-Protocol-1"></a><a class="docs-heading-anchor-permalink" href="#Hello-World:-AMP-Protocol" title="Permalink"></a></h3><p>The simplest meaningful protocol - averaging with meeting point.</p><pre><code class="language-julia hljs">using StochProtocol
+
+AMP = Protocol(&quot;&quot;&quot;
+PROTOCOL AMP
+PROCESSES: 2
+STATE: x ∈ {0,1}
+INITIAL VALUES: [0.0, 1.0]
+PARAMETERS: y = 0.5
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        if received_diff then xᵢ ← y else xᵢ ← x end
+
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)
+
+results = run_protocol(AMP; p_values=0.0:0.1:1.0, repetitions=2000)
+results_table(results)
+plot_discrepancy_vs_p(results)</code></pre><p><strong>Takeaway</strong>: When processes disagree, they move to meeting point <code>y=0.5</code>.</p><hr/><h2 id="Classic-Protocols"><a class="docs-heading-anchor" href="#Classic-Protocols">Classic Protocols</a><a id="Classic-Protocols-1"></a><a class="docs-heading-anchor-permalink" href="#Classic-Protocols" title="Permalink"></a></h2><h3 id="Simple-Averaging"><a class="docs-heading-anchor" href="#Simple-Averaging">Simple Averaging</a><a id="Simple-Averaging-1"></a><a class="docs-heading-anchor-permalink" href="#Simple-Averaging" title="Permalink"></a></h3><p>Processes average their values with received messages.</p><pre><code class="language-julia hljs">averaging = Protocol(&quot;&quot;&quot;
+PROTOCOL Averaging
+PROCESSES: 10
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)
+
+results = run_protocol(averaging; rounds=10, p_values=0.5:0.1:1.0)</code></pre><p><strong>Use Case</strong>: Study convergence rates under different communication probabilities.</p><hr/><h3 id="Minimum-Protocol"><a class="docs-heading-anchor" href="#Minimum-Protocol">Minimum Protocol</a><a id="Minimum-Protocol-1"></a><a class="docs-heading-anchor-permalink" href="#Minimum-Protocol" title="Permalink"></a></h3><p>Processes converge to the minimum value.</p><pre><code class="language-julia hljs">minimum = Protocol(&quot;&quot;&quot;
+PROTOCOL Minimum
+PROCESSES: 5
+STATE: x ∈ ℝ
+INITIAL VALUES: [5.0, 3.0, 8.0, 1.0, 6.0]
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        if received_any then
+            xᵢ ← min(inbox_with_self)
+        else
+            xᵢ ← x
+        end
+
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)</code></pre><p><strong>Insight</strong>: Minimum spreads through network, but requires at least one message delivery.</p><hr/><h2 id="Delivery-Model-Examples"><a class="docs-heading-anchor" href="#Delivery-Model-Examples">Delivery Model Examples</a><a id="Delivery-Model-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Delivery-Model-Examples" title="Permalink"></a></h2><h3 id="Guaranteed-Delivery"><a class="docs-heading-anchor" href="#Guaranteed-Delivery">Guaranteed Delivery</a><a id="Guaranteed-Delivery-1"></a><a class="docs-heading-anchor-permalink" href="#Guaranteed-Delivery" title="Permalink"></a></h3><p>Ensure minimum connectivity requirements.</p><pre><code class="language-julia hljs">guaranteed = Protocol(&quot;&quot;&quot;
+PROTOCOL GuaranteedAMP
+PROCESSES: 3
+STATE: x ∈ {0,1}
+INITIAL VALUES: [0.0, 0.5, 1.0]
+PARAMETERS: y = 0.5
+CHANNEL: stochastic
+
+MODEL:
+    guaranteed k=2 scope=per_round
+
+UPDATE RULE:
+    EACH ROUND:
+        if received_diff then xᵢ ← y else xᵢ ← x end
+
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)
+
+# At low p, many runs will be filtered out
+results = run_protocol(guaranteed; p_values=0.5:0.1:1.0, repetitions=2000)</code></pre><p><strong>Use Case</strong>: Study protocols under QoS guarantees or minimum connectivity assumptions.</p><hr/><h3 id="Broadcast-Communication"><a class="docs-heading-anchor" href="#Broadcast-Communication">Broadcast Communication</a><a id="Broadcast-Communication-1"></a><a class="docs-heading-anchor-permalink" href="#Broadcast-Communication" title="Permalink"></a></h3><p>All-or-nothing delivery per source.</p><pre><code class="language-julia hljs">broadcast = Protocol(&quot;&quot;&quot;
+PROTOCOL BroadcastAveraging
+PROCESSES: 4
+STATE: x ∈ ℝ
+INITIAL VALUES: [0.0, 1.0, 2.0, 3.0]
+CHANNEL: stochastic
+
+MODEL:
+    broadcast probability=per_source
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)</code></pre><p><strong>Use Case</strong>: Simulate atomic broadcast or correlated failures.</p><hr/><h3 id="Hybrid-Models"><a class="docs-heading-anchor" href="#Hybrid-Models">Hybrid Models</a><a id="Hybrid-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Hybrid-Models" title="Permalink"></a></h3><p>Different processes with different delivery characteristics.</p><pre><code class="language-julia hljs">hybrid = Protocol(&quot;&quot;&quot;
+PROTOCOL HeterogeneousNetwork
+PROCESSES: 6
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+MODEL:
+    process 1: standard
+    process 2: standard
+    process 3: broadcast
+    process 4: broadcast
+    process 5: guaranteed k=3 scope=per_round
+    process 6: guaranteed k=3 scope=per_round
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)</code></pre><p><strong>Use Case</strong>: Simulate heterogeneous networks with different node capabilities.</p><hr/><h2 id="Advanced-Examples"><a class="docs-heading-anchor" href="#Advanced-Examples">Advanced Examples</a><a id="Advanced-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Examples" title="Permalink"></a></h2><h3 id="Multi-Round-Convergence-Study"><a class="docs-heading-anchor" href="#Multi-Round-Convergence-Study">Multi-Round Convergence Study</a><a id="Multi-Round-Convergence-Study-1"></a><a class="docs-heading-anchor-permalink" href="#Multi-Round-Convergence-Study" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol
+
+proto = Protocol(&quot;&quot;&quot;
+PROTOCOL ConvergenceStudy
+PROCESSES: 20
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)
+
+# Study convergence over increasing rounds
+for rounds in [1, 2, 5, 10, 20, 50]
+    results = run_protocol(proto;
+        rounds = rounds,
+        p_values = [0.7, 0.9],
+        repetitions = 1000
+    )
+
+    println(&quot;Rounds: $rounds&quot;)
+    println(&quot;  p=0.7: E[D]=$(results[1].mean_discrepancy)&quot;)
+    println(&quot;  p=0.9: E[D]=$(results[2].mean_discrepancy)&quot;)
+end</code></pre><hr/><h3 id="Protocol-Comparison"><a class="docs-heading-anchor" href="#Protocol-Comparison">Protocol Comparison</a><a id="Protocol-Comparison-1"></a><a class="docs-heading-anchor-permalink" href="#Protocol-Comparison" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol
+
+# Define multiple protocols
+protocols = Dict(
+    &quot;AMP&quot; =&gt; Protocol(&quot;&quot;&quot;
+        PROTOCOL AMP
+        PROCESSES: 3
+        STATE: x ∈ {0,1}
+        INITIAL VALUES: [0.0, 0.5, 1.0]
+        PARAMETERS: y = 0.5
+        CHANNEL: stochastic
+        UPDATE RULE:
+            EACH ROUND:
+                if received_diff then xᵢ ← y else xᵢ ← x end
+        METRICS: discrepancy, consensus
+    &quot;&quot;&quot;),
+
+    &quot;Averaging&quot; =&gt; Protocol(&quot;&quot;&quot;
+        PROTOCOL Averaging
+        PROCESSES: 3
+        STATE: x ∈ ℝ
+        INITIAL VALUES: [0.0, 0.5, 1.0]
+        CHANNEL: stochastic
+        UPDATE RULE:
+            EACH ROUND:
+                xᵢ ← avg(inbox_with_self)
+        METRICS: discrepancy, consensus
+    &quot;&quot;&quot;),
+
+    &quot;Minimum&quot; =&gt; Protocol(&quot;&quot;&quot;
+        PROTOCOL Minimum
+        PROCESSES: 3
+        STATE: x ∈ ℝ
+        INITIAL VALUES: [0.0, 0.5, 1.0]
+        CHANNEL: stochastic
+        UPDATE RULE:
+            EACH ROUND:
+                xᵢ ← min(inbox_with_self)
+        METRICS: discrepancy, consensus
+    &quot;&quot;&quot;)
+)
+
+# Run all protocols
+all_results = []
+p_range = 0.0:0.1:1.0
+
+for (name, proto) in protocols
+    println(&quot;Running $name...&quot;)
+    results = run_protocol(proto; p_values=p_range, repetitions=2000, seed=42)
+    push!(all_results, (name, results))
+end
+
+# Compare
+results_comparison_table(all_results)
+plot_comparison(all_results; save_path=&quot;comparison.png&quot;)</code></pre><hr/><h3 id="Parameter-Sweep"><a class="docs-heading-anchor" href="#Parameter-Sweep">Parameter Sweep</a><a id="Parameter-Sweep-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sweep" title="Permalink"></a></h3><p>Explore how protocol parameters affect performance.</p><pre><code class="language-julia hljs">function create_amp(y_value)
+    Protocol(&quot;&quot;&quot;
+    PROTOCOL AMP_y$(y_value)
+    PROCESSES: 2
+    STATE: x ∈ {0,1}
+    INITIAL VALUES: [0.0, 1.0]
+    PARAMETERS: y = $y_value
+    CHANNEL: stochastic
+    UPDATE RULE:
+        EACH ROUND:
+            if received_diff then xᵢ ← y else xᵢ ← x end
+    METRICS: discrepancy, consensus
+    &quot;&quot;&quot;)
+end
+
+# Sweep over y parameter
+y_values = 0.0:0.1:1.0
+p_test = 0.8
+
+for y in y_values
+    proto = create_amp(y)
+    results = run_protocol(proto; p_values=[p_test], repetitions=1000)
+    E_D = results[1].mean_discrepancy
+
+    println(&quot;y=$y, p=$p_test: E[D]=$E_D&quot;)
+end</code></pre><hr/><h2 id="Real-World-Inspired-Examples"><a class="docs-heading-anchor" href="#Real-World-Inspired-Examples">Real-World Inspired Examples</a><a id="Real-World-Inspired-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Real-World-Inspired-Examples" title="Permalink"></a></h2><h3 id="Sensor-Network-Averaging"><a class="docs-heading-anchor" href="#Sensor-Network-Averaging">Sensor Network Averaging</a><a id="Sensor-Network-Averaging-1"></a><a class="docs-heading-anchor-permalink" href="#Sensor-Network-Averaging" title="Permalink"></a></h3><pre><code class="language-julia hljs">sensor_net = Protocol(&quot;&quot;&quot;
+PROTOCOL SensorNetwork
+PROCESSES: 25
+STATE: x ∈ ℝ
+INITIAL: xᵢ = 20.0 + randn()  # Temperature readings with noise
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← 0.8 * x + 0.2 * avg(inbox)  # Weighted average
+
+METRICS:
+    discrepancy
+    consensus
+&quot;&quot;&quot;)</code></pre><h3 id="Leader-Election-Simulation"><a class="docs-heading-anchor" href="#Leader-Election-Simulation">Leader Election Simulation</a><a id="Leader-Election-Simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Leader-Election-Simulation" title="Permalink"></a></h3><pre><code class="language-julia hljs">leader = Protocol(&quot;&quot;&quot;
+PROTOCOL LeaderElection
+PROCESSES: 10
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i  # Each process has unique ID
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← max(inbox_with_self)  # Propagate maximum ID
+
+    END:
+        # Leader is process with max ID
+        xᵢ ← max(inbox_with_self)
+
+METRICS:
+    discrepancy
+    consensus
+&quot;&quot;&quot;)</code></pre><hr/><h2 id="Running-the-Examples"><a class="docs-heading-anchor" href="#Running-the-Examples">Running the Examples</a><a id="Running-the-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Running-the-Examples" title="Permalink"></a></h2><p>All examples are available in the <code>examples/</code> directory:</p><pre><code class="language-bash hljs"># Run delivery models demo
+julia examples/delivery_models_demo.jl
+
+# Run quickstart examples
+julia examples/quickstart.jl
+
+# Run protocol comparison
+julia examples/literature_protocols.jl</code></pre><hr/><h2 id="Creating-Your-Own-Examples"><a class="docs-heading-anchor" href="#Creating-Your-Own-Examples">Creating Your Own Examples</a><a id="Creating-Your-Own-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Creating-Your-Own-Examples" title="Permalink"></a></h2><h3 id="Template"><a class="docs-heading-anchor" href="#Template">Template</a><a id="Template-1"></a><a class="docs-heading-anchor-permalink" href="#Template" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol
+
+my_protocol = Protocol(&quot;&quot;&quot;
+PROTOCOL MyProtocol
+PROCESSES: N
+STATE: x ∈ Domain
+INITIAL VALUES: [...]
+CHANNEL: stochastic
+
+MODEL:
+    # Optional delivery model
+
+UPDATE RULE:
+    EACH ROUND:
+        # Your update logic
+
+METRICS:
+    discrepancy
+    consensus
+&quot;&quot;&quot;)
+
+# Experiment
+results = run_protocol(my_protocol;
+    p_values = 0.0:0.1:1.0,
+    rounds = 1,
+    repetitions = 2000
+)
+
+# Analyze
+results_table(results)
+plot_discrepancy_vs_p(results)</code></pre><hr/><h2 id="See-Also"><a class="docs-heading-anchor" href="#See-Also">See Also</a><a id="See-Also-1"></a><a class="docs-heading-anchor-permalink" href="#See-Also" title="Permalink"></a></h2><ul><li><a href="../../quickstart/">Quick Start</a> - Get started in 5 minutes</li><li><a href="../../guides/dsl/">Protocol DSL</a> - Language reference</li><li><a href="../../guides/delivery_models/">Delivery Models</a> - Communication models</li><li><a href="../../guides/experiments/">Experiments Guide</a> - Running simulations</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../guides/delivery_models/">« Delivery Models</a><a class="docs-footer-nextpage" href="../../api/core/">Core Functions »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 18 December 2025 00:52">Thursday 18 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

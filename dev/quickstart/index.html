@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quick Start · StochProtocol.jl</title><meta name="title" content="Quick Start · StochProtocol.jl"/><meta property="og:title" content="Quick Start · StochProtocol.jl"/><meta property="twitter:title" content="Quick Start · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/quickstart/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/quickstart/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/quickstart/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script><link href="../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>Quick Start</a><ul class="internal"><li><a class="tocitem" href="#Installation"><span>Installation</span></a></li><li><a class="tocitem" href="#Your-First-Protocol"><span>Your First Protocol</span></a></li><li><a class="tocitem" href="#What&#39;s-Next?"><span>What&#39;s Next?</span></a></li><li><a class="tocitem" href="#Tips-and-Tricks"><span>Tips &amp; Tricks</span></a></li></ul></li><li><a class="tocitem" href="../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../guides/dsl/">Protocol DSL</a></li><li><a class="tocitem" href="../guides/experiments/">Running Experiments</a></li><li><a class="tocitem" href="../guides/delivery_models/">Delivery Models</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox"/><label class="tocitem" for="menuitem-5"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../examples/overview/">Overview</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Quick Start</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Quick Start</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/quickstart.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Quick-Start"><a class="docs-heading-anchor" href="#Quick-Start">Quick Start</a><a id="Quick-Start-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Start" title="Permalink"></a></h1><p>Get up and running with StochProtocol.jl in 5 minutes.</p><h2 id="Installation"><a class="docs-heading-anchor" href="#Installation">Installation</a><a id="Installation-1"></a><a class="docs-heading-anchor-permalink" href="#Installation" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs">julia&gt; using Pkg
+
+julia&gt; Pkg.add(&quot;StochProtocol&quot;)</code></pre><h2 id="Your-First-Protocol"><a class="docs-heading-anchor" href="#Your-First-Protocol">Your First Protocol</a><a id="Your-First-Protocol-1"></a><a class="docs-heading-anchor-permalink" href="#Your-First-Protocol" title="Permalink"></a></h2><p>Let&#39;s analyze the <strong>AMP (Averaging Meeting Point)</strong> protocol.</p><h3 id="Step-1:-Load-the-Package"><a class="docs-heading-anchor" href="#Step-1:-Load-the-Package">Step 1: Load the Package</a><a id="Step-1:-Load-the-Package-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Load-the-Package" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol</code></pre><h3 id="Step-2:-Define-the-Protocol"><a class="docs-heading-anchor" href="#Step-2:-Define-the-Protocol">Step 2: Define the Protocol</a><a id="Step-2:-Define-the-Protocol-1"></a><a class="docs-heading-anchor-permalink" href="#Step-2:-Define-the-Protocol" title="Permalink"></a></h3><p>Use the <code>Protocol()</code> wrapper for beautiful display:</p><pre><code class="language-julia hljs">AMP = Protocol(&quot;&quot;&quot;
+PROTOCOL AMP
+PROCESSES: 2
+STATE:
+    x ∈ {0,1}
+INITIAL VALUES:
+    [0.0, 1.0]
+PARAMETERS:
+    y ∈ [0,1] = 0.5
+CHANNEL:
+    stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        if received_diff then
+            xᵢ ← y
+        else
+            xᵢ ← x
+        end
+
+METRICS:
+    discrepancy
+    consensus
+&quot;&quot;&quot;)</code></pre><p>When you display <code>AMP</code>, you&#39;ll see:</p><pre><code class="nohighlight hljs">╭─────────────────────────────────────────────────────────────╮
+│  Protocol: AMP                                             │
+╰─────────────────────────────────────────────────────────────╯
+
+  PROTOCOL AMP
+  PROCESSES: 2
+  STATE:
+      x ∈ {0,1}
+  ...
+
+  ✓ Protocol loaded and ready to run</code></pre><h3 id="Step-3:-Run-Experiments"><a class="docs-heading-anchor" href="#Step-3:-Run-Experiments">Step 3: Run Experiments</a><a id="Step-3:-Run-Experiments-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3:-Run-Experiments" title="Permalink"></a></h3><pre><code class="language-julia hljs">results = run_protocol(AMP;
+                       p_values=0.0:0.1:1.0,  # Message delivery probabilities
+                       rounds=1,               # Communication rounds
+                       repetitions=2000)       # Monte Carlo samples</code></pre><div class="admonition is-success" id="Parameter-Shortcuts-1b42399ab3279ccd"><header class="admonition-header">Parameter Shortcuts<a class="admonition-anchor" href="#Parameter-Shortcuts-1b42399ab3279ccd" title="Permalink"></a></header><div class="admonition-body"><ul><li><code>p_values</code> accepts ranges: <code>0.0:0.1:1.0</code> or lists: <code>[0.2, 0.5, 0.8]</code></li><li><code>seed</code> is optional - omit for random, specify for reproducibility</li><li>Default <code>repetitions=2000</code> balances speed and accuracy</li></ul></div></div><h3 id="Step-4:-View-Results"><a class="docs-heading-anchor" href="#Step-4:-View-Results">Step 4: View Results</a><a id="Step-4:-View-Results-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4:-View-Results" title="Permalink"></a></h3><p><strong>Interactive Table</strong> (beautiful in Jupyter!):</p><pre><code class="language-julia hljs">results_table(results; protocol_name=&quot;AMP (y=0.5)&quot;)</code></pre><p>Output:</p><pre><code class="nohighlight hljs">Results: AMP (y=0.5)
+
+11×4 DataFrame (colored &amp; interactive in Jupyter)
+ Row │ p        E_D       P_consensus  Trials
+     │ Float64  Float64   Float64      Int64
+─────┼────────────────────────────────────────
+   1 │     0.0  1.0             0.0      2000
+   2 │     0.1  0.9        0.00015      2000
+  ...</code></pre><p><strong>Publication Plot</strong>:</p><pre><code class="language-julia hljs">plot_discrepancy_vs_p(results;
+                      title=&quot;AMP: Expected Discrepancy vs p&quot;,
+                      save_path=&quot;amp_discrepancy.png&quot;)</code></pre><p>The plot is automatically:</p><ul><li>✅ Professional styling</li><li>✅ Saved as PNG</li><li>✅ Displayed inline (in Jupyter)</li></ul><h2 id="What&#39;s-Next?"><a class="docs-heading-anchor" href="#What&#39;s-Next?">What&#39;s Next?</a><a id="What&#39;s-Next?-1"></a><a class="docs-heading-anchor-permalink" href="#What&#39;s-Next?" title="Permalink"></a></h2><h3 id="Compare-Protocols"><a class="docs-heading-anchor" href="#Compare-Protocols">Compare Protocols</a><a id="Compare-Protocols-1"></a><a class="docs-heading-anchor-permalink" href="#Compare-Protocols" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Define FV protocol
+FV = Protocol(&quot;&quot;&quot;
+PROTOCOL FV
+PROCESSES: 2
+STATE:
+    x ∈ {0,1}
+INITIAL VALUES:
+    [0.0, 1.0]
+CHANNEL:
+    stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        if received_diff then
+            xᵢ ← received_other(x)
+        else
+            xᵢ ← x
+        end
+
+METRICS:
+    discrepancy
+    consensus
+&quot;&quot;&quot;)
+
+results_fv = run_protocol(FV; p_values=0.0:0.1:1.0, repetitions=2000)
+
+# Side-by-side comparison
+results_comparison_table(Dict(
+    &quot;AMP&quot; =&gt; results,
+    &quot;FV&quot; =&gt; results_fv
+))
+
+# Comparative plot
+plot_comparison(
+    Dict(&quot;AMP&quot; =&gt; results, &quot;FV&quot; =&gt; results_fv);
+    metric=:discrepancy,
+    save_path=&quot;comparison.png&quot;
+)</code></pre><h3 id="Jupyter-Notebook-Setup"><a class="docs-heading-anchor" href="#Jupyter-Notebook-Setup">Jupyter Notebook Setup</a><a id="Jupyter-Notebook-Setup-1"></a><a class="docs-heading-anchor-permalink" href="#Jupyter-Notebook-Setup" title="Permalink"></a></h3><pre><code class="language-julia hljs">using Pkg
+Pkg.activate(&quot;.&quot;)  # Activate project environment
+using StochProtocol
+
+# Define, run, visualize - no semicolons needed!
+AMP = Protocol(&quot;&quot;&quot;...&quot;&quot;&quot;)
+results = run_protocol(AMP; p_values=0.0:0.1:1.0)
+results_table(results)</code></pre><h3 id="Reproducible-Research"><a class="docs-heading-anchor" href="#Reproducible-Research">Reproducible Research</a><a id="Reproducible-Research-1"></a><a class="docs-heading-anchor-permalink" href="#Reproducible-Research" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Fixed seed for reproducibility
+results = run_protocol(AMP;
+                       p_values=0.0:0.05:1.0,
+                       repetitions=5000,
+                       seed=42)  # Same results every time</code></pre><h3 id="Parameter-Sweeps"><a class="docs-heading-anchor" href="#Parameter-Sweeps">Parameter Sweeps</a><a id="Parameter-Sweeps-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sweeps" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Analyze how parameter y affects performance
+for y in [0.3, 0.4, 0.5, 0.6, 0.7]
+    protocol = make_amp_protocol(y)  # Helper function
+    results = run_protocol(protocol; p_values=0.0:0.1:1.0)
+    plot_discrepancy_vs_p(results;
+                          title=&quot;AMP (y=$y)&quot;,
+                          save_path=&quot;amp_y$(y).png&quot;)
+end</code></pre><h2 id="Tips-and-Tricks"><a class="docs-heading-anchor" href="#Tips-and-Tricks">Tips &amp; Tricks</a><a id="Tips-and-Tricks-1"></a><a class="docs-heading-anchor-permalink" href="#Tips-and-Tricks" title="Permalink"></a></h2><div class="admonition is-success" id="Protocol()-Display-1608a7992d227018"><header class="admonition-header">Protocol() Display<a class="admonition-anchor" href="#Protocol()-Display-1608a7992d227018" title="Permalink"></a></header><div class="admonition-body"><p>Use <code>Protocol(&quot;&quot;&quot;...&quot;&quot;&quot;)</code> instead of plain strings - it displays beautifully without needing <code>;</code></p></div></div><div class="admonition is-success" id="Jupyter-Tables-e6f119d959f7b110"><header class="admonition-header">Jupyter Tables<a class="admonition-anchor" href="#Jupyter-Tables-e6f119d959f7b110" title="Permalink"></a></header><div class="admonition-body"><p>In Jupyter, <code>results_table()</code> returns an interactive DataFrame with:</p><ul><li>✅ Colored headers</li><li>✅ Sortable columns</li><li>✅ Hover tooltips</li><li>✅ Easy copy/paste</li></ul></div></div><div class="admonition is-success" id="Fast-Iteration-aba59e952f8bea8b"><header class="admonition-header">Fast Iteration<a class="admonition-anchor" href="#Fast-Iteration-aba59e952f8bea8b" title="Permalink"></a></header><div class="admonition-body"><p>Use fewer <code>repetitions</code> (e.g., 500) while developing, then increase to 5000+ for final results.</p></div></div><div class="admonition is-warning" id="Memory-Usage-87edd58dc767046e"><header class="admonition-header">Memory Usage<a class="admonition-anchor" href="#Memory-Usage-87edd58dc767046e" title="Permalink"></a></header><div class="admonition-body"><p>Very large parameter sweeps (many p-values × high repetitions × many rounds) can use significant memory. Start small and scale up.</p></div></div></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><a class="docs-footer-nextpage" href="../getting_started/">Getting Started »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 18 December 2025 00:52">Thursday 18 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

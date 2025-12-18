@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Delivery Models · StochProtocol.jl</title><meta name="title" content="Delivery Models · StochProtocol.jl"/><meta property="og:title" content="Delivery Models · StochProtocol.jl"/><meta property="twitter:title" content="Delivery Models · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/guides/delivery_models/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/guides/delivery_models/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/guides/delivery_models/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><a class="tocitem" href="../../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox" checked/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../dsl/">Protocol DSL</a></li><li><a class="tocitem" href="../experiments/">Running Experiments</a></li><li class="is-active"><a class="tocitem" href>Delivery Models</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Available-Models"><span>Available Models</span></a></li><li><a class="tocitem" href="#Process-Specific-Models"><span>Process-Specific Models</span></a></li><li><a class="tocitem" href="#Complete-Examples"><span>Complete Examples</span></a></li><li><a class="tocitem" href="#Implementation-Details"><span>Implementation Details</span></a></li><li><a class="tocitem" href="#Use-Cases"><span>Use Cases</span></a></li><li><a class="tocitem" href="#Advanced:-Model-Configuration-in-Code"><span>Advanced: Model Configuration in Code</span></a></li><li><a class="tocitem" href="#See-Also"><span>See Also</span></a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox"/><label class="tocitem" for="menuitem-5"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../examples/overview/">Overview</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">User Guide</a></li><li class="is-active"><a href>Delivery Models</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Delivery Models</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/guides/delivery_models.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Delivery-Models-in-StochProtocol"><a class="docs-heading-anchor" href="#Delivery-Models-in-StochProtocol">Delivery Models in StochProtocol</a><a id="Delivery-Models-in-StochProtocol-1"></a><a class="docs-heading-anchor-permalink" href="#Delivery-Models-in-StochProtocol" title="Permalink"></a></h1><p>StochProtocol supports multiple communication delivery models that allow you to experiment with different network conditions and message delivery guarantees.</p><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>Delivery models control how messages are delivered between processes in your protocol. You can use:</p><ul><li><strong>Global models</strong>: Apply the same model to all processes</li><li><strong>Process-specific models</strong>: Different processes can use different delivery models</li><li><strong>Hybrid configurations</strong>: Mix and match models for heterogeneous networks</li></ul><h2 id="Available-Models"><a class="docs-heading-anchor" href="#Available-Models">Available Models</a><a id="Available-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Available-Models" title="Permalink"></a></h2><h3 id="1.-Standard-Model-(Default)"><a class="docs-heading-anchor" href="#1.-Standard-Model-(Default)">1. Standard Model (Default)</a><a id="1.-Standard-Model-(Default)-1"></a><a class="docs-heading-anchor-permalink" href="#1.-Standard-Model-(Default)" title="Permalink"></a></h3><p>Classic probabilistic delivery where each message is delivered independently with probability <code>p</code>.</p><p><strong>Syntax:</strong></p><pre><code class="nohighlight hljs">MODEL:
+    standard</code></pre><p><strong>Characteristics:</strong></p><ul><li>Each message has independent probability <code>p</code> of delivery</li><li>Default behavior if no MODEL section specified</li><li>Best for simulating typical unreliable networks</li></ul><p><strong>Example:</strong></p><pre><code class="language-julia hljs">protocol&quot;&quot;&quot;
+PROTOCOL MyProtocol
+...
+MODEL:
+    standard
+...
+&quot;&quot;&quot;</code></pre><h3 id="2.-Guaranteed-Model"><a class="docs-heading-anchor" href="#2.-Guaranteed-Model">2. Guaranteed Model</a><a id="2.-Guaranteed-Model-1"></a><a class="docs-heading-anchor-permalink" href="#2.-Guaranteed-Model" title="Permalink"></a></h3><p>Ensures a minimum number of messages are delivered, either per round or across the entire execution.</p><p><strong>Syntax:</strong></p><pre><code class="nohighlight hljs">MODEL:
+    guaranteed k=&lt;number&gt; scope=&lt;per_round|total&gt;</code></pre><p><strong>Parameters:</strong></p><ul><li><code>k</code>: Minimum number of messages that must be delivered</li><li><code>scope</code>:<ul><li><code>per_round</code>: Guarantee applies to each round individually</li><li><code>total</code>: Guarantee applies to total messages across all rounds</li></ul></li></ul><p><strong>Characteristics:</strong></p><ul><li>Runs that don&#39;t meet the guarantee are filtered out (not counted in statistics)</li><li>May reduce the number of valid repetitions for low <code>p</code> values</li><li>Useful for modeling networks with minimum reliability requirements</li></ul><p><strong>Example:</strong></p><pre><code class="language-julia hljs">protocol&quot;&quot;&quot;
+PROTOCOL ReliableProtocol
+PROCESSES: 4
+...
+MODEL:
+    guaranteed k=3 scope=per_round
+...
+&quot;&quot;&quot;</code></pre><p>This ensures at least 3 messages are delivered in every round. Runs with fewer messages are discarded.</p><h3 id="3.-Broadcast-Model"><a class="docs-heading-anchor" href="#3.-Broadcast-Model">3. Broadcast Model</a><a id="3.-Broadcast-Model-1"></a><a class="docs-heading-anchor-permalink" href="#3.-Broadcast-Model" title="Permalink"></a></h3><p>All-or-nothing delivery per source process. If any message from a process is delivered, all its messages are delivered.</p><p><strong>Syntax:</strong></p><pre><code class="nohighlight hljs">MODEL:
+    broadcast probability=&lt;per_source|uniform&gt;</code></pre><p><strong>Parameters:</strong></p><ul><li><code>probability</code>:<ul><li><code>per_source</code>: Each source independently decides to broadcast with probability <code>p</code></li><li><code>uniform</code>: Global probability <code>p</code> for all sources</li></ul></li></ul><p><strong>Characteristics:</strong></p><ul><li>Correlated delivery: all messages from a source succeed/fail together</li><li>Models broadcast primitives or atomic multicast</li><li>Useful for protocols that rely on complete information from sources</li></ul><p><strong>Example:</strong></p><pre><code class="language-julia hljs">protocol&quot;&quot;&quot;
+PROTOCOL BroadcastProtocol
+PROCESSES: 3
+...
+MODEL:
+    broadcast probability=per_source
+...
+&quot;&quot;&quot;</code></pre><h2 id="Process-Specific-Models"><a class="docs-heading-anchor" href="#Process-Specific-Models">Process-Specific Models</a><a id="Process-Specific-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Process-Specific-Models" title="Permalink"></a></h2><p>You can assign different models to different processes for heterogeneous networks.</p><p><strong>Syntax:</strong></p><pre><code class="nohighlight hljs">MODEL:
+    process &lt;id&gt;: &lt;model_spec&gt;
+    process &lt;id&gt;: &lt;model_spec&gt;
+    ...</code></pre><p><strong>Example:</strong></p><pre><code class="language-julia hljs">protocol&quot;&quot;&quot;
+PROTOCOL HybridProtocol
+PROCESSES: 4
+...
+MODEL:
+    process 1: standard
+    process 2: broadcast
+    process 3: broadcast
+    process 4: guaranteed k=2 scope=per_round
+...
+&quot;&quot;&quot;</code></pre><p>In this configuration:</p><ul><li>Process 1 uses independent delivery</li><li>Processes 2 &amp; 3 use broadcast (all-or-nothing)</li><li>Process 4 guarantees at least 2 messages per round</li></ul><h2 id="Complete-Examples"><a class="docs-heading-anchor" href="#Complete-Examples">Complete Examples</a><a id="Complete-Examples-1"></a><a class="docs-heading-anchor-permalink" href="#Complete-Examples" title="Permalink"></a></h2><h3 id="Example-1:-Comparing-Models-on-AMP-Protocol"><a class="docs-heading-anchor" href="#Example-1:-Comparing-Models-on-AMP-Protocol">Example 1: Comparing Models on AMP Protocol</a><a id="Example-1:-Comparing-Models-on-AMP-Protocol-1"></a><a class="docs-heading-anchor-permalink" href="#Example-1:-Comparing-Models-on-AMP-Protocol" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol
+
+# Standard model
+amp_standard = Protocol(&quot;&quot;&quot;
+PROTOCOL AMP_Standard
+PROCESSES: 3
+STATE: x ∈ {0,1}
+INITIAL VALUES: [0.0, 0.5, 1.0]
+PARAMETERS: y ∈ [0,1] = 0.5
+CHANNEL: stochastic
+MODEL: standard
+UPDATE RULE:
+    EACH ROUND:
+        if received_diff then xᵢ ← y else xᵢ ← x end
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)
+
+# Guaranteed model
+amp_guaranteed = Protocol(&quot;&quot;&quot;
+PROTOCOL AMP_Guaranteed
+PROCESSES: 3
+STATE: x ∈ {0,1}
+INITIAL VALUES: [0.0, 0.5, 1.0]
+PARAMETERS: y ∈ [0,1] = 0.5
+CHANNEL: stochastic
+MODEL: guaranteed k=2 scope=per_round
+UPDATE RULE:
+    EACH ROUND:
+        if received_diff then xᵢ ← y else xᵢ ← x end
+METRICS: discrepancy, consensus
+&quot;&quot;&quot;)
+
+# Run and compare
+results_std = run_protocol(amp_standard; p_values=0.0:0.1:1.0, repetitions=2000)
+results_gua = run_protocol(amp_guaranteed; p_values=0.0:0.1:1.0, repetitions=2000)
+
+plot_comparison([(&quot;Standard&quot;, results_std), (&quot;Guaranteed k=2&quot;, results_gua)])</code></pre><h3 id="Example-2:-Hybrid-Network-Simulation"><a class="docs-heading-anchor" href="#Example-2:-Hybrid-Network-Simulation">Example 2: Hybrid Network Simulation</a><a id="Example-2:-Hybrid-Network-Simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Example-2:-Hybrid-Network-Simulation" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Simulate a network where some nodes have better connectivity
+heterogeneous = Protocol(&quot;&quot;&quot;
+PROTOCOL HeterogeneousAveraging
+PROCESSES: 6
+STATE: x ∈ ℝ
+INITIAL VALUES: [0.0, 1.0, 2.0, 3.0, 4.0, 5.0]
+CHANNEL: stochastic
+
+MODEL:
+    process 1: standard
+    process 2: standard
+    process 3: broadcast
+    process 4: broadcast
+    process 5: guaranteed k=4 scope=per_round
+    process 6: guaranteed k=4 scope=per_round
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS:
+    discrepancy
+    consensus
+&quot;&quot;&quot;)
+
+results = run_protocol(heterogeneous; p_values=[0.5, 0.7, 0.9], repetitions=1000)
+results_table(results)</code></pre><h2 id="Implementation-Details"><a class="docs-heading-anchor" href="#Implementation-Details">Implementation Details</a><a id="Implementation-Details-1"></a><a class="docs-heading-anchor-permalink" href="#Implementation-Details" title="Permalink"></a></h2><h3 id="How-Guaranteed-Models-Work"><a class="docs-heading-anchor" href="#How-Guaranteed-Models-Work">How Guaranteed Models Work</a><a id="How-Guaranteed-Models-Work-1"></a><a class="docs-heading-anchor-permalink" href="#How-Guaranteed-Models-Work" title="Permalink"></a></h3><p>When using a guaranteed model with <code>scope=per_round</code>:</p><ol><li>Protocol runs normally</li><li>After each round, delivered messages are counted</li><li>If count &lt; k, the entire run is discarded</li><li>Only runs that satisfy the guarantee contribute to statistics</li></ol><p>This means:</p><ul><li>At low <code>p</code> values, you may get far fewer than requested repetitions</li><li>StochProtocol will attempt up to 100× the requested repetitions</li><li>A warning is issued if insufficient valid runs are found</li></ul><h3 id="Performance-Considerations"><a class="docs-heading-anchor" href="#Performance-Considerations">Performance Considerations</a><a id="Performance-Considerations-1"></a><a class="docs-heading-anchor-permalink" href="#Performance-Considerations" title="Permalink"></a></h3><ul><li><strong>Standard</strong>: Fastest, no filtering needed</li><li><strong>Broadcast</strong>: Slightly faster than standard (fewer random numbers generated)</li><li><strong>Guaranteed</strong>: Slowest for low <code>p</code> (many runs discarded)</li></ul><p>For guaranteed models with strict constraints and low <code>p</code>, consider:</p><ul><li>Increasing repetitions budget</li><li>Using less strict guarantees</li><li>Focusing analysis on higher <code>p</code> values</li></ul><h2 id="Use-Cases"><a class="docs-heading-anchor" href="#Use-Cases">Use Cases</a><a id="Use-Cases-1"></a><a class="docs-heading-anchor-permalink" href="#Use-Cases" title="Permalink"></a></h2><table><tr><th style="text-align: right">Model</th><th style="text-align: right">Best For</th></tr><tr><td style="text-align: right"><strong>Standard</strong></td><td style="text-align: right">General-purpose, typical unreliable networks</td></tr><tr><td style="text-align: right"><strong>Guaranteed</strong></td><td style="text-align: right">Modeling QoS guarantees, studying minimum connectivity requirements</td></tr><tr><td style="text-align: right"><strong>Broadcast</strong></td><td style="text-align: right">Atomic broadcast primitives, correlated failures, gossip protocols</td></tr><tr><td style="text-align: right"><strong>Hybrid</strong></td><td style="text-align: right">Heterogeneous networks, partial broadcast, tiered architectures</td></tr></table><h2 id="Advanced:-Model-Configuration-in-Code"><a class="docs-heading-anchor" href="#Advanced:-Model-Configuration-in-Code">Advanced: Model Configuration in Code</a><a id="Advanced:-Model-Configuration-in-Code-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced:-Model-Configuration-in-Code" title="Permalink"></a></h2><p>You can also inspect and modify delivery models programmatically (for advanced use cases):</p><pre><code class="language-julia hljs"># Models are parsed from the protocol definition
+# and stored in the ProtocolIR structure
+using StochProtocol.DSL.IR: DeliveryModelSpec
+
+# Example: programmatically create a model spec
+spec = DeliveryModelSpec(
+    :guaranteed,  # model type
+    Dict(:min_messages =&gt; 3, :scope =&gt; :per_round),  # parameters
+    nothing  # process_id (nothing = global)
+)</code></pre><h2 id="See-Also"><a class="docs-heading-anchor" href="#See-Also">See Also</a><a id="See-Also-1"></a><a class="docs-heading-anchor-permalink" href="#See-Also" title="Permalink"></a></h2><ul><li><a href="guides/dsl.md">Protocol DSL Reference</a></li><li><a href="guides/experiments.md">Experiments Guide</a></li><li><a href="../examples/delivery_models_demo.jl">Examples</a></li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../experiments/">« Running Experiments</a><a class="docs-footer-nextpage" href="../../examples/overview/">Overview »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 18 December 2025 00:52">Thursday 18 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

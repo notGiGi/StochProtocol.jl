@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Running Experiments · StochProtocol.jl</title><meta name="title" content="Running Experiments · StochProtocol.jl"/><meta property="og:title" content="Running Experiments · StochProtocol.jl"/><meta property="twitter:title" content="Running Experiments · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/guides/experiments/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/guides/experiments/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/guides/experiments/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><a class="tocitem" href="../../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox" checked/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../dsl/">Protocol DSL</a></li><li class="is-active"><a class="tocitem" href>Running Experiments</a><ul class="internal"><li><a class="tocitem" href="#Quick-Start"><span>Quick Start</span></a></li><li><a class="tocitem" href="#run_protocol-Function"><span><code>run_protocol</code> Function</span></a></li><li><a class="tocitem" href="#Configuring-Experiments"><span>Configuring Experiments</span></a></li><li><a class="tocitem" href="#Working-with-Results"><span>Working with Results</span></a></li><li><a class="tocitem" href="#Visualization"><span>Visualization</span></a></li><li><a class="tocitem" href="#Advanced-Usage"><span>Advanced Usage</span></a></li><li><a class="tocitem" href="#Performance-Tips"><span>Performance Tips</span></a></li><li><a class="tocitem" href="#Common-Patterns"><span>Common Patterns</span></a></li><li><a class="tocitem" href="#See-Also"><span>See Also</span></a></li></ul></li><li><a class="tocitem" href="../delivery_models/">Delivery Models</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox"/><label class="tocitem" for="menuitem-5"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../examples/overview/">Overview</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">User Guide</a></li><li class="is-active"><a href>Running Experiments</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Running Experiments</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/guides/experiments.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Running-Experiments"><a class="docs-heading-anchor" href="#Running-Experiments">Running Experiments</a><a id="Running-Experiments-1"></a><a class="docs-heading-anchor-permalink" href="#Running-Experiments" title="Permalink"></a></h1><p>Guide to running simulations and analyzing results with StochProtocol.</p><hr/><h2 id="Quick-Start"><a class="docs-heading-anchor" href="#Quick-Start">Quick Start</a><a id="Quick-Start-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Start" title="Permalink"></a></h2><p>The main function for running experiments is <code>run_protocol</code>:</p><pre><code class="language-julia hljs">using StochProtocol
+
+results = run_protocol(my_protocol;
+    p_values = 0.0:0.1:1.0,
+    rounds = 1,
+    repetitions = 2000,
+    seed = 42
+)</code></pre><hr/><h2 id="run_protocol-Function"><a class="docs-heading-anchor" href="#run_protocol-Function"><code>run_protocol</code> Function</a><a id="run_protocol-Function-1"></a><a class="docs-heading-anchor-permalink" href="#run_protocol-Function" title="Permalink"></a></h2><h3 id="Signature"><a class="docs-heading-anchor" href="#Signature">Signature</a><a id="Signature-1"></a><a class="docs-heading-anchor-permalink" href="#Signature" title="Permalink"></a></h3><pre><code class="language-julia hljs">run_protocol(protocol;
+    p_values = 0:0.05:1,
+    rounds::Int = 1,
+    repetitions::Int = 2000,
+    seed::Union{Int,Nothing} = nothing,
+    consensus_eps::Float64 = 1e-6,
+    debug::Bool = false,
+    trace::Bool = false,
+    trace_limit::Int = 1
+)</code></pre><h3 id="Parameters"><a class="docs-heading-anchor" href="#Parameters">Parameters</a><a id="Parameters-1"></a><a class="docs-heading-anchor-permalink" href="#Parameters" title="Permalink"></a></h3><table><tr><th style="text-align: right">Parameter</th><th style="text-align: right">Type</th><th style="text-align: right">Default</th><th style="text-align: right">Description</th></tr><tr><td style="text-align: right"><code>protocol</code></td><td style="text-align: right"><code>Protocol</code> or <code>String</code></td><td style="text-align: right">-</td><td style="text-align: right">Protocol definition or file path</td></tr><tr><td style="text-align: right"><code>p_values</code></td><td style="text-align: right"><code>Range</code> or <code>Vector</code></td><td style="text-align: right"><code>0:0.05:1</code></td><td style="text-align: right">Delivery probabilities to test</td></tr><tr><td style="text-align: right"><code>rounds</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">Number of communication rounds</td></tr><tr><td style="text-align: right"><code>repetitions</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>2000</code></td><td style="text-align: right">Monte Carlo repetitions per p value</td></tr><tr><td style="text-align: right"><code>seed</code></td><td style="text-align: right"><code>Int</code> or <code>nothing</code></td><td style="text-align: right"><code>nothing</code></td><td style="text-align: right">Random seed (auto if <code>nothing</code>)</td></tr><tr><td style="text-align: right"><code>consensus_eps</code></td><td style="text-align: right"><code>Float64</code></td><td style="text-align: right"><code>1e-6</code></td><td style="text-align: right">Consensus threshold (discrepancy ≤ ε)</td></tr><tr><td style="text-align: right"><code>debug</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>false</code></td><td style="text-align: right">Print debug information</td></tr><tr><td style="text-align: right"><code>trace</code></td><td style="text-align: right"><code>Bool</code></td><td style="text-align: right"><code>false</code></td><td style="text-align: right">Show detailed execution trace</td></tr><tr><td style="text-align: right"><code>trace_limit</code></td><td style="text-align: right"><code>Int</code></td><td style="text-align: right"><code>1</code></td><td style="text-align: right">Max repetitions to trace</td></tr></table><h3 id="Return-Value"><a class="docs-heading-anchor" href="#Return-Value">Return Value</a><a id="Return-Value-1"></a><a class="docs-heading-anchor-permalink" href="#Return-Value" title="Permalink"></a></h3><p>Returns an <code>ExploreRun</code> object containing results for all p values.</p><hr/><h2 id="Configuring-Experiments"><a class="docs-heading-anchor" href="#Configuring-Experiments">Configuring Experiments</a><a id="Configuring-Experiments-1"></a><a class="docs-heading-anchor-permalink" href="#Configuring-Experiments" title="Permalink"></a></h2><h3 id="Probability-Ranges"><a class="docs-heading-anchor" href="#Probability-Ranges">Probability Ranges</a><a id="Probability-Ranges-1"></a><a class="docs-heading-anchor-permalink" href="#Probability-Ranges" title="Permalink"></a></h3><p>Test across different delivery probabilities:</p><pre><code class="language-julia hljs"># Coarse sweep
+results = run_protocol(proto; p_values=0.0:0.2:1.0)
+
+# Fine sweep
+results = run_protocol(proto; p_values=0.0:0.01:1.0)
+
+# Specific values
+results = run_protocol(proto; p_values=[0.5, 0.7, 0.9, 1.0])
+
+# High probability region
+results = run_protocol(proto; p_values=0.8:0.02:1.0)</code></pre><h3 id="Number-of-Rounds"><a class="docs-heading-anchor" href="#Number-of-Rounds">Number of Rounds</a><a id="Number-of-Rounds-1"></a><a class="docs-heading-anchor-permalink" href="#Number-of-Rounds" title="Permalink"></a></h3><p>Control how many communication rounds to simulate:</p><pre><code class="language-julia hljs"># Single round
+results = run_protocol(proto; rounds=1)
+
+# Multiple rounds to study convergence
+results = run_protocol(proto; rounds=10)
+
+# Many rounds for slow protocols
+results = run_protocol(proto; rounds=100)</code></pre><h3 id="Repetitions"><a class="docs-heading-anchor" href="#Repetitions">Repetitions</a><a id="Repetitions-1"></a><a class="docs-heading-anchor-permalink" href="#Repetitions" title="Permalink"></a></h3><p>More repetitions = better statistics but longer runtime:</p><pre><code class="language-julia hljs"># Quick test
+results = run_protocol(proto; repetitions=100)
+
+# Standard analysis
+results = run_protocol(proto; repetitions=2000)
+
+# High-precision analysis
+results = run_protocol(proto; repetitions=10000)</code></pre><p><strong>Guideline:</strong></p><ul><li><strong>100-500</strong>: Quick testing</li><li><strong>1000-2000</strong>: Standard analysis</li><li><strong>5000+</strong>: Publication-quality results</li></ul><h3 id="Random-Seeds"><a class="docs-heading-anchor" href="#Random-Seeds">Random Seeds</a><a id="Random-Seeds-1"></a><a class="docs-heading-anchor-permalink" href="#Random-Seeds" title="Permalink"></a></h3><p>Control reproducibility:</p><pre><code class="language-julia hljs"># Reproducible (same results every time)
+results = run_protocol(proto; seed=42)
+
+# Different seed
+results = run_protocol(proto; seed=123)
+
+# Random (different each run)
+results = run_protocol(proto; seed=nothing)  # default</code></pre><h3 id="Consensus-Threshold"><a class="docs-heading-anchor" href="#Consensus-Threshold">Consensus Threshold</a><a id="Consensus-Threshold-1"></a><a class="docs-heading-anchor-permalink" href="#Consensus-Threshold" title="Permalink"></a></h3><p>Adjust what counts as consensus:</p><pre><code class="language-julia hljs"># Strict consensus (default)
+results = run_protocol(proto; consensus_eps=1e-6)
+
+# Looser consensus
+results = run_protocol(proto; consensus_eps=1e-3)
+
+# Very loose (for noisy protocols)
+results = run_protocol(proto; consensus_eps=0.01)</code></pre><hr/><h2 id="Working-with-Results"><a class="docs-heading-anchor" href="#Working-with-Results">Working with Results</a><a id="Working-with-Results-1"></a><a class="docs-heading-anchor-permalink" href="#Working-with-Results" title="Permalink"></a></h2><h3 id="Viewing-Results"><a class="docs-heading-anchor" href="#Viewing-Results">Viewing Results</a><a id="Viewing-Results-1"></a><a class="docs-heading-anchor-permalink" href="#Viewing-Results" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Beautiful table in Jupyter
+results_table(results)
+
+# With custom protocol name
+results_table(results; protocol_name=&quot;My Protocol&quot;)
+
+# Summary statistics
+summary(results)
+
+# Raw data access
+for result in results
+    println(&quot;p=$(result.p): E[D]=$(result.mean_discrepancy)&quot;)
+end</code></pre><h3 id="Extracting-Data"><a class="docs-heading-anchor" href="#Extracting-Data">Extracting Data</a><a id="Extracting-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Extracting-Data" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Get all p values tested
+p_vals = [r.p for r in results]
+
+# Get expected discrepancies
+E_D = [r.mean_discrepancy for r in results]
+
+# Get consensus probabilities
+P_consensus = [r.consensus_probability for r in results]
+
+# Get number of repetitions (useful for guaranteed models)
+reps = [r.repetitions for r in results]</code></pre><hr/><h2 id="Visualization"><a class="docs-heading-anchor" href="#Visualization">Visualization</a><a id="Visualization-1"></a><a class="docs-heading-anchor-permalink" href="#Visualization" title="Permalink"></a></h2><h3 id="Discrepancy-vs-Probability"><a class="docs-heading-anchor" href="#Discrepancy-vs-Probability">Discrepancy vs Probability</a><a id="Discrepancy-vs-Probability-1"></a><a class="docs-heading-anchor-permalink" href="#Discrepancy-vs-Probability" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol
+
+plot_discrepancy_vs_p(results;
+    title = &quot;Protocol Performance&quot;,
+    xlabel = &quot;Delivery Probability p&quot;,
+    ylabel = &quot;Expected Discrepancy E[D]&quot;,
+    save_path = &quot;results.png&quot;  # Optional: save to file
+)</code></pre><p><strong>Options:</strong></p><ul><li><code>title</code>: Plot title</li><li><code>xlabel</code>, <code>ylabel</code>: Axis labels</li><li><code>save_path</code>: Save to file (PNG, PDF, SVG)</li><li><code>size</code>: Plot dimensions (default: <code>(800, 600)</code>)</li><li><code>dpi</code>: Resolution (default: 300)</li></ul><h3 id="Consensus-vs-Probability"><a class="docs-heading-anchor" href="#Consensus-vs-Probability">Consensus vs Probability</a><a id="Consensus-vs-Probability-1"></a><a class="docs-heading-anchor-permalink" href="#Consensus-vs-Probability" title="Permalink"></a></h3><pre><code class="language-julia hljs">plot_consensus_vs_p(results;
+    title = &quot;Consensus Probability&quot;,
+    save_path = &quot;consensus.png&quot;
+)</code></pre><h3 id="Comparing-Multiple-Protocols"><a class="docs-heading-anchor" href="#Comparing-Multiple-Protocols">Comparing Multiple Protocols</a><a id="Comparing-Multiple-Protocols-1"></a><a class="docs-heading-anchor-permalink" href="#Comparing-Multiple-Protocols" title="Permalink"></a></h3><pre><code class="language-julia hljs">results_amp = run_protocol(amp; p_values=0.0:0.1:1.0)
+results_fv = run_protocol(fv; p_values=0.0:0.1:1.0)
+
+plot_comparison([
+    (&quot;AMP&quot;, results_amp),
+    (&quot;FV&quot;, results_fv)
+];
+    title = &quot;Protocol Comparison&quot;,
+    save_path = &quot;comparison.png&quot;
+)</code></pre><hr/><h2 id="Advanced-Usage"><a class="docs-heading-anchor" href="#Advanced-Usage">Advanced Usage</a><a id="Advanced-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Advanced-Usage" title="Permalink"></a></h2><h3 id="Debugging"><a class="docs-heading-anchor" href="#Debugging">Debugging</a><a id="Debugging-1"></a><a class="docs-heading-anchor-permalink" href="#Debugging" title="Permalink"></a></h3><p>Enable debug mode to see what&#39;s happening:</p><pre><code class="language-julia hljs">results = run_protocol(proto;
+    p_values = [0.5],
+    repetitions = 10,
+    debug = true
+)</code></pre><h3 id="Execution-Traces"><a class="docs-heading-anchor" href="#Execution-Traces">Execution Traces</a><a id="Execution-Traces-1"></a><a class="docs-heading-anchor-permalink" href="#Execution-Traces" title="Permalink"></a></h3><p>See detailed round-by-round execution:</p><pre><code class="language-julia hljs">results = run_protocol(proto;
+    p_values = [0.7],
+    repetitions = 5,
+    trace = true,
+    trace_limit = 2  # Only trace first 2 repetitions
+)</code></pre><p>Output shows:</p><ul><li>State before each round</li><li>Messages received</li><li>State after update</li><li>Discrepancy and consensus status</li></ul><h3 id="Parameter-Sweeps"><a class="docs-heading-anchor" href="#Parameter-Sweeps">Parameter Sweeps</a><a id="Parameter-Sweeps-1"></a><a class="docs-heading-anchor-permalink" href="#Parameter-Sweeps" title="Permalink"></a></h3><p>Explore protocol behavior across parameter spaces:</p><pre><code class="language-julia hljs">using StochProtocol
+
+function make_amp(y_val)
+    return Protocol(&quot;&quot;&quot;
+    PROTOCOL AMP_y$y_val
+    PROCESSES: 2
+    STATE: x ∈ {0,1}
+    INITIAL VALUES: [0.0, 1.0]
+    PARAMETERS: y = $y_val
+    CHANNEL: stochastic
+    UPDATE RULE:
+        EACH ROUND:
+            if received_diff then xᵢ ← y else xᵢ ← x end
+    METRICS: discrepancy, consensus
+    &quot;&quot;&quot;)
+end
+
+for y in 0.0:0.1:1.0
+    proto = make_amp(y)
+    results = run_protocol(proto; p_values=0.5:0.1:1.0, repetitions=1000)
+    println(&quot;y=$y, E[D] at p=0.8: $(results[7].mean_discrepancy)&quot;)
+end</code></pre><h3 id="Batch-Analysis"><a class="docs-heading-anchor" href="#Batch-Analysis">Batch Analysis</a><a id="Batch-Analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Batch-Analysis" title="Permalink"></a></h3><p>Run multiple experiments efficiently:</p><pre><code class="language-julia hljs">protocols = [
+    (&quot;AMP&quot;, amp_protocol),
+    (&quot;FV&quot;, fv_protocol),
+    (&quot;MIN&quot;, min_protocol)
+]
+
+all_results = []
+
+for (name, proto) in protocols
+    println(&quot;Running $name...&quot;)
+    results = run_protocol(proto;
+        p_values = 0.0:0.05:1.0,
+        repetitions = 2000,
+        seed = 42
+    )
+    push!(all_results, (name, results))
+
+    # Save individual results
+    plot_discrepancy_vs_p(results;
+        title = &quot;$name Protocol&quot;,
+        save_path = &quot;$(name)_results.png&quot;
+    )
+end
+
+# Compare all
+results_comparison_table(all_results)</code></pre><hr/><h2 id="Performance-Tips"><a class="docs-heading-anchor" href="#Performance-Tips">Performance Tips</a><a id="Performance-Tips-1"></a><a class="docs-heading-anchor-permalink" href="#Performance-Tips" title="Permalink"></a></h2><h3 id="Optimize-Repetitions"><a class="docs-heading-anchor" href="#Optimize-Repetitions">Optimize Repetitions</a><a id="Optimize-Repetitions-1"></a><a class="docs-heading-anchor-permalink" href="#Optimize-Repetitions" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Start with fewer repetitions during development
+dev_results = run_protocol(proto; p_values=0.0:0.2:1.0, repetitions=100)
+
+# Scale up for final analysis
+final_results = run_protocol(proto; p_values=0.0:0.05:1.0, repetitions=5000)</code></pre><h3 id="Reduce-p-value-Granularity"><a class="docs-heading-anchor" href="#Reduce-p-value-Granularity">Reduce p-value Granularity</a><a id="Reduce-p-value-Granularity-1"></a><a class="docs-heading-anchor-permalink" href="#Reduce-p-value-Granularity" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Coarse first
+quick = run_protocol(proto; p_values=0.0:0.1:1.0, repetitions=500)
+
+# Then zoom into interesting regions
+detailed = run_protocol(proto; p_values=0.7:0.01:0.9, repetitions=2000)</code></pre><h3 id="Guaranteed-Models"><a class="docs-heading-anchor" href="#Guaranteed-Models">Guaranteed Models</a><a id="Guaranteed-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Guaranteed-Models" title="Permalink"></a></h3><p>For guaranteed delivery models, you may need more attempts:</p><pre><code class="language-julia hljs"># Standard model: 2000 repetitions = 2000 valid runs
+# Guaranteed model at low p: may need 100x attempts to get 2000 valid runs
+
+results = run_protocol(guaranteed_proto;
+    p_values = 0.3:0.1:1.0,  # Start from higher p
+    repetitions = 1000        # May get fewer than 1000 at low p
+)</code></pre><hr/><h2 id="Common-Patterns"><a class="docs-heading-anchor" href="#Common-Patterns">Common Patterns</a><a id="Common-Patterns-1"></a><a class="docs-heading-anchor-permalink" href="#Common-Patterns" title="Permalink"></a></h2><h3 id="Quick-Test"><a class="docs-heading-anchor" href="#Quick-Test">Quick Test</a><a id="Quick-Test-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Test" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Fast test during development
+test = run_protocol(my_proto;
+    p_values = [0.5, 0.9],
+    repetitions = 100,
+    seed = 42
+)</code></pre><h3 id="Publication-Analysis"><a class="docs-heading-anchor" href="#Publication-Analysis">Publication Analysis</a><a id="Publication-Analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Publication-Analysis" title="Permalink"></a></h3><pre><code class="language-julia hljs"># High-quality results for papers
+final = run_protocol(my_proto;
+    p_values = 0.0:0.02:1.0,
+    repetitions = 5000,
+    seed = 42
+)
+
+plot_discrepancy_vs_p(final;
+    title = &quot;Protocol Performance&quot;,
+    save_path = &quot;figure1.pdf&quot;,
+    dpi = 300
+)</code></pre><h3 id="Convergence-Study"><a class="docs-heading-anchor" href="#Convergence-Study">Convergence Study</a><a id="Convergence-Study-1"></a><a class="docs-heading-anchor-permalink" href="#Convergence-Study" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Study how many rounds needed
+for rounds in [1, 5, 10, 20, 50]
+    results = run_protocol(proto;
+        rounds = rounds,
+        p_values = 0.7:0.1:1.0,
+        repetitions = 1000
+    )
+    println(&quot;Rounds=$rounds, E[D] at p=0.9: $(results[3].mean_discrepancy)&quot;)
+end</code></pre><hr/><h2 id="See-Also"><a class="docs-heading-anchor" href="#See-Also">See Also</a><a id="See-Also-1"></a><a class="docs-heading-anchor-permalink" href="#See-Also" title="Permalink"></a></h2><ul><li><a href="../dsl/">Protocol DSL</a> - Define protocols</li><li><a href="../delivery_models/">Delivery Models</a> - Communication models</li><li><a href="visualization.md">Visualization Guide</a> - Plotting and tables</li><li><a href="../../api/core/">API Reference</a> - Function details</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../dsl/">« Protocol DSL</a><a class="docs-footer-nextpage" href="../delivery_models/">Delivery Models »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 18 December 2025 00:52">Thursday 18 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
