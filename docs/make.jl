@@ -11,6 +11,7 @@ makedocs(
         sidebar_sitename = false,
         size_threshold = 512000,
         collapselevel = 1,
+        ansicolor = true,
     ),
     modules = [StochProtocol],
     pages = [
