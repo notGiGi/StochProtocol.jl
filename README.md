@@ -66,7 +66,7 @@ plot_discrepancy_vs_p(results; save_path="amp.png")
 
 ## Documentation
 
-Full documentation is available at [notGiGi.github.io/StochProtocol.jl](https://notGiGi.github.io/StochProtocol.jl/)
+Full documentation is available at [notGiGi.github.io/StochProtocol.jl](https://notgigi.github.io/StochProtocol.jl/dev/)
 
 
 ## Example Notebooks
