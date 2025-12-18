@@ -1,28 +1,46 @@
 # Protocol DSL Reference
 
-Complete reference for the StochProtocol protocol specification language.
+*Complete reference for the StochProtocol protocol specification language*
 
 ---
 
 ## Overview
 
-The Protocol DSL lets you define distributed consensus protocols using mathematical notation that mirrors research papers. No boilerplate code—just the essential protocol logic.
+The Protocol DSL lets you define distributed consensus protocols using **mathematical notation** that mirrors research papers.
+
+```@raw html
+<div class="admonition is-info">
+    <div class="admonition-header">✨ Design Philosophy</div>
+    <p><strong>No boilerplate code—just the essential protocol logic.</strong> Write protocols the way you think about them, using the same notation you'd use in a paper.</p>
+</div>
+```
 
 ### Basic Structure
 
 ```julia
-PROTOCOL <Name>
-PROCESSES: <N>
-STATE: <variable> ∈ <domain>
-INITIAL VALUES: [v1, v2, ..., vN]  # OR
-INITIAL: <expression>
-PARAMETERS: <params>
-CHANNEL: stochastic
-MODEL: <delivery_model>
+PROTOCOL <Name>                      # Protocol identifier
+PROCESSES: <N>                       # Number of processes
+STATE: <variable> ∈ <domain>         # State variable and domain
+INITIAL VALUES: [v1, v2, ..., vN]    # Explicit initial values
+  # OR
+INITIAL: <expression>                # Formula-based initialization
+
+PARAMETERS: <params>                 # Optional parameters
+CHANNEL: stochastic                  # Channel type
+MODEL: <delivery_model>              # Optional delivery model
+
 UPDATE RULE:
-    <phase>:
-        <rule>
-METRICS: <metric1>, <metric2>
+    <phase>:                         # When to execute
+        <rule>                       # How to update state
+
+METRICS: <metric1>, <metric2>        # What to measure
+```
+
+```@raw html
+<div class="admonition is-success">
+    <div class="admonition-header">💡 Quick Tip</div>
+    <p>Start with the simplest possible protocol, then add complexity incrementally. Every section except PARAMETERS and MODEL is required.</p>
+</div>
 ```
 
 ---

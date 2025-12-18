@@ -1,10 +1,17 @@
 # Running Experiments
 
-Guide to running simulations and analyzing results with StochProtocol.
+*Complete guide to running simulations and analyzing results with StochProtocol*
 
 ---
 
 ## Quick Start
+
+```@raw html
+<div class="admonition is-info">
+    <div class="admonition-header">🎯 Main Function</div>
+    <p>The primary entry point for all experiments is <code>run_protocol</code>. It handles Monte Carlo simulation, statistical analysis, and result aggregation automatically.</p>
+</div>
+```
 
 The main function for running experiments is `run_protocol`:
 
@@ -108,10 +115,16 @@ results = run_protocol(proto; repetitions=2000)
 results = run_protocol(proto; repetitions=10000)
 ```
 
-**Guideline:**
-- **100-500**: Quick testing
-- **1000-2000**: Standard analysis
-- **5000+**: Publication-quality results
+```@raw html
+<div class="admonition is-success">
+    <div class="admonition-header">📊 Repetition Guidelines</div>
+    <ul style="margin: 0.5rem 0;">
+        <li><strong>100-500</strong>: Quick testing during development</li>
+        <li><strong>1000-2000</strong>: Standard analysis for most use cases</li>
+        <li><strong>5000+</strong>: Publication-quality, high-precision results</li>
+    </ul>
+</div>
+```
 
 ### Random Seeds
 

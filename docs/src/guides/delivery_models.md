@@ -1,10 +1,22 @@
 # Delivery Models in StochProtocol
 
+*Flexible communication models for realistic network simulation*
+
+---
+
 StochProtocol supports multiple communication delivery models that allow you to experiment with different network conditions and message delivery guarantees.
 
 ## Overview
 
-Delivery models control how messages are delivered between processes in your protocol. You can use:
+```@raw html
+<div class="admonition is-info">
+    <div class="admonition-header">🎯 Why Delivery Models Matter</div>
+    <p>Different delivery models capture different assumptions about network behavior: simple probabilistic channels, guaranteed delivery semantics, broadcast primitives, or complex hybrid scenarios. Choose the model that matches your research question.</p>
+</div>
+```
+
+Delivery models control how messages are delivered between processes in your protocol:
+
 - **Global models**: Apply the same model to all processes
 - **Process-specific models**: Different processes can use different delivery models
 - **Hybrid configurations**: Mix and match models for heterogeneous networks

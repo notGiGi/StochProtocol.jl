@@ -1,6 +1,13 @@
 # Examples
 
-Collection of example protocols and use cases for StochProtocol.
+*Real-world protocols and use cases to get you started*
+
+```@raw html
+<div class="admonition is-success">
+    <div class="admonition-header">💡 Learning Path</div>
+    <p>Start with the <strong>Hello World</strong> example to understand the basics, then explore <strong>Classic Protocols</strong> for common patterns, and finally dive into <strong>Advanced Examples</strong> for research-grade implementations.</p>
+</div>
+```
 
 ---
 
