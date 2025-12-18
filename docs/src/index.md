@@ -1,16 +1,6 @@
 # StochProtocol.jl
 
-```@raw html
-<div style="text-align: center; margin: 2rem 0 3rem 0; padding: 3rem 2rem; background: var(--bg-2); border-radius: 12px; border: 2px solid var(--border);">
-    <p style="font-size: 1.5rem; color: var(--text-1); font-weight: 400; margin: 0; line-height: 1.6;">
-        Beautiful simulation framework for distributed consensus<br>under stochastic communication
-    </p>
-    <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-        <a href="quickstart/" style="display: inline-block; padding: 0.875rem 2rem; background: var(--gradient); color: white; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Get Started</a>
-        <a href="https://github.com/notGiGi/StochProtocol.jl" style="display: inline-block; padding: 0.875rem 2rem; background: transparent; border: 2px solid var(--primary); color: var(--primary); border-radius: 8px; font-weight: 600;">View on GitHub</a>
-    </div>
-</div>
-```
+*Beautiful simulation framework for distributed consensus under stochastic communication*
 
 ---
 
@@ -57,9 +47,6 @@ That's it. No event loops, no network simulation, no manual statistics—StochPr
     <div class="feature-card">
         <h3>Declarative Protocol Design</h3>
         <p>Write protocols in paper-like mathematical notation. No coding required for protocol logic.</p>
-        <pre style="margin-top: 1rem; font-size: 0.85rem;">UPDATE RULE:
-    EACH ROUND:
-        xᵢ ← avg(inbox_with_self)</pre>
     </div>
 
     <div class="feature-card">
@@ -74,8 +61,8 @@ That's it. No event loops, no network simulation, no manual statistics—StochPr
 
     <div class="feature-card">
         <h3>Research-Grade Features</h3>
-        <ul style="margin: 0.5rem 0;">
-            <li>Multiple delivery models (standard, guaranteed, broadcast)</li>
+        <ul>
+            <li>Multiple delivery models</li>
             <li>Process-specific configurations</li>
             <li>Multi-round dynamics tracking</li>
             <li>Protocol comparison tools</li>
@@ -138,10 +125,6 @@ plot_discrepancy_vs_p(results;
 
 ## Key Features
 
-```@raw html
-<div style="overflow-x: auto; margin: 2rem 0;">
-```
-
 | Feature | Description |
 |---------|-------------|
 | **Protocol DSL** | Paper-like syntax with full Julia expressions |
@@ -150,60 +133,6 @@ plot_discrepancy_vs_p(results;
 | **Visualization** | Built-in plotting and table generation |
 | **Monte Carlo** | Automatic statistical analysis over thousands of runs |
 | **Comparison** | Side-by-side protocol performance analysis |
-
-```@raw html
-</div>
-```
-
----
-
-## Learn More
-
-```@raw html
-<div class="feature-grid">
-    <a href="quickstart/" style="text-decoration: none; color: inherit;">
-        <div class="feature-card" style="border-left: 4px solid var(--accent-green);">
-            <h4 style="color: var(--accent-green); margin-top: 0;">Quick Start</h4>
-            <p style="font-size: 0.95rem; color: var(--text-secondary);">Get up and running in 5 minutes</p>
-        </div>
-    </a>
-
-    <a href="guides/dsl/" style="text-decoration: none; color: inherit;">
-        <div class="feature-card" style="border-left: 4px solid var(--brand-primary);">
-            <h4 style="color: var(--brand-primary); margin-top: 0;">Protocol DSL</h4>
-            <p style="font-size: 0.95rem; color: var(--text-secondary);">Complete language reference</p>
-        </div>
-    </a>
-
-    <a href="guides/delivery_models/" style="text-decoration: none; color: inherit;">
-        <div class="feature-card" style="border-left: 4px solid var(--accent-orange);">
-            <h4 style="color: var(--accent-orange); margin-top: 0;">Delivery Models</h4>
-            <p style="font-size: 0.95rem; color: var(--text-secondary);">Communication model options</p>
-        </div>
-    </a>
-
-    <a href="examples/overview/" style="text-decoration: none; color: inherit;">
-        <div class="feature-card" style="border-left: 4px solid var(--accent-blue);">
-            <h4 style="color: var(--accent-blue); margin-top: 0;">Examples</h4>
-            <p style="font-size: 0.95rem; color: var(--text-secondary);">Real protocols from research papers</p>
-        </div>
-    </a>
-
-    <a href="api/core/" style="text-decoration: none; color: inherit;">
-        <div class="feature-card" style="border-left: 4px solid var(--accent-purple);">
-            <h4 style="color: var(--accent-purple); margin-top: 0;">API Reference</h4>
-            <p style="font-size: 0.95rem; color: var(--text-secondary);">Complete function documentation</p>
-        </div>
-    </a>
-
-    <a href="guides/experiments/" style="text-decoration: none; color: inherit;">
-        <div class="feature-card" style="border-left: 4px solid var(--accent-pink);">
-            <h4 style="color: var(--accent-pink); margin-top: 0;">Running Experiments</h4>
-            <p style="font-size: 0.95rem; color: var(--text-secondary);">Simulation and analysis guide</p>
-        </div>
-    </a>
-</div>
-```
 
 ---
 
