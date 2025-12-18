@@ -69,59 +69,59 @@
 /* ============================================
    DARK THEME VARIABLES
    ============================================ */
-:root[data-theme="documenter-dark"],
-:root[data-theme="catppuccin-mocha"],
-:root[data-theme="catppuccin-macchiato"],
-:root[data-theme="catppuccin-frappe"] {
+html[data-theme="documenter-dark"],
+html[data-theme="catppuccin-mocha"],
+html[data-theme="catppuccin-macchiato"],
+html[data-theme="catppuccin-frappe"] {
     /* Brand Colors - Adjusted for dark mode */
-    --brand-primary: #818cf8;
-    --brand-primary-hover: #a5b4fc;
-    --brand-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    --brand-gradient-subtle: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+    --brand-primary: #818cf8 !important;
+    --brand-primary-hover: #a5b4fc !important;
+    --brand-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+    --brand-gradient-subtle: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%) !important;
 
     /* Accent Colors */
-    --accent-blue: #60a5fa;
-    --accent-purple: #a78bfa;
-    --accent-pink: #f472b6;
-    --accent-green: #34d399;
-    --accent-orange: #fbbf24;
+    --accent-blue: #60a5fa !important;
+    --accent-purple: #a78bfa !important;
+    --accent-pink: #f472b6 !important;
+    --accent-green: #34d399 !important;
+    --accent-orange: #fbbf24 !important;
 
     /* Text Colors */
-    --text-primary: #f1f5f9;
-    --text-secondary: #cbd5e1;
-    --text-tertiary: #94a3b8;
-    --text-link: #a5b4fc;
-    --text-link-hover: #c7d2fe;
+    --text-primary: #f1f5f9 !important;
+    --text-secondary: #cbd5e1 !important;
+    --text-tertiary: #94a3b8 !important;
+    --text-link: #a5b4fc !important;
+    --text-link-hover: #c7d2fe !important;
 
     /* Background Colors */
-    --bg-primary: #0f172a;
-    --bg-secondary: #1e293b;
-    --bg-tertiary: #334155;
-    --bg-code: #0d1117;
-    --bg-code-inline: #1e293b;
-    --bg-elevated: #1e293b;
-    --bg-glass: rgba(30, 41, 59, 0.8);
+    --bg-primary: #0f172a !important;
+    --bg-secondary: #1e293b !important;
+    --bg-tertiary: #334155 !important;
+    --bg-code: #0d1117 !important;
+    --bg-code-inline: #1e293b !important;
+    --bg-elevated: #1e293b !important;
+    --bg-glass: rgba(30, 41, 59, 0.8) !important;
 
     /* Border Colors */
-    --border-primary: #334155;
-    --border-secondary: #475569;
-    --border-accent: #818cf8;
+    --border-primary: #334155 !important;
+    --border-secondary: #475569 !important;
+    --border-accent: #818cf8 !important;
 
     /* Code Colors */
-    --code-text: #e2e8f0;
-    --code-keyword: #c792ea;
-    --code-string: #c3e88d;
-    --code-number: #f78c6c;
-    --code-comment: #546e7a;
+    --code-text: #e2e8f0 !important;
+    --code-keyword: #c792ea !important;
+    --code-string: #c3e88d !important;
+    --code-number: #f78c6c !important;
+    --code-comment: #546e7a !important;
 
     /* Shadows - Stronger for dark mode */
-    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6);
-    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    --shadow-glow: 0 0 30px rgba(129, 140, 248, 0.4);
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important;
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4) !important;
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4) !important;
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5) !important;
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6) !important;
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+    --shadow-glow: 0 0 30px rgba(129, 140, 248, 0.4) !important;
 }
 
 /* ============================================
@@ -156,6 +156,34 @@ body {
     background-color: var(--bg-secondary) !important;
     border-right: 1px solid var(--border-primary) !important;
     backdrop-filter: blur(var(--blur-sm));
+}
+
+/* Force all text elements to use theme colors */
+#documenter .content p,
+#documenter .content li,
+#documenter .content td,
+#documenter .content span:not([class*="hljs"]) {
+    color: var(--text-secondary) !important;
+}
+
+#documenter .content h1,
+#documenter .content h2,
+#documenter .content h3,
+#documenter .content h4,
+#documenter .content h5,
+#documenter .content h6,
+#documenter .content strong,
+#documenter .content b {
+    color: var(--text-primary) !important;
+}
+
+/* Override Documenter's default backgrounds */
+#documenter .content {
+    background-color: var(--bg-primary) !important;
+}
+
+#documenter article {
+    background-color: var(--bg-primary) !important;
 }
 
 /* ============================================
@@ -963,9 +991,59 @@ article.content h2:first-of-type {
     margin-top: 3rem !important;
 }
 
-/* Better code block on light mode */
-@media (prefers-color-scheme: light) {
-    :root:not([data-theme="documenter-dark"]):not([data-theme="catppuccin-mocha"]):not([data-theme="catppuccin-macchiato"]):not([data-theme="catppuccin-frappe"]) {
-        --code-text: #f8f8f2;
-    }
+/* ============================================
+   COMPREHENSIVE THEME OVERRIDES
+   ============================================ */
+
+/* Ensure all Documenter elements respect theme */
+html[data-theme="documenter-dark"] body,
+html[data-theme="catppuccin-mocha"] body,
+html[data-theme="catppuccin-macchiato"] body,
+html[data-theme="catppuccin-frappe"] body {
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+html[data-theme="documenter-dark"] #documenter .docs-main,
+html[data-theme="catppuccin-mocha"] #documenter .docs-main,
+html[data-theme="catppuccin-macchiato"] #documenter .docs-main,
+html[data-theme="catppuccin-frappe"] #documenter .docs-main {
+    background-color: var(--bg-primary) !important;
+}
+
+html[data-theme="documenter-dark"] #documenter .docs-sidebar,
+html[data-theme="catppuccin-mocha"] #documenter .docs-sidebar,
+html[data-theme="catppuccin-macchiato"] #documenter .docs-sidebar,
+html[data-theme="catppuccin-frappe"] #documenter .docs-sidebar {
+    background-color: var(--bg-secondary) !important;
+    border-right: 1px solid var(--border-primary) !important;
+}
+
+/* Fix all headings in dark mode */
+html[data-theme="documenter-dark"] h1,
+html[data-theme="documenter-dark"] h2,
+html[data-theme="documenter-dark"] h3,
+html[data-theme="documenter-dark"] h4,
+html[data-theme="catppuccin-mocha"] h1,
+html[data-theme="catppuccin-mocha"] h2,
+html[data-theme="catppuccin-mocha"] h3,
+html[data-theme="catppuccin-mocha"] h4 {
+    color: var(--text-primary) !important;
+}
+
+/* Fix inline code in both modes */
+html[data-theme="documenter-dark"] code:not(pre code),
+html[data-theme="catppuccin-mocha"] code:not(pre code),
+html[data-theme="catppuccin-macchiato"] code:not(pre code),
+html[data-theme="catppuccin-frappe"] code:not(pre code) {
+    background-color: var(--bg-code-inline) !important;
+    color: var(--brand-primary) !important;
+    border: 1px solid var(--border-primary) !important;
+}
+
+html[data-theme="documenter-light"] code:not(pre code),
+html[data-theme="catppuccin-latte"] code:not(pre code) {
+    background-color: var(--bg-code-inline) !important;
+    color: var(--brand-primary) !important;
+    border: 1px solid var(--border-primary) !important;
 }
