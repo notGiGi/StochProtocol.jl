@@ -36,50 +36,30 @@ plot_discrepancy_vs_p(results)
 results_table(results)
 ```
 
-That's it. No event loops, no network simulation, no manual statistics—StochProtocol handles it all.
-
 ---
 
 ## Why StochProtocol?
 
-```@raw html
-<div class="feature-grid">
-    <div class="feature-card">
-        <h3>Declarative Protocol Design</h3>
-        <p>Write protocols in paper-like mathematical notation. No coding required for protocol logic.</p>
-    </div>
+### Declarative Protocol Design
+Write protocols in paper-like mathematical notation. No coding required for protocol logic.
 
-    <div class="feature-card">
-        <h3>Automatic Monte Carlo</h3>
-        <p>Run thousands of randomized experiments automatically. Get statistical distributions with a single function call.</p>
-    </div>
+### Automatic Monte Carlo
+Run thousands of randomized experiments automatically. Get statistical distributions with a single function call.
 
-    <div class="feature-card">
-        <h3>Publication-Ready Output</h3>
-        <p>Beautiful interactive tables and plots ready for your papers and presentations.</p>
-    </div>
+### Publication-Ready Output
+Beautiful interactive tables and plots ready for your papers and presentations.
 
-    <div class="feature-card">
-        <h3>Research-Grade Features</h3>
-        <ul>
-            <li>Multiple delivery models</li>
-            <li>Process-specific configurations</li>
-            <li>Multi-round dynamics tracking</li>
-            <li>Protocol comparison tools</li>
-        </ul>
-    </div>
+### Research-Grade Features
+- Multiple delivery models (standard, guaranteed, broadcast)
+- Process-specific configurations
+- Multi-round dynamics tracking
+- Protocol comparison tools
 
-    <div class="feature-card">
-        <h3>Fast & Efficient</h3>
-        <p>Optimized Julia core with deterministic RNG for reproducibility. Simulate thousands of runs in seconds.</p>
-    </div>
+### Fast & Efficient
+Optimized Julia core with deterministic RNG for reproducibility. Simulate thousands of runs in seconds.
 
-    <div class="feature-card">
-        <h3>Flexible Delivery Models</h3>
-        <p>Standard probabilistic, guaranteed delivery, broadcast semantics, or mix-and-match per process.</p>
-    </div>
-</div>
-```
+### Flexible Delivery Models
+Standard probabilistic, guaranteed delivery, broadcast semantics, or mix-and-match per process.
 
 ---
 
