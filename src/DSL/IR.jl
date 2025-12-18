@@ -37,6 +37,15 @@ struct ReceivedOtherValue <: ExprIR
 end
 
 """
+Get the value received from a specific process.
+Example: value_from(5)
+Errors if no message was received from that process.
+"""
+struct ValueFrom <: ExprIR
+    sender_id::Int
+end
+
+"""
 Literal numeric value.
 """
 struct LiteralIR <: ExprIR
@@ -58,6 +67,16 @@ Aggregation operation on inbox or all values: sum, avg, min, max, count
 struct AggregateIR <: ExprIR
     op::Symbol  # :sum, :avg, :min, :max, :count
     source::Symbol  # :inbox, :inbox_with_self
+end
+
+"""
+Aggregation filtered by specific sender processes.
+Example: avg(inbox_from(1, 2, 5))
+"""
+struct FilteredAggregateIR <: ExprIR
+    op::Symbol  # :sum, :avg, :min, :max, :count
+    sender_ids::Vector{Int}  # Process IDs to include
+    include_self::Bool  # Whether to include current process value
 end
 
 """
@@ -99,6 +118,14 @@ struct ReceivedDiffIR <: InboxPredicateIR
     var::Symbol
 end
 struct IsLeaderPredicate <: InboxPredicateIR end
+
+"""
+Predicate: received message from a specific process.
+Example: received_from(5)
+"""
+struct ReceivedFrom <: InboxPredicateIR
+    sender_id::Int
+end
 
 """
 Comparison predicate: >, <, >=, <=, ==, !=

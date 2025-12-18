@@ -1,6 +1,6 @@
 module Parser
 
-using ..IR: ProtocolIR, IfReceivedDiffIR, SelfValue, MeetingPoint, ReceivedOtherValue, SimpleOpIR, UpdateIR, ExprIR, UpdatePhaseIR, InboxPredicateIR, ReceivedAny, ReceivedDiffIR, ReceivedAll, ReceivedAtLeast, ReceivedMajority, ConditionalIR, ConditionalElseIR, IsLeaderPredicate, AssignIR, VarIR, IndexedVarIR, LiteralIR, BinOpIR, AggregateIR, ComparisonIR, LogicalOpIR, DeliveryModelSpec
+using ..IR: ProtocolIR, IfReceivedDiffIR, SelfValue, MeetingPoint, ReceivedOtherValue, SimpleOpIR, UpdateIR, ExprIR, UpdatePhaseIR, InboxPredicateIR, ReceivedAny, ReceivedDiffIR, ReceivedAll, ReceivedAtLeast, ReceivedMajority, ConditionalIR, ConditionalElseIR, IsLeaderPredicate, AssignIR, VarIR, IndexedVarIR, LiteralIR, BinOpIR, AggregateIR, ComparisonIR, LogicalOpIR, DeliveryModelSpec, ReceivedFrom, ValueFrom, FilteredAggregateIR
 
 # Parsing utilities for the paper-like DSL. The parser is a small, explicit
 # state machine over the expected sections to keep error messages friendly.
@@ -158,6 +158,13 @@ function parse_expr(text::AbstractString, line_no::Int)::ExprIR
         return parse_aggregate(t, line_no)
     end
 
+    # value_from(process_id)
+    if startswith(t_lower, "value_from")
+        m = match(r"value_from\((\d+)\)", t_lower)
+        m === nothing && error("Error in UPDATE RULE (line $line_no): value_from requires process ID (integer)")
+        return ValueFrom(parse(Int, m.captures[1]))
+    end
+
     # Parenthesized expressions
     if startswith(t, "(") && endswith(t, ")")
         return parse_expr(t[2:end-1], line_no)
@@ -184,8 +191,17 @@ function parse_expr(text::AbstractString, line_no::Int)::ExprIR
 end
 
 # Parse aggregation functions like sum(inbox), avg(inbox), etc.
-function parse_aggregate(text::AbstractString, line_no::Int)::AggregateIR
+function parse_aggregate(text::AbstractString, line_no::Int)::ExprIR
     t_lower = lowercase(strip(text))
+
+    # Check for filtered aggregation: op(inbox_from(1, 2, 3))
+    m_filtered = match(r"^(sum|avg|min|max|count)\s*\(\s*inbox_from\s*\(([\d,\s]+)\)\s*\)$", t_lower)
+    if m_filtered !== nothing
+        op = Symbol(m_filtered.captures[1])
+        ids_str = m_filtered.captures[2]
+        sender_ids = [parse(Int, strip(s)) for s in split(ids_str, ',')]
+        return FilteredAggregateIR(op, sender_ids, false)  # include_self = false
+    end
 
     # Match pattern: function_name(source)
     m = match(r"^(sum|avg|min|max|count)\s*\(\s*(\w+)\s*\)$", t_lower)
@@ -868,6 +884,10 @@ function parse_predicate_expr(text::AbstractString, line_no::Int)::InboxPredicat
         return ReceivedMajority()
     elseif t == "self is leader"
         return IsLeaderPredicate()
+    elseif startswith(t, "received_from")
+        m2 = match(r"received_from\((\d+)\)", t)
+        m2 === nothing && error("received_from requires process ID (integer) on line $line_no")
+        return ReceivedFrom(parse(Int, m2.captures[1]))
     else
         error("Invalid inbox predicate '$t' on line $line_no")
     end

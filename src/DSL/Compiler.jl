@@ -1,6 +1,6 @@
 module Compiler
 
-using ..IR: ProtocolIR, UpdateIR, UpdatePhaseIR, IfReceivedDiffIR, SelfValue, MeetingPoint, ReceivedOtherValue, SimpleOpIR, ExprIR, InboxPredicateIR, ReceivedAny, ReceivedDiffIR, ReceivedAll, ReceivedAtLeast, ReceivedMajority, IsLeaderPredicate, ConditionalIR, ConditionalElseIR, AssignIR, VarIR, IndexedVarIR, LiteralIR, BinOpIR, AggregateIR, ComparisonIR, LogicalOpIR
+using ..IR: ProtocolIR, UpdateIR, UpdatePhaseIR, IfReceivedDiffIR, SelfValue, MeetingPoint, ReceivedOtherValue, SimpleOpIR, ExprIR, InboxPredicateIR, ReceivedAny, ReceivedDiffIR, ReceivedAll, ReceivedAtLeast, ReceivedMajority, IsLeaderPredicate, ConditionalIR, ConditionalElseIR, AssignIR, VarIR, IndexedVarIR, LiteralIR, BinOpIR, AggregateIR, ComparisonIR, LogicalOpIR, ReceivedFrom, ValueFrom, FilteredAggregateIR
 using ...Core: NodeId, Inbox, Message
 using ...Protocols: Protocol, ProtocolInstance
 using ...Channels: BernoulliChannel, ChannelModel
@@ -61,6 +61,9 @@ function apply_protocol(state::Dict{Symbol,Any}, inbox::Inbox, params::Dict{Symb
 
     inbox_values, diff_values = collect_inbox_values(inbox, x_self)
     diff_flag = !isempty(diff_values)
+
+    # Add inbox to params for new features
+    protocol_params[:inbox] = inbox
 
     new_x = x_self
     for phase in phases
@@ -181,6 +184,43 @@ function evaluate_expr(expr::ReceivedOtherValue, x_self::Float64, diff_values::V
     return uniques[1]
 end
 
+function evaluate_expr(expr::ValueFrom, x_self::Float64, diff_values::Vector{Float64}, inbox_values::Vector{Float64}, params::Dict{Symbol,Any}, leader_id, num_nodes, node_id)
+    inbox = get(params, :inbox, Message[])::Inbox
+    msgs = filter(m -> m.sender == expr.sender_id, inbox)
+    isempty(msgs) && error("value_from($(expr.sender_id)) used but no message received from process $(expr.sender_id)")
+    return Float64(msgs[1].payload)
+end
+
+function evaluate_expr(expr::FilteredAggregateIR, x_self::Float64, diff_values::Vector{Float64}, inbox_values::Vector{Float64}, params::Dict{Symbol,Any}, leader_id, num_nodes, node_id)
+    inbox = get(params, :inbox, Message[])::Inbox
+
+    # Filter messages by sender IDs
+    filtered_msgs = filter(m -> m.sender in expr.sender_ids, inbox)
+    values = [Float64(m.payload) for m in filtered_msgs]
+
+    # Include self if requested
+    if expr.include_self
+        push!(values, x_self)
+    end
+
+    isempty(values) && error("Cannot aggregate over empty set (no messages from specified processes)")
+
+    # Apply aggregation operation
+    if expr.op == :sum
+        return sum(values)
+    elseif expr.op == :avg
+        return sum(values) / length(values)
+    elseif expr.op == :min
+        return minimum(values)
+    elseif expr.op == :max
+        return maximum(values)
+    elseif expr.op == :count
+        return Float64(length(values))
+    else
+        error("Unknown aggregation operator: $(expr.op)")
+    end
+end
+
 function evaluate_expr(expr::LiteralIR, x_self::Float64, diff_values::Vector{Float64}, inbox_values::Vector{Float64}, params::Dict{Symbol,Any}, leader_id, num_nodes, node_id)
     return expr.value
 end
@@ -231,7 +271,10 @@ function evaluate_expr(expr::AggregateIR, x_self::Float64, diff_values::Vector{F
 end
 
 function evaluate_predicate(pred::InboxPredicateIR, inbox_values::Vector{Float64}, diff_values::Vector{Float64}, num_nodes::Int, leader_id, node_id::Int, params::Dict{Symbol,Any}, x_self::Float64)
-    if pred isa ReceivedAny
+    if pred isa ReceivedFrom
+        inbox = get(params, :inbox, Message[])::Inbox
+        return any(m.sender == pred.sender_id for m in inbox)
+    elseif pred isa ReceivedAny
         return !isempty(inbox_values)
     elseif pred isa ReceivedDiffIR
         # Use snapshot if provided; otherwise fallback to current x_self.
