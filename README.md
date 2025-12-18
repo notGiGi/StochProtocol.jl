@@ -4,12 +4,23 @@
 
 [![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://notGiGi.github.io/StochProtocol.jl/)
 [![GitHub Actions](https://github.com/notGiGi/StochProtocol.jl/workflows/Documentation/badge.svg)](https://github.com/notGiGi/StochProtocol.jl/actions)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/notGiGi/StochProtocol.jl/main?urlpath=pluto/open?path=notebooks/interactive_example.jl)
 
 ## Overview
 
 StochProtocol.jl is a Julia framework for researchers and engineers working on distributed consensus algorithms. Define protocols in clean, mathematical notation and analyze their behavior under unreliable communication.
 
 ## Quick Start
+
+### Try it Now - No Installation Required
+
+Click the badge below to launch an interactive notebook in your browser:
+
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/notGiGi/StochProtocol.jl/main?urlpath=pluto/open?path=notebooks/interactive_example.jl)
+
+No account needed. Just click and wait 1-2 minutes for the environment to load.
+
+### Or Install Locally
 
 ```julia
 using Pkg
