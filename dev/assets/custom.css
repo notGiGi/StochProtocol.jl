@@ -42,27 +42,64 @@
 :root[data-theme="catppuccin-macchiato"],
 :root[data-theme="catppuccin-frappe"] {
     /* Brand */
-    --primary: #818cf8;
-    --primary-hover: #a5b4fc;
+    --primary: #818cf8 !important;
+    --primary-hover: #a5b4fc !important;
 
     /* Text */
-    --text-1: #f1f5f9;
-    --text-2: #cbd5e1;
-    --text-3: #94a3b8;
+    --text-1: #f1f5f9 !important;
+    --text-2: #cbd5e1 !important;
+    --text-3: #94a3b8 !important;
 
     /* Backgrounds */
-    --bg-1: #0f172a;
-    --bg-2: #1e293b;
-    --bg-3: #334155;
+    --bg-1: #0f172a !important;
+    --bg-2: #1e293b !important;
+    --bg-3: #334155 !important;
 
     /* Borders */
-    --border: #334155;
+    --border: #334155 !important;
 
     /* Code */
-    --code-bg: #1a1b26;
-    --code-text: #c0caf5;
-    --code-inline-bg: #1e293b;
-    --code-inline-text: #a5b4fc;
+    --code-bg: #1a1b26 !important;
+    --code-text: #c0caf5 !important;
+    --code-inline-bg: #1e293b !important;
+    --code-inline-text: #a5b4fc !important;
+}
+
+/* Force dark mode backgrounds */
+:root[data-theme="documenter-dark"] body,
+:root[data-theme="catppuccin-mocha"] body,
+:root[data-theme="catppuccin-macchiato"] body,
+:root[data-theme="catppuccin-frappe"] body {
+    background: #0f172a !important;
+    color: #f1f5f9 !important;
+}
+
+:root[data-theme="documenter-dark"] #documenter,
+:root[data-theme="catppuccin-mocha"] #documenter,
+:root[data-theme="catppuccin-macchiato"] #documenter,
+:root[data-theme="catppuccin-frappe"] #documenter {
+    background: #0f172a !important;
+}
+
+:root[data-theme="documenter-dark"] #documenter .docs-main,
+:root[data-theme="catppuccin-mocha"] #documenter .docs-main,
+:root[data-theme="catppuccin-macchiato"] #documenter .docs-main,
+:root[data-theme="catppuccin-frappe"] #documenter .docs-main {
+    background: #0f172a !important;
+}
+
+:root[data-theme="documenter-dark"] article,
+:root[data-theme="catppuccin-mocha"] article,
+:root[data-theme="catppuccin-macchiato"] article,
+:root[data-theme="catppuccin-frappe"] article {
+    background: #0f172a !important;
+}
+
+:root[data-theme="documenter-dark"] #documenter .docs-sidebar,
+:root[data-theme="catppuccin-mocha"] #documenter .docs-sidebar,
+:root[data-theme="catppuccin-macchiato"] #documenter .docs-sidebar,
+:root[data-theme="catppuccin-frappe"] #documenter .docs-sidebar {
+    background: #1e293b !important;
 }
 
 /* ============================================
