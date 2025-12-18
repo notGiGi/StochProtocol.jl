@@ -49,8 +49,8 @@ That's it. No event loops, no network simulation, no manual statistics—StochPr
 ## Why StochProtocol?
 
 ```@raw html
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-    <div class="feature-box">
+<div class="feature-grid">
+    <div class="feature-card">
         <h3>Declarative Protocol Design</h3>
         <p>Write protocols in paper-like mathematical notation. No coding required for protocol logic.</p>
         <pre style="margin-top: 1rem; font-size: 0.85rem;">UPDATE RULE:
@@ -58,17 +58,17 @@ That's it. No event loops, no network simulation, no manual statistics—StochPr
         xᵢ ← avg(inbox_with_self)</pre>
     </div>
 
-    <div class="feature-box">
+    <div class="feature-card">
         <h3>Automatic Monte Carlo</h3>
         <p>Run thousands of randomized experiments automatically. Get statistical distributions with a single function call.</p>
     </div>
 
-    <div class="feature-box">
+    <div class="feature-card">
         <h3>Publication-Ready Output</h3>
         <p>Beautiful interactive tables and plots ready for your papers and presentations.</p>
     </div>
 
-    <div class="feature-box">
+    <div class="feature-card">
         <h3>Research-Grade Features</h3>
         <ul style="margin: 0.5rem 0;">
             <li>Multiple delivery models (standard, guaranteed, broadcast)</li>
@@ -78,12 +78,12 @@ That's it. No event loops, no network simulation, no manual statistics—StochPr
         </ul>
     </div>
 
-    <div class="feature-box">
+    <div class="feature-card">
         <h3>Fast & Efficient</h3>
         <p>Optimized Julia core with deterministic RNG for reproducibility. Simulate thousands of runs in seconds.</p>
     </div>
 
-    <div class="feature-box">
+    <div class="feature-card">
         <h3>Flexible Delivery Models</h3>
         <p>Standard probabilistic, guaranteed delivery, broadcast semantics, or mix-and-match per process.</p>
     </div>
@@ -156,45 +156,45 @@ plot_discrepancy_vs_p(results;
 ## Learn More
 
 ```@raw html
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0;">
+<div class="feature-grid">
     <a href="quickstart/" style="text-decoration: none; color: inherit;">
-        <div class="feature-box" style="border-left: 4px solid #10b981;">
-            <h4 style="color: #10b981; margin-top: 0;">Quick Start</h4>
+        <div class="feature-card" style="border-left: 4px solid var(--accent-green);">
+            <h4 style="color: var(--accent-green); margin-top: 0;">Quick Start</h4>
             <p style="font-size: 0.95rem; color: var(--text-secondary);">Get up and running in 5 minutes</p>
         </div>
     </a>
 
     <a href="guides/dsl/" style="text-decoration: none; color: inherit;">
-        <div class="feature-box" style="border-left: 4px solid #6366f1;">
-            <h4 style="color: #6366f1; margin-top: 0;">Protocol DSL</h4>
+        <div class="feature-card" style="border-left: 4px solid var(--brand-primary);">
+            <h4 style="color: var(--brand-primary); margin-top: 0;">Protocol DSL</h4>
             <p style="font-size: 0.95rem; color: var(--text-secondary);">Complete language reference</p>
         </div>
     </a>
 
     <a href="guides/delivery_models/" style="text-decoration: none; color: inherit;">
-        <div class="feature-box" style="border-left: 4px solid #f59e0b;">
-            <h4 style="color: #f59e0b; margin-top: 0;">Delivery Models</h4>
+        <div class="feature-card" style="border-left: 4px solid var(--accent-orange);">
+            <h4 style="color: var(--accent-orange); margin-top: 0;">Delivery Models</h4>
             <p style="font-size: 0.95rem; color: var(--text-secondary);">Communication model options</p>
         </div>
     </a>
 
     <a href="examples/overview/" style="text-decoration: none; color: inherit;">
-        <div class="feature-box" style="border-left: 4px solid #06b6d4;">
-            <h4 style="color: #06b6d4; margin-top: 0;">Examples</h4>
+        <div class="feature-card" style="border-left: 4px solid var(--accent-blue);">
+            <h4 style="color: var(--accent-blue); margin-top: 0;">Examples</h4>
             <p style="font-size: 0.95rem; color: var(--text-secondary);">Real protocols from research papers</p>
         </div>
     </a>
 
     <a href="api/core/" style="text-decoration: none; color: inherit;">
-        <div class="feature-box" style="border-left: 4px solid #8b5cf6;">
-            <h4 style="color: #8b5cf6; margin-top: 0;">API Reference</h4>
+        <div class="feature-card" style="border-left: 4px solid var(--accent-purple);">
+            <h4 style="color: var(--accent-purple); margin-top: 0;">API Reference</h4>
             <p style="font-size: 0.95rem; color: var(--text-secondary);">Complete function documentation</p>
         </div>
     </a>
 
     <a href="guides/experiments/" style="text-decoration: none; color: inherit;">
-        <div class="feature-box" style="border-left: 4px solid #ef4444;">
-            <h4 style="color: #ef4444; margin-top: 0;">Running Experiments</h4>
+        <div class="feature-card" style="border-left: 4px solid var(--accent-pink);">
+            <h4 style="color: var(--accent-pink); margin-top: 0;">Running Experiments</h4>
             <p style="font-size: 0.95rem; color: var(--text-secondary);">Simulation and analysis guide</p>
         </div>
     </a>
