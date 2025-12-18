@@ -3,6 +3,7 @@
 *Simulation and analysis of distributed consensus protocols under stochastic communication*
 
 [![Documentation](https://img.shields.io/badge/docs-stable-blue.svg)](https://notGiGi.github.io/StochProtocol.jl/)
+[![GitHub Actions](https://github.com/notGiGi/StochProtocol.jl/workflows/Documentation/badge.svg)](https://github.com/notGiGi/StochProtocol.jl/actions)
 
 ## Overview
 
