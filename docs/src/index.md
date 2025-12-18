@@ -1,10 +1,14 @@
 # StochProtocol.jl
 
 ```@raw html
-<div style="text-align: center; margin: 2rem 0;">
-    <p style="font-size: 1.4rem; color: var(--text-secondary); font-weight: 300; margin-top: 0;">
-        Beautiful simulation framework for distributed consensus under stochastic communication
+<div style="text-align: center; margin: 2rem 0 3rem 0; padding: 3rem 2rem; background: var(--brand-gradient-subtle); border-radius: 16px; border: 2px solid var(--border-primary);">
+    <p style="font-size: 1.5rem; color: var(--text-primary); font-weight: 400; margin: 0; line-height: 1.6;">
+        Beautiful simulation framework for distributed consensus<br>under stochastic communication
     </p>
+    <div style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="quickstart/" style="display: inline-block; padding: 0.875rem 2rem; background: var(--brand-gradient); color: white; border-radius: 8px; font-weight: 600; text-decoration: none; box-shadow: var(--shadow-lg); transition: all 0.2s;">Get Started</a>
+        <a href="https://github.com/notGiGi/StochProtocol.jl" style="display: inline-block; padding: 0.875rem 2rem; background: var(--bg-elevated); border: 2px solid var(--brand-primary); color: var(--brand-primary); border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s;">View on GitHub</a>
+    </div>
 </div>
 ```
 
