@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Fault Models · StochProtocol.jl</title><meta name="title" content="Fault Models · StochProtocol.jl"/><meta property="og:title" content="Fault Models · StochProtocol.jl"/><meta property="twitter:title" content="Fault Models · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/advanced/faults/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/advanced/faults/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/advanced/faults/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><a class="tocitem" href="../../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../guides/dsl/">Protocol DSL</a></li><li><a class="tocitem" href="../../guides/experiments/">Running Experiments</a></li><li><a class="tocitem" href="../../guides/delivery_models/">Delivery Models</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Advanced Features</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../topologies/">Network Topologies</a></li><li class="is-active"><a class="tocitem" href>Fault Models</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Available-Fault-Models"><span>Available Fault Models</span></a></li><li><a class="tocitem" href="#Example:-Byzantine-Tolerance"><span>Example: Byzantine Tolerance</span></a></li><li><a class="tocitem" href="#Example:-Network-Resilience"><span>Example: Network Resilience</span></a></li><li><a class="tocitem" href="#Fault-Checking-Functions"><span>Fault Checking Functions</span></a></li><li><a class="tocitem" href="#Best-Practices"><span>Best Practices</span></a></li><li><a class="tocitem" href="#Theoretical-Bounds"><span>Theoretical Bounds</span></a></li></ul></li><li><a class="tocitem" href="../convergence/">Convergence Analysis</a></li><li><a class="tocitem" href="../tracing/">Tracing &amp; Debugging</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../examples/overview/">Overview</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-7" type="checkbox"/><label class="tocitem" for="menuitem-7"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Advanced Features</a></li><li class="is-active"><a href>Fault Models</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Fault Models</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/advanced/faults.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Fault-Models"><a class="docs-heading-anchor" href="#Fault-Models">Fault Models</a><a id="Fault-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Fault-Models" title="Permalink"></a></h1><p>Test protocol robustness under failures and adversarial conditions.</p><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>Real distributed systems face failures: processes crash, messages get corrupted, networks partition, and malicious actors may exist. The <code>Faults</code> module lets you simulate these scenarios to test protocol resilience.</p><h2 id="Available-Fault-Models"><a class="docs-heading-anchor" href="#Available-Fault-Models">Available Fault Models</a><a id="Available-Fault-Models-1"></a><a class="docs-heading-anchor-permalink" href="#Available-Fault-Models" title="Permalink"></a></h2><h3 id="NoFaults-(Default)"><a class="docs-heading-anchor" href="#NoFaults-(Default)">NoFaults (Default)</a><a id="NoFaults-(Default)-1"></a><a class="docs-heading-anchor-permalink" href="#NoFaults-(Default)" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol
+
+# No faults - all processes behave correctly
+results = run_protocol(protocol;
+    fault_model = NoFaults()
+)</code></pre><h3 id="CrashFaults"><a class="docs-heading-anchor" href="#CrashFaults">CrashFaults</a><a id="CrashFaults-1"></a><a class="docs-heading-anchor-permalink" href="#CrashFaults" title="Permalink"></a></h3><p>Processes crash and stop sending messages permanently.</p><pre><code class="language-julia hljs"># 30% of processes crash at round 5
+results = run_protocol(protocol;
+    fault_model = CrashFaults(
+        crash_prob = 0.3,
+        crash_round = 5
+    ),
+    rounds = 20,
+    repetitions = 1000
+)</code></pre><p><strong>Parameters:</strong></p><ul><li><code>crash_prob</code>: Probability each process crashes (0.0 to 1.0)</li><li><code>crash_round</code>: Round at which crashes occur</li><li><code>seed</code>: Random seed for reproducibility</li></ul><p><strong>Use case</strong>: Server failures, node crashes, power outages.</p><h3 id="ByzantineFaults"><a class="docs-heading-anchor" href="#ByzantineFaults">ByzantineFaults</a><a id="ByzantineFaults-1"></a><a class="docs-heading-anchor-permalink" href="#ByzantineFaults" title="Permalink"></a></h3><p>Malicious processes that send incorrect or adversarial values.</p><pre><code class="language-julia hljs"># Processes 1 and 2 are Byzantine
+results = run_protocol(protocol;
+    fault_model = ByzantineFaults(
+        byzantine_nodes = [1, 2],
+        strategy = :max_value
+    ),
+    rounds = 20
+)</code></pre><p><strong>Strategies:</strong></p><ul><li><code>:max_value</code> - Always send maximum possible value</li><li><code>:min_value</code> - Always send minimum possible value</li><li><code>:random</code> - Send random values</li><li><code>:opposite</code> - Send negated values</li><li><code>:silent</code> - Don&#39;t send any messages</li><li><code>:lie_to_half</code> - Send correct to half, lies to other half</li></ul><p><strong>Use case</strong>: Security attacks, malicious nodes, Byzantine consensus.</p><h3 id="NetworkPartition"><a class="docs-heading-anchor" href="#NetworkPartition">NetworkPartition</a><a id="NetworkPartition-1"></a><a class="docs-heading-anchor-permalink" href="#NetworkPartition" title="Permalink"></a></h3><p>Network splits into disconnected groups.</p><pre><code class="language-julia hljs"># Split network at round 5 for 3 rounds
+results = run_protocol(protocol;
+    fault_model = NetworkPartition(
+        partition_round = 5,
+        partition_duration = 3,
+        groups = [[1,2,3], [4,5,6]]
+    ),
+    rounds = 20
+)</code></pre><p><strong>Parameters:</strong></p><ul><li><code>partition_round</code>: When partition begins</li><li><code>partition_duration</code>: How many rounds it lasts (0 = permanent)</li><li><code>groups</code>: Vector of node groups (processes in different groups can&#39;t communicate)</li></ul><p><strong>Use case</strong>: Network failures, data center outages, split-brain scenarios.</p><h3 id="MessageCorruption"><a class="docs-heading-anchor" href="#MessageCorruption">MessageCorruption</a><a id="MessageCorruption-1"></a><a class="docs-heading-anchor-permalink" href="#MessageCorruption" title="Permalink"></a></h3><p>Messages get corrupted with given probability.</p><pre><code class="language-julia hljs"># 10% of messages get corrupted
+results = run_protocol(protocol;
+    fault_model = MessageCorruption(
+        corruption_prob = 0.1,
+        corruption_type = :random
+    ),
+    rounds = 20
+)</code></pre><p><strong>Corruption types:</strong></p><ul><li><code>:random</code> - Replace with random value</li><li><code>:zero</code> - Replace with zero</li><li><code>:max</code> - Replace with very large value</li><li><code>:flip_bits</code> - Flip bits (for binary values)</li></ul><p><strong>Use case</strong>: Noisy channels, bit errors, data corruption.</p><h3 id="DelayFaults"><a class="docs-heading-anchor" href="#DelayFaults">DelayFaults</a><a id="DelayFaults-1"></a><a class="docs-heading-anchor-permalink" href="#DelayFaults" title="Permalink"></a></h3><p>Messages delayed by multiple rounds.</p><pre><code class="language-julia hljs"># 20% of messages delayed up to 3 rounds
+results = run_protocol(protocol;
+    fault_model = DelayFaults(
+        delay_prob = 0.2,
+        max_delay = 3
+    ),
+    rounds = 30
+)</code></pre><p><strong>Use case</strong>: High latency networks, congestion, buffering.</p><h3 id="TransientFaults"><a class="docs-heading-anchor" href="#TransientFaults">TransientFaults</a><a id="TransientFaults-1"></a><a class="docs-heading-anchor-permalink" href="#TransientFaults" title="Permalink"></a></h3><p>Random faults occurring during a time window.</p><pre><code class="language-julia hljs"># Transient faults between rounds 5-15
+results = run_protocol(protocol;
+    fault_model = TransientFaults(
+        fault_prob = 0.05,
+        start_round = 5,
+        end_round = 15,
+        fault_type = :send_wrong
+    ),
+    rounds = 30
+)</code></pre><p><strong>Fault types:</strong></p><ul><li><code>:send_wrong</code> - Send incorrect value</li><li><code>:skip_update</code> - Don&#39;t update state</li><li><code>:corrupt_state</code> - Corrupt internal state</li></ul><p><strong>Use case</strong>: Temporary glitches, intermittent failures.</p><h3 id="CompositeFaults"><a class="docs-heading-anchor" href="#CompositeFaults">CompositeFaults</a><a id="CompositeFaults-1"></a><a class="docs-heading-anchor-permalink" href="#CompositeFaults" title="Permalink"></a></h3><p>Combine multiple fault models.</p><pre><code class="language-julia hljs"># Multiple faults simultaneously
+results = run_protocol(protocol;
+    fault_model = CompositeFaults([
+        CrashFaults(crash_prob=0.1, crash_round=5),
+        MessageCorruption(corruption_prob=0.05),
+        NetworkPartition(
+            partition_round=10,
+            partition_duration=2,
+            groups=[[1,2,3], [4,5,6]]
+        )
+    ]),
+    rounds = 30
+)</code></pre><p><strong>Use case</strong>: Realistic scenarios with multiple failure types.</p><h2 id="Example:-Byzantine-Tolerance"><a class="docs-heading-anchor" href="#Example:-Byzantine-Tolerance">Example: Byzantine Tolerance</a><a id="Example:-Byzantine-Tolerance-1"></a><a class="docs-heading-anchor-permalink" href="#Example:-Byzantine-Tolerance" title="Permalink"></a></h2><p>Test if a protocol can tolerate Byzantine faults:</p><pre><code class="language-julia hljs">using StochProtocol
+
+protocol = Protocol(&quot;&quot;&quot;
+PROTOCOL ByzantineRobustProtocol
+PROCESSES: 7
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        # Use median instead of average for Byzantine tolerance
+        xᵢ ← median(inbox_with_self)
+
+METRICS:
+    discrepancy
+    consensus
+&quot;&quot;&quot;)
+
+# Test with 2 Byzantine nodes (&lt; n/3)
+results = run_protocol(protocol;
+    fault_model = ByzantineFaults(
+        byzantine_nodes = [1, 2],
+        strategy = :max_value
+    ),
+    p_values = [1.0],
+    rounds = 20,
+    repetitions = 500
+)
+
+results_table(results)
+
+# Compare: can tolerate f &lt; n/3 Byzantine nodes
+# 7 processes → can tolerate 2 Byzantine nodes
+# If 3+ are Byzantine, consensus may fail</code></pre><h2 id="Example:-Network-Resilience"><a class="docs-heading-anchor" href="#Example:-Network-Resilience">Example: Network Resilience</a><a id="Example:-Network-Resilience-1"></a><a class="docs-heading-anchor-permalink" href="#Example:-Network-Resilience" title="Permalink"></a></h2><p>Test recovery from network partition:</p><pre><code class="language-julia hljs"># Temporary partition then recovery
+results = run_protocol(protocol;
+    fault_model = NetworkPartition(
+        partition_round = 5,
+        partition_duration = 5,  # Partition for 5 rounds
+        groups = [[1,2,3,4], [5,6,7,8]]
+    ),
+    rounds = 30,
+    repetitions = 1000
+)
+
+# Analyze: does protocol recover after partition heals?
+plot_discrepancy_vs_p(results)</code></pre><h2 id="Fault-Checking-Functions"><a class="docs-heading-anchor" href="#Fault-Checking-Functions">Fault Checking Functions</a><a id="Fault-Checking-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Fault-Checking-Functions" title="Permalink"></a></h2><h3 id="Check-if-Node-is-Faulty"><a class="docs-heading-anchor" href="#Check-if-Node-is-Faulty">Check if Node is Faulty</a><a id="Check-if-Node-is-Faulty-1"></a><a class="docs-heading-anchor-permalink" href="#Check-if-Node-is-Faulty" title="Permalink"></a></h3><pre><code class="language-julia hljs">fault_model = CrashFaults(crash_prob=0.3, crash_round=5)
+
+# Is process 2 faulty at round 10?
+is_faulty(fault_model, 2, 10)</code></pre><h3 id="Get-Crashed-Nodes"><a class="docs-heading-anchor" href="#Get-Crashed-Nodes">Get Crashed Nodes</a><a id="Get-Crashed-Nodes-1"></a><a class="docs-heading-anchor-permalink" href="#Get-Crashed-Nodes" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Which nodes crashed?
+crashed = crashed_nodes(fault_model, 10)  # 10 total processes</code></pre><h2 id="Best-Practices"><a class="docs-heading-anchor" href="#Best-Practices">Best Practices</a><a id="Best-Practices-1"></a><a class="docs-heading-anchor-permalink" href="#Best-Practices" title="Permalink"></a></h2><ol><li><strong>Start Simple</strong>: Test with <code>NoFaults</code> first, then add faults</li><li><strong>Byzantine Tolerance</strong>: Use median/voting instead of average with Byzantine faults</li><li><strong>Network Partitions</strong>: Test both during partition and after recovery</li><li><strong>Realistic Scenarios</strong>: Use <code>CompositeFaults</code> for real-world modeling</li><li><strong>High Repetitions</strong>: Faults add randomness - use more repetitions (1000+)</li></ol><h2 id="Theoretical-Bounds"><a class="docs-heading-anchor" href="#Theoretical-Bounds">Theoretical Bounds</a><a id="Theoretical-Bounds-1"></a><a class="docs-heading-anchor-permalink" href="#Theoretical-Bounds" title="Permalink"></a></h2><p>Common fault tolerance results:</p><ul><li><strong>Crash failures</strong>: Can tolerate up to f &lt; n crashes with 2f+1 processes</li><li><strong>Byzantine failures</strong>: Requires n ≥ 3f+1 for consensus</li><li><strong>Partitions</strong>: Need majority quorum (&gt; n/2) to make progress</li></ul></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../topologies/">« Network Topologies</a><a class="docs-footer-nextpage" href="../convergence/">Convergence Analysis »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Saturday 20 December 2025 05:14">Saturday 20 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

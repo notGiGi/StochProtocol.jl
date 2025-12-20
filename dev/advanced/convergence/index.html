@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Convergence Analysis · StochProtocol.jl</title><meta name="title" content="Convergence Analysis · StochProtocol.jl"/><meta property="og:title" content="Convergence Analysis · StochProtocol.jl"/><meta property="twitter:title" content="Convergence Analysis · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/advanced/convergence/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/advanced/convergence/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/advanced/convergence/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><a class="tocitem" href="../../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../guides/dsl/">Protocol DSL</a></li><li><a class="tocitem" href="../../guides/experiments/">Running Experiments</a></li><li><a class="tocitem" href="../../guides/delivery_models/">Delivery Models</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Advanced Features</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../topologies/">Network Topologies</a></li><li><a class="tocitem" href="../faults/">Fault Models</a></li><li class="is-active"><a class="tocitem" href>Convergence Analysis</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Convergence-Rate"><span>Convergence Rate</span></a></li><li><a class="tocitem" href="#Time-to-ε-Consensus"><span>Time to ε-Consensus</span></a></li><li><a class="tocitem" href="#Stability-Metric"><span>Stability Metric</span></a></li><li><a class="tocitem" href="#Lyapunov-Function"><span>Lyapunov Function</span></a></li><li><a class="tocitem" href="#Mixing-Time"><span>Mixing Time</span></a></li><li><a class="tocitem" href="#Diameter-Bound-Efficiency"><span>Diameter Bound Efficiency</span></a></li><li><a class="tocitem" href="#Tail-Bound-Analysis"><span>Tail Bound Analysis</span></a></li><li><a class="tocitem" href="#Phase-Transition-Detection"><span>Phase Transition Detection</span></a></li><li><a class="tocitem" href="#Convergence-Probability"><span>Convergence Probability</span></a></li><li><a class="tocitem" href="#Expected-Rounds-to-Consensus"><span>Expected Rounds to Consensus</span></a></li><li><a class="tocitem" href="#Spectral-Gap-Estimate"><span>Spectral Gap Estimate</span></a></li><li><a class="tocitem" href="#Contraction-Factor"><span>Contraction Factor</span></a></li><li><a class="tocitem" href="#Variance-Reduction-Rate"><span>Variance Reduction Rate</span></a></li><li><a class="tocitem" href="#Complete-Example"><span>Complete Example</span></a></li><li><a class="tocitem" href="#Best-Practices"><span>Best Practices</span></a></li></ul></li><li><a class="tocitem" href="../tracing/">Tracing &amp; Debugging</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../examples/overview/">Overview</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-7" type="checkbox"/><label class="tocitem" for="menuitem-7"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Advanced Features</a></li><li class="is-active"><a href>Convergence Analysis</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Convergence Analysis</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/advanced/convergence.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Convergence-Analysis"><a class="docs-heading-anchor" href="#Convergence-Analysis">Convergence Analysis</a><a id="Convergence-Analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Convergence-Analysis" title="Permalink"></a></h1><p>Advanced metrics and analysis tools for understanding protocol convergence behavior.</p><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>Beyond basic discrepancy tracking, the <code>ConvergenceAnalysis</code> module provides sophisticated metrics to characterize convergence speed, stability, and probabilistic guarantees.</p><h2 id="Convergence-Rate"><a class="docs-heading-anchor" href="#Convergence-Rate">Convergence Rate</a><a id="Convergence-Rate-1"></a><a class="docs-heading-anchor-permalink" href="#Convergence-Rate" title="Permalink"></a></h2><p>Estimate exponential decay rate of discrepancy.</p><pre><code class="language-julia hljs">using StochProtocol
+
+results = run_protocol(protocol;
+    p_values = [0.7],
+    rounds = 30,
+    repetitions = 1000
+)
+
+# Extract discrepancy trajectory
+discrepancies = results[1].discrepancy_trace
+
+# Compute convergence rate λ
+# Discrepancy follows: D(t) ≈ D₀ exp(-λt)
+λ = convergence_rate(discrepancies)
+
+println(&quot;Convergence rate: $λ&quot;)
+println(&quot;Half-life: $(log(2)/λ) rounds&quot;)</code></pre><p><strong>Interpretation:</strong></p><ul><li>Higher λ = faster convergence</li><li>λ ≈ 0 = no convergence</li><li>Half-life = rounds to reduce discrepancy by 50%</li></ul><h2 id="Time-to-ε-Consensus"><a class="docs-heading-anchor" href="#Time-to-ε-Consensus">Time to ε-Consensus</a><a id="Time-to-ε-Consensus-1"></a><a class="docs-heading-anchor-permalink" href="#Time-to-ε-Consensus" title="Permalink"></a></h2><p>Find when discrepancy drops below threshold.</p><pre><code class="language-julia hljs"># Rounds to reach 0.01-consensus
+ε = 0.01
+t_consensus = time_to_epsilon_consensus(discrepancies, ε)
+
+println(&quot;Reached ε=$ε at round: $t_consensus&quot;)</code></pre><p>Returns <code>-1</code> if never achieved.</p><h2 id="Stability-Metric"><a class="docs-heading-anchor" href="#Stability-Metric">Stability Metric</a><a id="Stability-Metric-1"></a><a class="docs-heading-anchor-permalink" href="#Stability-Metric" title="Permalink"></a></h2><p>Measure consistency across multiple runs.</p><pre><code class="language-julia hljs"># Run multiple times
+all_trajectories = []
+for i in 1:100
+    result = run_protocol(protocol; p=0.7, rounds=20, seed=UInt32(i))
+    push!(all_trajectories, result.discrepancy_trace)
+end
+
+# Compute stability (lower = more consistent)
+stability = stability_metric(all_trajectories)
+
+println(&quot;Stability score: $stability&quot;)</code></pre><p><strong>Interpretation:</strong></p><ul><li>Low stability = consistent behavior across runs</li><li>High stability = high variance between runs</li></ul><h2 id="Lyapunov-Function"><a class="docs-heading-anchor" href="#Lyapunov-Function">Lyapunov Function</a><a id="Lyapunov-Function-1"></a><a class="docs-heading-anchor-permalink" href="#Lyapunov-Function" title="Permalink"></a></h2><p>Energy-like measure for convergence proofs.</p><pre><code class="language-julia hljs"># Current state of all processes
+states = [1.5, 2.3, 1.9, 2.1]
+
+# Compute Lyapunov function V(x) = Σ(xᵢ - x̄)²
+V = lyapunov_function(states)
+
+# For convergence proofs, show V decreases over time
+state_history = [states_at_round_0, states_at_round_1, ...]
+V_trajectory = lyapunov_function(state_history)
+
+# Should be monotonically decreasing</code></pre><p><strong>Use case:</strong> Formal convergence proofs, theoretical analysis.</p><h2 id="Mixing-Time"><a class="docs-heading-anchor" href="#Mixing-Time">Mixing Time</a><a id="Mixing-Time-1"></a><a class="docs-heading-anchor-permalink" href="#Mixing-Time" title="Permalink"></a></h2><p>Time until distribution is ε-close to stationary (consensus).</p><pre><code class="language-julia hljs">state_history = [
+    [1.0, 2.0, 3.0],  # Round 0
+    [1.5, 2.0, 2.5],  # Round 1
+    [1.8, 2.0, 2.2],  # Round 2
+    # ...
+]
+
+ε = 0.1
+t_mix = mixing_time(state_history, ε)
+
+println(&quot;Mixing time: $t_mix rounds&quot;)</code></pre><h2 id="Diameter-Bound-Efficiency"><a class="docs-heading-anchor" href="#Diameter-Bound-Efficiency">Diameter Bound Efficiency</a><a id="Diameter-Bound-Efficiency-1"></a><a class="docs-heading-anchor-permalink" href="#Diameter-Bound-Efficiency" title="Permalink"></a></h2><p>Compare actual convergence to theoretical bound.</p><pre><code class="language-julia hljs">using StochProtocol
+
+# Run on ring topology
+results = run_protocol(protocol;
+    topology = Ring(),
+    p_values = [0.7],
+    rounds = 50,
+    n_processes = 20,
+    repetitions = 1000
+)
+
+# Get actual convergence time
+actual_rounds = time_to_epsilon_consensus(results[1].discrepancy_trace, 0.01)
+
+# Ring diameter
+topo = Ring()
+d = diameter(topo, 20)  # d = 10 for ring with 20 nodes
+
+p = 0.7
+efficiency = diameter_bound_efficiency(actual_rounds, d, p)
+
+println(&quot;Theoretical bound: $(d/p) rounds&quot;)
+println(&quot;Actual: $actual_rounds rounds&quot;)
+println(&quot;Efficiency ratio: $efficiency&quot;)</code></pre><p><strong>Interpretation:</strong></p><ul><li>Ratio &lt; 1.0 = faster than theoretical bound (tight analysis)</li><li>Ratio ≈ 1.0 = matches theory</li><li>Ratio &gt; 1.0 = slower than expected</li></ul><h2 id="Tail-Bound-Analysis"><a class="docs-heading-anchor" href="#Tail-Bound-Analysis">Tail Bound Analysis</a><a id="Tail-Bound-Analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Tail-Bound-Analysis" title="Permalink"></a></h2><p>Confidence intervals for convergence time.</p><pre><code class="language-julia hljs"># Collect convergence times from many runs
+convergence_times = Int[]
+
+for i in 1:1000
+    result = run_protocol(protocol; p=0.7, rounds=50, seed=UInt32(i))
+    t = time_to_epsilon_consensus(result.discrepancy_trace, 0.01)
+    if t &gt; 0
+        push!(convergence_times, t)
+    end
+end
+
+# Compute 95% confidence interval
+mean_t, lower, upper = tail_bound_analysis(convergence_times; confidence=0.95)
+
+println(&quot;Mean convergence time: $mean_t rounds&quot;)
+println(&quot;95% CI: [$lower, $upper]&quot;)</code></pre><h2 id="Phase-Transition-Detection"><a class="docs-heading-anchor" href="#Phase-Transition-Detection">Phase Transition Detection</a><a id="Phase-Transition-Detection-1"></a><a class="docs-heading-anchor-permalink" href="#Phase-Transition-Detection" title="Permalink"></a></h2><p>Find critical p where convergence behavior changes dramatically.</p><pre><code class="language-julia hljs">p_values = 0.0:0.05:1.0
+convergence_times = Float64[]
+
+for p in p_values
+    result = run_protocol(protocol; p=p, rounds=100, repetitions=500)
+    avg_time = mean([time_to_epsilon_consensus(r.discrepancy_trace, 0.01)
+                     for r in result])
+    push!(convergence_times, avg_time)
+end
+
+# Find phase transition point
+p_critical = phase_transition_detection(p_values, convergence_times)
+
+println(&quot;Phase transition at p ≈ $p_critical&quot;)</code></pre><p><strong>Use case:</strong> Find minimum communication probability needed for efficient convergence.</p><h2 id="Convergence-Probability"><a class="docs-heading-anchor" href="#Convergence-Probability">Convergence Probability</a><a id="Convergence-Probability-1"></a><a class="docs-heading-anchor-permalink" href="#Convergence-Probability" title="Permalink"></a></h2><p>Estimate probability of reaching consensus within time limit.</p><pre><code class="language-julia hljs"># Run many times
+trajectories = [run_protocol(protocol; p=0.6, rounds=20, seed=UInt32(i)).discrepancy_trace
+                for i in 1:1000]
+
+# Probability of 0.01-consensus within 15 rounds
+prob = convergence_probability(trajectories, 0.01, 15)
+
+println(&quot;P(consensus by round 15) = $prob&quot;)</code></pre><h2 id="Expected-Rounds-to-Consensus"><a class="docs-heading-anchor" href="#Expected-Rounds-to-Consensus">Expected Rounds to Consensus</a><a id="Expected-Rounds-to-Consensus-1"></a><a class="docs-heading-anchor-permalink" href="#Expected-Rounds-to-Consensus" title="Permalink"></a></h2><p>Summary statistics for convergence time distribution.</p><pre><code class="language-julia hljs">convergence_times = [time_to_epsilon_consensus(traj, 0.01) for traj in trajectories]
+
+mean_t, median_t, p90, p99 = expected_rounds_to_consensus(convergence_times)
+
+println(&quot;Mean: $mean_t rounds&quot;)
+println(&quot;Median: $median_t rounds&quot;)
+println(&quot;90th percentile: $p90 rounds&quot;)
+println(&quot;99th percentile: $p99 rounds&quot;)</code></pre><p><strong>Interpretation:</strong></p><ul><li><strong>Mean</strong>: Average case</li><li><strong>Median</strong>: Typical case</li><li><strong>90th percentile</strong>: Most runs finish by this time</li><li><strong>99th percentile</strong>: Nearly all runs finish by this time</li></ul><h2 id="Spectral-Gap-Estimate"><a class="docs-heading-anchor" href="#Spectral-Gap-Estimate">Spectral Gap Estimate</a><a id="Spectral-Gap-Estimate-1"></a><a class="docs-heading-anchor-permalink" href="#Spectral-Gap-Estimate" title="Permalink"></a></h2><p>Estimate spectral gap from convergence rate.</p><pre><code class="language-julia hljs">λ = convergence_rate(discrepancies)
+d = diameter(topology, n_processes)
+
+spectral_gap = spectral_gap_estimate(λ, d)
+
+println(&quot;Estimated spectral gap: $spectral_gap&quot;)</code></pre><p><strong>Use case:</strong> Connect empirical observations to theoretical graph properties.</p><h2 id="Contraction-Factor"><a class="docs-heading-anchor" href="#Contraction-Factor">Contraction Factor</a><a id="Contraction-Factor-1"></a><a class="docs-heading-anchor-permalink" href="#Contraction-Factor" title="Permalink"></a></h2><p>Single-round contraction of discrepancy.</p><pre><code class="language-julia hljs">D_before = 10.0
+D_after = 7.5
+
+ρ = contraction_factor(D_before, D_after)
+# ρ = 0.75 means 25% reduction per round</code></pre><p>Average over all rounds:</p><pre><code class="language-julia hljs">avg_ρ = average_contraction(discrepancies)
+
+println(&quot;Average contraction factor: $avg_ρ&quot;)
+println(&quot;Per-round reduction: $(100*(1-avg_ρ))%&quot;)</code></pre><h2 id="Variance-Reduction-Rate"><a class="docs-heading-anchor" href="#Variance-Reduction-Rate">Variance Reduction Rate</a><a id="Variance-Reduction-Rate-1"></a><a class="docs-heading-anchor-permalink" href="#Variance-Reduction-Rate" title="Permalink"></a></h2><p>How quickly variance across processes decreases.</p><pre><code class="language-julia hljs">state_history = [
+    [1.0, 5.0, 3.0, 2.0],  # Round 0
+    [2.0, 4.0, 3.0, 2.5],  # Round 1
+    [2.5, 3.5, 3.0, 2.8],  # Round 2
+    # ...
+]
+
+rate = variance_reduction_rate(state_history)
+
+println(&quot;Variance reduction rate: $rate&quot;)</code></pre><h2 id="Complete-Example"><a class="docs-heading-anchor" href="#Complete-Example">Complete Example</a><a id="Complete-Example-1"></a><a class="docs-heading-anchor-permalink" href="#Complete-Example" title="Permalink"></a></h2><p>Comprehensive convergence analysis:</p><pre><code class="language-julia hljs">using StochProtocol
+
+protocol = Protocol(&quot;&quot;&quot;
+PROTOCOL TestProtocol
+PROCESSES: 10
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS:
+    discrepancy
+&quot;&quot;&quot;)
+
+# Run experiments
+results = run_protocol(protocol;
+    p_values = 0.5:0.1:1.0,
+    rounds = 50,
+    repetitions = 1000
+)
+
+println(&quot;=&quot;^60)
+println(&quot;Convergence Analysis Report&quot;)
+println(&quot;=&quot;^60)
+
+for (i, p) in enumerate(0.5:0.1:1.0)
+    println(&quot;\nCommunication probability p = $p&quot;)
+    println(&quot;-&quot;^40)
+
+    disc = results[i].discrepancy_trace
+
+    # Convergence rate
+    λ = convergence_rate(disc)
+    println(&quot;Convergence rate λ: $(round(λ, digits=4))&quot;)
+    println(&quot;Half-life: $(round(log(2)/λ, digits=2)) rounds&quot;)
+
+    # Time to consensus
+    t_001 = time_to_epsilon_consensus(disc, 0.01)
+    println(&quot;Time to 0.01-consensus: $t_001 rounds&quot;)
+
+    # Contraction
+    ρ = average_contraction(disc)
+    println(&quot;Average contraction: $(round(100*(1-ρ), digits=1))% per round&quot;)
+end
+
+println(&quot;\n&quot; * &quot;=&quot;^60)</code></pre><h2 id="Best-Practices"><a class="docs-heading-anchor" href="#Best-Practices">Best Practices</a><a id="Best-Practices-1"></a><a class="docs-heading-anchor-permalink" href="#Best-Practices" title="Permalink"></a></h2><ol><li><strong>Multiple metrics</strong>: Use several metrics for complete picture</li><li><strong>High repetitions</strong>: Statistical metrics need many samples (1000+)</li><li><strong>Appropriate ε</strong>: Choose epsilon based on application needs</li><li><strong>Compare scenarios</strong>: Analyze across different p, topologies, etc.</li><li><strong>Theoretical validation</strong>: Compare empirical results to known bounds</li></ol></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../faults/">« Fault Models</a><a class="docs-footer-nextpage" href="../tracing/">Tracing &amp; Debugging »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Saturday 20 December 2025 05:14">Saturday 20 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

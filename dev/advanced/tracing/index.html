@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Tracing &amp; Debugging · StochProtocol.jl</title><meta name="title" content="Tracing &amp; Debugging · StochProtocol.jl"/><meta property="og:title" content="Tracing &amp; Debugging · StochProtocol.jl"/><meta property="twitter:title" content="Tracing &amp; Debugging · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/advanced/tracing/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/advanced/tracing/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/advanced/tracing/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><a class="tocitem" href="../../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox"/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../guides/dsl/">Protocol DSL</a></li><li><a class="tocitem" href="../../guides/experiments/">Running Experiments</a></li><li><a class="tocitem" href="../../guides/delivery_models/">Delivery Models</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox" checked/><label class="tocitem" for="menuitem-5"><span class="docs-label">Advanced Features</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../topologies/">Network Topologies</a></li><li><a class="tocitem" href="../faults/">Fault Models</a></li><li><a class="tocitem" href="../convergence/">Convergence Analysis</a></li><li class="is-active"><a class="tocitem" href>Tracing &amp; Debugging</a><ul class="internal"><li><a class="tocitem" href="#Overview"><span>Overview</span></a></li><li><a class="tocitem" href="#Trace-Levels"><span>Trace Levels</span></a></li><li><a class="tocitem" href="#Trace-Execution"><span>Trace Execution</span></a></li><li><a class="tocitem" href="#Trace-Data-Structure"><span>Trace Data Structure</span></a></li><li><a class="tocitem" href="#Message-Flow-Diagram"><span>Message Flow Diagram</span></a></li><li><a class="tocitem" href="#State-Evolution-Table"><span>State Evolution Table</span></a></li><li><a class="tocitem" href="#Trace-Summary"><span>Trace Summary</span></a></li><li><a class="tocitem" href="#Anomaly-Detection"><span>Anomaly Detection</span></a></li><li><a class="tocitem" href="#Filter-Trace"><span>Filter Trace</span></a></li><li><a class="tocitem" href="#Export-Trace"><span>Export Trace</span></a></li><li><a class="tocitem" href="#Example:-Debugging-Convergence-Failure"><span>Example: Debugging Convergence Failure</span></a></li><li><a class="tocitem" href="#Example:-Comparing-Different-Seeds"><span>Example: Comparing Different Seeds</span></a></li><li><a class="tocitem" href="#Best-Practices"><span>Best Practices</span></a></li><li><a class="tocitem" href="#Performance-Notes"><span>Performance Notes</span></a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../examples/overview/">Overview</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-7" type="checkbox"/><label class="tocitem" for="menuitem-7"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Advanced Features</a></li><li class="is-active"><a href>Tracing &amp; Debugging</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Tracing &amp; Debugging</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/advanced/tracing.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Tracing-and-Debugging"><a class="docs-heading-anchor" href="#Tracing-and-Debugging">Tracing &amp; Debugging</a><a id="Tracing-and-Debugging-1"></a><a class="docs-heading-anchor-permalink" href="#Tracing-and-Debugging" title="Permalink"></a></h1><p>Detailed execution tracing and debugging tools for protocol development.</p><h2 id="Overview"><a class="docs-heading-anchor" href="#Overview">Overview</a><a id="Overview-1"></a><a class="docs-heading-anchor-permalink" href="#Overview" title="Permalink"></a></h2><p>The <code>Tracing</code> module provides deep visibility into protocol execution, making it easy to understand exactly what happens at each step, debug unexpected behaviors, and create visualizations.</p><h2 id="Trace-Levels"><a class="docs-heading-anchor" href="#Trace-Levels">Trace Levels</a><a id="Trace-Levels-1"></a><a class="docs-heading-anchor-permalink" href="#Trace-Levels" title="Permalink"></a></h2><p>Control verbosity of tracing:</p><pre><code class="language-julia hljs">using StochProtocol
+
+# Available levels:
+NoTrace()         # No tracing (default)
+BasicTrace()      # Only major events
+DetailedTrace()   # Message-level details
+VerboseTrace()    # Everything including internals
+
+# Enable tracing
+enable_tracing(DetailedTrace())
+
+# Disable tracing
+disable_tracing()
+
+# Change level
+set_trace_level(VerboseTrace())</code></pre><h2 id="Trace-Execution"><a class="docs-heading-anchor" href="#Trace-Execution">Trace Execution</a><a id="Trace-Execution-1"></a><a class="docs-heading-anchor-permalink" href="#Trace-Execution" title="Permalink"></a></h2><p>Run protocol with full execution trace:</p><pre><code class="language-julia hljs">trace = trace_execution(protocol;
+    n_processes = 5,
+    p = 0.7,
+    rounds = 10,
+    seed = UInt32(42)  # For reproducibility
+)</code></pre><p>This returns an <code>ExecutionTrace</code> object containing complete execution history.</p><h2 id="Trace-Data-Structure"><a class="docs-heading-anchor" href="#Trace-Data-Structure">Trace Data Structure</a><a id="Trace-Data-Structure-1"></a><a class="docs-heading-anchor-permalink" href="#Trace-Data-Structure" title="Permalink"></a></h2><pre><code class="language-julia hljs">struct ExecutionTrace
+    protocol_name::String
+    n_processes::Int
+    p_value::Float64
+    seed::UInt32
+    rounds::Vector{RoundTrace}  # Per-round data
+    initial_states::Vector{Float64}
+    final_states::Vector{Float64}
+    total_messages::Int
+    delivered_messages::Int
+    metadata::Dict{String, Any}
+end</code></pre><p>Each round contains:</p><pre><code class="language-julia hljs">struct RoundTrace
+    round::Int
+    messages::Vector{MessageTrace}      # All messages sent/received
+    state_changes::Vector{StateChange}  # State updates
+    discrepancy::Float64
+    consensus_reached::Bool
+    metadata::Dict{String, Any}
+end</code></pre><h2 id="Message-Flow-Diagram"><a class="docs-heading-anchor" href="#Message-Flow-Diagram">Message Flow Diagram</a><a id="Message-Flow-Diagram-1"></a><a class="docs-heading-anchor-permalink" href="#Message-Flow-Diagram" title="Permalink"></a></h2><p>Visualize message passing for a specific round:</p><pre><code class="language-julia hljs"># Show message flow for round 5
+message_flow_diagram(trace; round=5)</code></pre><p>Example output:</p><pre><code class="nohighlight hljs">============================================================
+Message Flow - Round 5
+============================================================
+
+Process 1 (value: 1.450)
+  ✓ P1 ──→ P2  [1.450]
+  ✓ P1 ──→ P3  [1.450]
+  ✗ P1 ─⤫→ P4  [1.450]  # Not delivered
+
+Process 2 (value: 2.300)
+  ✓ P2 ──→ P1  [2.300]
+  ✓ P2 ──→ P3  [2.300]
+
+...
+
+============================================================
+Discrepancy: 0.123456
+Messages: 20 sent, 14 delivered (70.0%)
+============================================================</code></pre><p>Symbols:</p><ul><li><code>✓</code> = Message delivered</li><li><code>✗</code> = Message lost</li><li><code>──→</code> = Successful delivery</li><li><code>─⤫→</code> = Failed delivery</li></ul><h2 id="State-Evolution-Table"><a class="docs-heading-anchor" href="#State-Evolution-Table">State Evolution Table</a><a id="State-Evolution-Table-1"></a><a class="docs-heading-anchor-permalink" href="#State-Evolution-Table" title="Permalink"></a></h2><p>See how each process&#39;s state changes over time:</p><pre><code class="language-julia hljs">state_evolution_table(trace)</code></pre><p>Example output:</p><pre><code class="nohighlight hljs">================================================================================
+State Evolution
+================================================================================
+Round | P1     | P2     | P3     | P4     | P5     | Discrepancy
+--------------------------------------------------------------------------------
+  0   | 1.000  | 2.000  | 3.000  | 4.000  | 5.000  | 4.000000
+  1   | 1.500  | 2.000  | 2.750  | 3.500  | 4.250  | 2.750000
+  2   | 1.750  | 2.125  | 2.500  | 3.125  | 3.625  | 1.875000
+  3   | 2.000  | 2.250  | 2.500  | 2.875  | 3.250  | 1.250000
+  4   | 2.125  | 2.375  | 2.500  | 2.750  | 3.000  | 0.875000
+  5   | 2.250  | 2.438  | 2.562  | 2.688  | 2.875  | 0.625000
+  6   | 2.344  | 2.469  | 2.562  | 2.656  | 2.781  | 0.437000
+  7   | 2.406  | 2.484  | 2.547  | 2.625  | 2.719  | 0.313000
+  8   | 2.445  | 2.492  | 2.531  | 2.594  | 2.672  | 0.227000
+  9   | 2.471  | 2.496  | 2.520  | 2.570  | 2.633  | 0.162000
+ 10   | 2.489  | 2.498  | 2.512  | 2.551  | 2.602  | 0.113000 ✓ CONSENSUS
+================================================================================</code></pre><h2 id="Trace-Summary"><a class="docs-heading-anchor" href="#Trace-Summary">Trace Summary</a><a id="Trace-Summary-1"></a><a class="docs-heading-anchor-permalink" href="#Trace-Summary" title="Permalink"></a></h2><p>High-level overview:</p><pre><code class="language-julia hljs">trace_summary(trace)</code></pre><p>Output:</p><pre><code class="nohighlight hljs">============================================================
+Execution Trace Summary
+============================================================
+Protocol: AveragingProtocol
+Processes: 5
+Delivery probability: 0.70
+Seed: 42
+Rounds executed: 10
+Total messages: 200 sent, 140 delivered (70.0%)
+
+Initial discrepancy: 4.0
+Final discrepancy: 0.113
+Consensus reached: Round 10
+============================================================</code></pre><h2 id="Anomaly-Detection"><a class="docs-heading-anchor" href="#Anomaly-Detection">Anomaly Detection</a><a id="Anomaly-Detection-1"></a><a class="docs-heading-anchor-permalink" href="#Anomaly-Detection" title="Permalink"></a></h2><p>Automatically detect potential issues:</p><pre><code class="language-julia hljs">anomalies = detect_anomalies(trace)
+
+for anomaly in anomalies
+    println(&quot;⚠️  &quot;, anomaly)
+end</code></pre><p>Detects:</p><ul><li>Processes that never receive messages</li><li>Non-decreasing discrepancy (convergence failure)</li><li>Very low delivery rates</li><li>Processes that never update state</li><li>Other unexpected behaviors</li></ul><p>Example output:</p><pre><code class="nohighlight hljs">⚠️  Process 3 never received any messages
+⚠️  Discrepancy increased at round 7
+⚠️  Low delivery rate: 35.0%</code></pre><h2 id="Filter-Trace"><a class="docs-heading-anchor" href="#Filter-Trace">Filter Trace</a><a id="Filter-Trace-1"></a><a class="docs-heading-anchor-permalink" href="#Filter-Trace" title="Permalink"></a></h2><p>Focus on specific process or round:</p><pre><code class="language-julia hljs"># Filter by process
+trace_p3 = filter_trace(trace; process=3)
+
+# Filter by round
+trace_r5 = filter_trace(trace; round=5)
+
+# Both
+trace_p3_r5 = filter_trace(trace; process=3, round=5)</code></pre><h2 id="Export-Trace"><a class="docs-heading-anchor" href="#Export-Trace">Export Trace</a><a id="Export-Trace-1"></a><a class="docs-heading-anchor-permalink" href="#Export-Trace" title="Permalink"></a></h2><p>Save trace for external analysis:</p><pre><code class="language-julia hljs"># Export to JSON
+export_trace(trace, &quot;execution.json&quot;; format=:json)
+
+# Export to CSV
+export_trace(trace, &quot;execution.csv&quot;; format=:csv)</code></pre><h2 id="Example:-Debugging-Convergence-Failure"><a class="docs-heading-anchor" href="#Example:-Debugging-Convergence-Failure">Example: Debugging Convergence Failure</a><a id="Example:-Debugging-Convergence-Failure-1"></a><a class="docs-heading-anchor-permalink" href="#Example:-Debugging-Convergence-Failure" title="Permalink"></a></h2><pre><code class="language-julia hljs">using StochProtocol
+
+protocol = Protocol(&quot;&quot;&quot;
+PROTOCOL DebugProtocol
+PROCESSES: 5
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS:
+    discrepancy
+&quot;&quot;&quot;)
+
+# Enable detailed tracing
+enable_tracing(DetailedTrace())
+
+# Run with low p (might not converge)
+trace = trace_execution(protocol;
+    n_processes = 5,
+    p = 0.2,  # Very low delivery probability
+    rounds = 20,
+    seed = UInt32(123)
+)
+
+# Analyze
+println(&quot;\n📊 TRACE SUMMARY&quot;)
+trace_summary(trace)
+
+println(&quot;\n🔍 DETECTED ANOMALIES&quot;)
+anomalies = detect_anomalies(trace)
+if isempty(anomalies)
+    println(&quot;✅ No anomalies detected&quot;)
+else
+    for anomaly in anomalies
+        println(&quot;⚠️  &quot;, anomaly)
+    end
+end
+
+println(&quot;\n📈 STATE EVOLUTION&quot;)
+state_evolution_table(trace)
+
+# Check specific rounds with issues
+println(&quot;\n📨 MESSAGE FLOW - ROUND 5&quot;)
+message_flow_diagram(trace; round=5)
+
+println(&quot;\n📨 MESSAGE FLOW - ROUND 15&quot;)
+message_flow_diagram(trace; round=15)</code></pre><h2 id="Example:-Comparing-Different-Seeds"><a class="docs-heading-anchor" href="#Example:-Comparing-Different-Seeds">Example: Comparing Different Seeds</a><a id="Example:-Comparing-Different-Seeds-1"></a><a class="docs-heading-anchor-permalink" href="#Example:-Comparing-Different-Seeds" title="Permalink"></a></h2><pre><code class="language-julia hljs"># Trace two runs with different seeds
+trace1 = trace_execution(protocol; p=0.7, rounds=15, seed=UInt32(1))
+trace2 = trace_execution(protocol; p=0.7, rounds=15, seed=UInt32(2))
+
+println(&quot;Run 1:&quot;)
+println(&quot;  Final discrepancy: &quot;, trace1.rounds[end].discrepancy)
+println(&quot;  Consensus at round: &quot;, findfirst(r -&gt; r.consensus_reached, trace1.rounds))
+
+println(&quot;\nRun 2:&quot;)
+println(&quot;  Final discrepancy: &quot;, trace2.rounds[end].discrepancy)
+println(&quot;  Consensus at round: &quot;, findfirst(r -&gt; r.consensus_reached, trace2.rounds))</code></pre><h2 id="Best-Practices"><a class="docs-heading-anchor" href="#Best-Practices">Best Practices</a><a id="Best-Practices-1"></a><a class="docs-heading-anchor-permalink" href="#Best-Practices" title="Permalink"></a></h2><ol><li><strong>Use for Development</strong>: Enable tracing during protocol development</li><li><strong>Disable for Performance</strong>: Turn off tracing for large-scale experiments</li><li><strong>Start with Summary</strong>: Use <code>trace_summary()</code> first, then drill down</li><li><strong>Check Anomalies</strong>: Always run <code>detect_anomalies()</code> on failed runs</li><li><strong>Reproducible Seeds</strong>: Use fixed seeds when debugging</li><li><strong>Filter Large Traces</strong>: Use <code>filter_trace()</code> for protocols with many processes/rounds</li></ol><h2 id="Performance-Notes"><a class="docs-heading-anchor" href="#Performance-Notes">Performance Notes</a><a id="Performance-Notes-1"></a><a class="docs-heading-anchor-permalink" href="#Performance-Notes" title="Permalink"></a></h2><p>Tracing adds overhead:</p><ul><li><strong>NoTrace</strong>: Zero overhead</li><li><strong>BasicTrace</strong>: ~5-10% overhead</li><li><strong>DetailedTrace</strong>: ~20-30% overhead</li><li><strong>VerboseTrace</strong>: ~50%+ overhead</li></ul><p>For production experiments with thousands of repetitions, keep tracing disabled.</p><p>For debugging and understanding, detailed tracing is invaluable.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../convergence/">« Convergence Analysis</a><a class="docs-footer-nextpage" href="../../examples/overview/">Overview »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Saturday 20 December 2025 05:14">Saturday 20 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
