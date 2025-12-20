@@ -23,6 +23,12 @@ makedocs(
             "Running Experiments" => "guides/experiments.md",
             "Delivery Models" => "guides/delivery_models.md",
         ],
+        "Advanced Features" => [
+            "Network Topologies" => "advanced/topologies.md",
+            "Fault Models" => "advanced/faults.md",
+            "Convergence Analysis" => "advanced/convergence.md",
+            "Tracing & Debugging" => "advanced/tracing.md",
+        ],
         "Examples" => [
             "Overview" => "examples/overview.md",
         ],
