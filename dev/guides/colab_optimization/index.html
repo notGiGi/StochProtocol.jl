@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Google Colab Setup · StochProtocol.jl</title><meta name="title" content="Google Colab Setup · StochProtocol.jl"/><meta property="og:title" content="Google Colab Setup · StochProtocol.jl"/><meta property="twitter:title" content="Google Colab Setup · StochProtocol.jl"/><meta name="description" content="Documentation for StochProtocol.jl."/><meta property="og:description" content="Documentation for StochProtocol.jl."/><meta property="twitter:description" content="Documentation for StochProtocol.jl."/><meta property="og:url" content="https://notGiGi.github.io/StochProtocol.jl/guides/colab_optimization/"/><meta property="twitter:url" content="https://notGiGi.github.io/StochProtocol.jl/guides/colab_optimization/"/><link rel="canonical" href="https://notGiGi.github.io/StochProtocol.jl/guides/colab_optimization/"/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script><link href="../../assets/custom.css" rel="stylesheet" type="text/css"/></head><body><div id="documenter"><nav class="docs-sidebar"><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Home</a></li><li><a class="tocitem" href="../../quickstart/">Quick Start</a></li><li><a class="tocitem" href="../../getting_started/">Getting Started</a></li><li><input class="collapse-toggle" id="menuitem-4" type="checkbox" checked/><label class="tocitem" for="menuitem-4"><span class="docs-label">User Guide</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../dsl/">Protocol DSL</a></li><li><a class="tocitem" href="../experiments/">Running Experiments</a></li><li><a class="tocitem" href="../delivery_models/">Delivery Models</a></li><li class="is-active"><a class="tocitem" href>Google Colab Setup</a><ul class="internal"><li><a class="tocitem" href="#Why-is-Colab-Slow?"><span>Why is Colab Slow?</span></a></li><li><a class="tocitem" href="#Quick-Start-(Optimized)"><span>Quick Start (Optimized)</span></a></li><li><a class="tocitem" href="#Manual-Installation-(Fastest-Method)"><span>Manual Installation (Fastest Method)</span></a></li><li><a class="tocitem" href="#Optimization-Tips"><span>Optimization Tips</span></a></li><li><a class="tocitem" href="#Troubleshooting"><span>Troubleshooting</span></a></li><li><a class="tocitem" href="#Comparison:-Colab-vs-Binder-vs-Local"><span>Comparison: Colab vs Binder vs Local</span></a></li><li><a class="tocitem" href="#Recommendation"><span>Recommendation</span></a></li><li><a class="tocitem" href="#Example:-Optimized-Colab-Workflow"><span>Example: Optimized Colab Workflow</span></a></li></ul></li></ul></li><li><input class="collapse-toggle" id="menuitem-5" type="checkbox"/><label class="tocitem" for="menuitem-5"><span class="docs-label">Advanced Features</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../advanced/topologies/">Network Topologies</a></li><li><a class="tocitem" href="../../advanced/faults/">Fault Models</a></li><li><a class="tocitem" href="../../advanced/convergence/">Convergence Analysis</a></li><li><a class="tocitem" href="../../advanced/tracing/">Tracing &amp; Debugging</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-6" type="checkbox"/><label class="tocitem" for="menuitem-6"><span class="docs-label">Examples</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../examples/overview/">Overview</a></li></ul></li><li><input class="collapse-toggle" id="menuitem-7" type="checkbox"/><label class="tocitem" for="menuitem-7"><span class="docs-label">API Reference</span><i class="docs-chevron"></i></label><ul class="collapsed"><li><a class="tocitem" href="../../api/core/">Core Functions</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">User Guide</a></li><li class="is-active"><a href>Google Colab Setup</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Google Colab Setup</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/notGiGi/StochProtocol.jl/blob/main/docs/src/guides/colab_optimization.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Google-Colab-Optimization-Guide"><a class="docs-heading-anchor" href="#Google-Colab-Optimization-Guide">Google Colab Optimization Guide</a><a id="Google-Colab-Optimization-Guide-1"></a><a class="docs-heading-anchor-permalink" href="#Google-Colab-Optimization-Guide" title="Permalink"></a></h1><p>Tips and tricks for using StochProtocol.jl efficiently in Google Colab.</p><h2 id="Why-is-Colab-Slow?"><a class="docs-heading-anchor" href="#Why-is-Colab-Slow?">Why is Colab Slow?</a><a id="Why-is-Colab-Slow?-1"></a><a class="docs-heading-anchor-permalink" href="#Why-is-Colab-Slow?" title="Permalink"></a></h2><p>Google Colab is designed for Python. When using Julia:</p><ul><li>Must download and install Julia runtime (~100 MB)</li><li>Must download all package dependencies (~200-500 MB)</li><li>Must precompile everything from scratch</li><li>Environment resets on disconnect</li></ul><p><strong>First run: ~5-10 minutes</strong> <strong>Subsequent runs (same session): ~30 seconds</strong></p><h2 id="Quick-Start-(Optimized)"><a class="docs-heading-anchor" href="#Quick-Start-(Optimized)">Quick Start (Optimized)</a><a id="Quick-Start-(Optimized)-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Start-(Optimized)" title="Permalink"></a></h2><p>Use our pre-configured notebook:</p><p><a href="https://colab.research.google.com/github/notGiGi/StochProtocol.jl/blob/main/notebooks/colab_quickstart.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a></p><p>This notebook includes:</p><ul><li>Fast Julia installation</li><li>Minimal dependencies</li><li>Optimized precompilation</li><li>Example workflows</li></ul><h2 id="Manual-Installation-(Fastest-Method)"><a class="docs-heading-anchor" href="#Manual-Installation-(Fastest-Method)">Manual Installation (Fastest Method)</a><a id="Manual-Installation-(Fastest-Method)-1"></a><a class="docs-heading-anchor-permalink" href="#Manual-Installation-(Fastest-Method)" title="Permalink"></a></h2><h3 id="Cell-1:-Install-Julia"><a class="docs-heading-anchor" href="#Cell-1:-Install-Julia">Cell 1: Install Julia</a><a id="Cell-1:-Install-Julia-1"></a><a class="docs-heading-anchor-permalink" href="#Cell-1:-Install-Julia" title="Permalink"></a></h3><pre><code class="language-python hljs">%%shell
+# Install Julia 1.10 (only needed first time)
+if [ ! -x &quot;$(command -v julia)&quot; ]; then
+    wget -q https://julialang-s3.julialang.org/bin/linux/x64/1.10/julia-1.10.0-linux-x86_64.tar.gz
+    tar -xzf julia-1.10.0-linux-x86_64.tar.gz
+    sudo mv julia-1.10.0 /opt/julia
+    sudo ln -s /opt/julia/bin/julia /usr/local/bin/julia
+    rm julia-1.10.0-linux-x86_64.tar.gz
+fi
+julia --version</code></pre><h3 id="Cell-2:-Install-StochProtocol-(Fast)"><a class="docs-heading-anchor" href="#Cell-2:-Install-StochProtocol-(Fast)">Cell 2: Install StochProtocol (Fast)</a><a id="Cell-2:-Install-StochProtocol-(Fast)-1"></a><a class="docs-heading-anchor-permalink" href="#Cell-2:-Install-StochProtocol-(Fast)" title="Permalink"></a></h3><pre><code class="language-bash hljs">%%shell
+julia -e &#39;
+using Pkg
+Pkg.activate(temp=true)
+
+# Skip auto-precompilation (do it manually later)
+ENV[&quot;JULIA_PKG_PRECOMPILE_AUTO&quot;] = &quot;0&quot;
+
+# Install from GitHub
+Pkg.add(url=&quot;https://github.com/notGiGi/StochProtocol.jl&quot;)
+Pkg.add(&quot;Plots&quot;)
+
+# Precompile only essentials
+Pkg.precompile([&quot;StochProtocol&quot;, &quot;Plots&quot;])
+&#39;</code></pre><p><strong>Time: ~2-3 minutes</strong> (vs 30+ minutes with standard install)</p><h3 id="Cell-3:-Use-StochProtocol"><a class="docs-heading-anchor" href="#Cell-3:-Use-StochProtocol">Cell 3: Use StochProtocol</a><a id="Cell-3:-Use-StochProtocol-1"></a><a class="docs-heading-anchor-permalink" href="#Cell-3:-Use-StochProtocol" title="Permalink"></a></h3><pre><code class="language-julia hljs">using StochProtocol
+using Plots
+
+# Your code here
+protocol = Protocol(&quot;&quot;&quot;
+PROTOCOL MyProtocol
+PROCESSES: 5
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS:
+    discrepancy
+&quot;&quot;&quot;)
+
+results = run_protocol(protocol;
+    p_values = 0.5:0.1:1.0,
+    rounds = 20,
+    repetitions = 500
+)
+
+results_table(results)</code></pre><h2 id="Optimization-Tips"><a class="docs-heading-anchor" href="#Optimization-Tips">Optimization Tips</a><a id="Optimization-Tips-1"></a><a class="docs-heading-anchor-permalink" href="#Optimization-Tips" title="Permalink"></a></h2><h3 id="1.-Use-GR-Backend-for-Plots"><a class="docs-heading-anchor" href="#1.-Use-GR-Backend-for-Plots">1. Use GR Backend for Plots</a><a id="1.-Use-GR-Backend-for-Plots-1"></a><a class="docs-heading-anchor-permalink" href="#1.-Use-GR-Backend-for-Plots" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Add to top of notebook
+ENV[&quot;GKSwstype&quot;] = &quot;100&quot;  # Headless GR backend
+using Plots
+gr()  # Use GR backend (fastest for Colab)</code></pre><h3 id="2.-Reduce-Repetitions-for-Prototyping"><a class="docs-heading-anchor" href="#2.-Reduce-Repetitions-for-Prototyping">2. Reduce Repetitions for Prototyping</a><a id="2.-Reduce-Repetitions-for-Prototyping-1"></a><a class="docs-heading-anchor-permalink" href="#2.-Reduce-Repetitions-for-Prototyping" title="Permalink"></a></h3><pre><code class="language-julia hljs"># During development - fast iterations
+results = run_protocol(protocol; repetitions=100)
+
+# For final results - accuracy
+results = run_protocol(protocol; repetitions=2000)</code></pre><h3 id="3.-Cache-Results"><a class="docs-heading-anchor" href="#3.-Cache-Results">3. Cache Results</a><a id="3.-Cache-Results-1"></a><a class="docs-heading-anchor-permalink" href="#3.-Cache-Results" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Run expensive computation once
+if !@isdefined(cached_results)
+    global cached_results = run_protocol(protocol; repetitions=2000)
+end
+
+# Use cached results
+plot_discrepancy_vs_p(cached_results)</code></pre><h3 id="4.-Use-Fewer-Processes-for-Testing"><a class="docs-heading-anchor" href="#4.-Use-Fewer-Processes-for-Testing">4. Use Fewer Processes for Testing</a><a id="4.-Use-Fewer-Processes-for-Testing-1"></a><a class="docs-heading-anchor-permalink" href="#4.-Use-Fewer-Processes-for-Testing" title="Permalink"></a></h3><pre><code class="language-julia hljs"># Fast testing with 3 processes
+PROTOCOL TestProtocol
+PROCESSES: 3
+...
+
+# Production with 20 processes
+PROTOCOL ProductionProtocol
+PROCESSES: 20
+...</code></pre><h3 id="5.-Persistent-Depot-(Advanced)"><a class="docs-heading-anchor" href="#5.-Persistent-Depot-(Advanced)">5. Persistent Depot (Advanced)</a><a id="5.-Persistent-Depot-(Advanced)-1"></a><a class="docs-heading-anchor-permalink" href="#5.-Persistent-Depot-(Advanced)" title="Permalink"></a></h3><p>Keep packages across sessions using Google Drive:</p><pre><code class="language-python hljs">from google.colab import drive
+drive.mount(&#39;/content/drive&#39;)
+
+# Set Julia depot to Google Drive
+import os
+os.environ[&#39;JULIA_DEPOT_PATH&#39;] = &#39;/content/drive/MyDrive/julia_depot&#39;</code></pre><p>Then packages persist between sessions!</p><h2 id="Troubleshooting"><a class="docs-heading-anchor" href="#Troubleshooting">Troubleshooting</a><a id="Troubleshooting-1"></a><a class="docs-heading-anchor-permalink" href="#Troubleshooting" title="Permalink"></a></h2><h3 id="&quot;Package-took-too-long-to-precompile&quot;"><a class="docs-heading-anchor" href="#&quot;Package-took-too-long-to-precompile&quot;">&quot;Package took too long to precompile&quot;</a><a id="&quot;Package-took-too-long-to-precompile&quot;-1"></a><a class="docs-heading-anchor-permalink" href="#&quot;Package-took-too-long-to-precompile&quot;" title="Permalink"></a></h3><p><strong>Solution</strong>: Skip auto-precompilation</p><pre><code class="language-julia hljs">ENV[&quot;JULIA_PKG_PRECOMPILE_AUTO&quot;] = &quot;0&quot;
+using Pkg
+Pkg.add(&quot;StochProtocol&quot;)
+# Manually precompile later
+Pkg.precompile()</code></pre><h3 id="&quot;Out-of-Memory&quot;"><a class="docs-heading-anchor" href="#&quot;Out-of-Memory&quot;">&quot;Out of Memory&quot;</a><a id="&quot;Out-of-Memory&quot;-1"></a><a class="docs-heading-anchor-permalink" href="#&quot;Out-of-Memory&quot;" title="Permalink"></a></h3><p><strong>Solution 1</strong>: Use fewer repetitions</p><pre><code class="language-julia hljs">results = run_protocol(protocol; repetitions=500)  # Instead of 2000</code></pre><p><strong>Solution 2</strong>: Use Colab Pro (more RAM)</p><h3 id="&quot;Session-Disconnected&quot;"><a class="docs-heading-anchor" href="#&quot;Session-Disconnected&quot;">&quot;Session Disconnected&quot;</a><a id="&quot;Session-Disconnected&quot;-1"></a><a class="docs-heading-anchor-permalink" href="#&quot;Session-Disconnected&quot;" title="Permalink"></a></h3><p>Colab disconnects after 90 minutes of inactivity.</p><p><strong>Solution</strong>: Keep session alive with this JavaScript:</p><pre><code class="language-javascript hljs">// In browser console (F12)
+function KeepClicking(){
+    console.log(&quot;Clicking&quot;);
+    document.querySelector(&quot;colab-connect-button&quot;).click();
+}
+setInterval(KeepClicking, 60000);  // Click every 60 seconds</code></pre><h3 id="First-Load-Still-Slow"><a class="docs-heading-anchor" href="#First-Load-Still-Slow">First Load Still Slow</a><a id="First-Load-Still-Slow-1"></a><a class="docs-heading-anchor-permalink" href="#First-Load-Still-Slow" title="Permalink"></a></h3><p><strong>Solution</strong>: Use Binder instead</p><p>Binder is better optimized for Julia than Colab:</p><p><a href="https://mybinder.org/v2/gh/notGiGi/StochProtocol.jl/main?urlpath=pluto/open?path=notebooks/interactive_example.jl"><img src="https://mybinder.org/badge_logo.svg" alt="Binder"/></a></p><ul><li>No account needed</li><li>Julia-native environment</li><li>Faster initial load (~2 minutes)</li><li>Interactive Pluto.jl interface</li></ul><h2 id="Comparison:-Colab-vs-Binder-vs-Local"><a class="docs-heading-anchor" href="#Comparison:-Colab-vs-Binder-vs-Local">Comparison: Colab vs Binder vs Local</a><a id="Comparison:-Colab-vs-Binder-vs-Local-1"></a><a class="docs-heading-anchor-permalink" href="#Comparison:-Colab-vs-Binder-vs-Local" title="Permalink"></a></h2><table><tr><th style="text-align: right">Feature</th><th style="text-align: right">Colab</th><th style="text-align: right">Binder</th><th style="text-align: right">Local</th></tr><tr><td style="text-align: right"><strong>First load</strong></td><td style="text-align: right">5-10 min</td><td style="text-align: right">2-3 min</td><td style="text-align: right">1 min</td></tr><tr><td style="text-align: right"><strong>Subsequent loads</strong></td><td style="text-align: right">30 sec</td><td style="text-align: right">30 sec</td><td style="text-align: right">instant</td></tr><tr><td style="text-align: right"><strong>Requires account</strong></td><td style="text-align: right">Yes (Google)</td><td style="text-align: right">No</td><td style="text-align: right">No</td></tr><tr><td style="text-align: right"><strong>Session timeout</strong></td><td style="text-align: right">90 min idle</td><td style="text-align: right">10 min idle</td><td style="text-align: right">Never</td></tr><tr><td style="text-align: right"><strong>RAM</strong></td><td style="text-align: right">12 GB (free) / 25 GB (Pro)</td><td style="text-align: right">~2 GB</td><td style="text-align: right">Unlimited</td></tr><tr><td style="text-align: right"><strong>Storage</strong></td><td style="text-align: right">15 GB (Google Drive)</td><td style="text-align: right">Temporary</td><td style="text-align: right">Unlimited</td></tr><tr><td style="text-align: right"><strong>GPU</strong></td><td style="text-align: right">Yes (free)</td><td style="text-align: right">No</td><td style="text-align: right">Depends</td></tr><tr><td style="text-align: right"><strong>Best for</strong></td><td style="text-align: right">Large experiments</td><td style="text-align: right">Quick demos</td><td style="text-align: right">Development</td></tr></table><h2 id="Recommendation"><a class="docs-heading-anchor" href="#Recommendation">Recommendation</a><a id="Recommendation-1"></a><a class="docs-heading-anchor-permalink" href="#Recommendation" title="Permalink"></a></h2><p><strong>For your researchers (older, non-technical):</strong></p><ol><li><p><strong>First choice</strong>: Binder + Pluto.jl</p><ul><li>No account needed</li><li>Fastest for demos</li><li>Interactive interface</li><li>Just click and wait 2 minutes</li></ul></li><li><p><strong>Second choice</strong>: Colab with optimized notebook</p><ul><li>If they already have Google account</li><li>Better for long experiments (no 10min timeout)</li><li>More RAM for large simulations</li></ul></li><li><p><strong>Avoid</strong>: Manual Colab setup</p><ul><li>Too slow and complicated</li><li>30+ minute install time</li><li>Lots of command-line work</li></ul></li></ol><h2 id="Example:-Optimized-Colab-Workflow"><a class="docs-heading-anchor" href="#Example:-Optimized-Colab-Workflow">Example: Optimized Colab Workflow</a><a id="Example:-Optimized-Colab-Workflow-1"></a><a class="docs-heading-anchor-permalink" href="#Example:-Optimized-Colab-Workflow" title="Permalink"></a></h2><pre><code class="language-julia hljs"># === CELL 1: One-time setup ===
+# Run this once per session
+
+using Pkg
+Pkg.activate(temp=true)
+ENV[&quot;JULIA_PKG_PRECOMPILE_AUTO&quot;] = &quot;0&quot;
+Pkg.add(url=&quot;https://github.com/notGiGi/StochProtocol.jl&quot;)
+Pkg.add(&quot;Plots&quot;)
+Pkg.precompile()
+
+# === CELL 2: Load packages ===
+using StochProtocol
+using Plots
+ENV[&quot;GKSwstype&quot;] = &quot;100&quot;
+gr()
+
+# === CELL 3: Define protocol ===
+protocol = Protocol(&quot;&quot;&quot;
+PROTOCOL AveragingProtocol
+PROCESSES: 5
+STATE: x ∈ ℝ
+INITIAL: xᵢ = i
+CHANNEL: stochastic
+
+UPDATE RULE:
+    EACH ROUND:
+        xᵢ ← avg(inbox_with_self)
+
+METRICS:
+    discrepancy
+&quot;&quot;&quot;)
+
+# === CELL 4: Run experiments ===
+results = run_protocol(protocol;
+    p_values = 0.5:0.1:1.0,
+    rounds = 20,
+    repetitions = 1000
+)
+
+# === CELL 5: Visualize ===
+results_table(results)
+plot_discrepancy_vs_p(results)</code></pre><p>Total time: <strong>~3-4 minutes</strong> from start to results.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../delivery_models/">« Delivery Models</a><a class="docs-footer-nextpage" href="../../advanced/topologies/">Network Topologies »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Sunday 21 December 2025 02:41">Sunday 21 December 2025</span>. Using Julia version 1.10.10.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
