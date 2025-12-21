@@ -14,11 +14,23 @@ StochProtocol.jl is a Julia framework for researchers and engineers working on d
 
 ### Try it Now - No Installation Required
 
-Click the badge below to launch an interactive notebook in your browser:
+**Option 1: Google Colab (Recommended for researchers)**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/notGiGi/StochProtocol.jl/blob/main/notebooks/colab_quickstart.ipynb)
+
+- **First run**: ~5 minutes setup, then instant
+- **Requires**: Google account (most people already have one)
+- **Best for**: Serious experiments, long sessions
+- **Pro**: Doesn't disconnect for 90 minutes
+
+**Option 2: Pluto.jl via Binder**
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/notGiGi/StochProtocol.jl/main?urlpath=pluto/open?path=notebooks/interactive_example.jl)
 
-No account needed. Just click and wait 1-2 minutes for the environment to load.
+- **First run**: ~3 minutes, then ~1 minute
+- **Requires**: Nothing! No account needed
+- **Best for**: Quick demos, exploration
+- **Note**: Disconnects after 10 minutes of inactivity
 
 ### Or Install Locally
 

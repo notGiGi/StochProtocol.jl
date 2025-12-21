@@ -22,6 +22,7 @@ makedocs(
             "Protocol DSL" => "guides/dsl.md",
             "Running Experiments" => "guides/experiments.md",
             "Delivery Models" => "guides/delivery_models.md",
+            "Google Colab Setup" => "guides/colab_optimization.md",
         ],
         "Advanced Features" => [
             "Network Topologies" => "advanced/topologies.md",

@@ -1,0 +1,22 @@
+#!/bin/bash
+# Binder post-build script
+# This runs after Julia packages are installed
+
+set -e
+
+echo "🔨 Setting up Binder environment for StochProtocol.jl..."
+
+# Set environment for Binder
+export JULIA_PROJECT=/home/jovyan
+export JULIA_DEPOT_PATH=/home/jovyan/.julia
+
+# Install StochProtocol from the current repository
+julia -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+
+# Precompile everything
+julia -e 'using Pkg; Pkg.precompile()'
+
+# Test that it works
+julia -e 'using StochProtocol; println("✅ StochProtocol loaded successfully")'
+
+echo "✅ Binder environment ready!"
